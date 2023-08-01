@@ -21,7 +21,7 @@ function InternFrame({ setReload ,reload }) {
           text={
             "Gestiona las áreas de la empresa de manera eficiente. Crea, edita y elimina áreas."
           }
-          gradient={"from-purple-500 to-blue-400"}
+          gradient={"from-purple-500 to-cyan-300"}
           shadow={"shadow-purple-500"}
           funcion={() => {
             updateArea(0);
@@ -34,7 +34,7 @@ function InternFrame({ setReload ,reload }) {
           text={
             "Gestiona las tareas de la empresa de manera eficiente. Crea, edita y elimina tareas."
           }
-          gradient={"from-red-500 to-pink-400"}
+          gradient={"from-red-500 to-pink-300"}
           shadow={"shadow-purple-500"}
           funcion={() => {
             updateArea(1);
