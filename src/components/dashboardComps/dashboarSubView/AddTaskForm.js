@@ -40,6 +40,7 @@ function AddTaskForm({ ...porps }) {
 
   useEffect(() => {
     loadFromFirebase();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addTaskToFirebase = async (e) => {
