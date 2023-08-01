@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import DashboardCard from "./DashboardCard";
 import AddAreaForm from "./dashboarSubView/AddAreaForm";
 import AddTaskForm from "./dashboarSubView/AddTaskForm";
+import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
 
 function InternFrame({ setReload ,reload }) {
   const [currentView, setCurrentView] = useState(0);
@@ -59,7 +60,7 @@ function InternFrame({ setReload ,reload }) {
       ) : currentView === 1 ? (
         <AddTaskForm />
       ) : currentView === 2 ? (
-        <div></div>
+        <AddTrabajadorForm />
       ) : null}
     </div>
   );

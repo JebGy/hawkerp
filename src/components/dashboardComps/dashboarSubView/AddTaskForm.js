@@ -40,7 +40,7 @@ function AddTaskForm({ ...porps }) {
 
   useEffect(() => {
     loadFromFirebase();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addTaskToFirebase = async (e) => {
@@ -62,8 +62,8 @@ function AddTaskForm({ ...porps }) {
   };
 
   return (
-    <div className="grid grid-cols-3 p-5 row-span-3 w-full h-full">
-      <div>
+    <div className="grid grid-cols-4 p-5 row-span-3 w-full h-full">
+      <div className="col-span-1">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Agregar Tarea
         </h2>
@@ -102,7 +102,7 @@ function AddTaskForm({ ...porps }) {
         </form>
       </div>
 
-      <div className="w-full h-full col-span-2 flex flex-col overflow-hidden">
+      <div className="w-full h-full col-span-3 flex flex-col overflow-hidden">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
             Tareas
@@ -142,9 +142,14 @@ function AddTaskForm({ ...porps }) {
                     key={area.id}
                   >
                     <div className="flex flex-row justify-between items-center w-full">
-                      <h3 className="text-lg font-bold ">
-                        {area.data()._areaName}
-                      </h3>
+                      <div className="mb-5">
+                        <h3 className="text-lg font-bold">
+                          {area.data()._areaName}
+                        </h3>
+                        <p className="text-xs">
+                          Población: {area.data()._areaPopulation}
+                        </p>
+                      </div>
                       <button
                         className="transition-all active:scale-95 hover:shadow-xl hover:shadow-red-500 p-2 rounded-full"
                         onClick={() => {
@@ -197,7 +202,7 @@ function AddTaskForm({ ...porps }) {
                               >
                                 {task._taskName}
                               </p>
-                              <div className="w-full">
+                              <div className="w-full flex flex-row justify-end">
                                 <button
                                   className="transition-all active:scale-95 hover:shadow-xl hover:shadow-green-500 p-2 rounded-full"
                                   onClick={() => {
