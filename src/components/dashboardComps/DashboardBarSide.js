@@ -43,7 +43,7 @@ function DashboardBarSide() {
       className={"col-span-1  h-screen w-full flex flex-col  justify-between"}
     >
       <div>
-        <div className="flex flex-col p-2  h-20 ">
+        <div className="flex flex-col p-5  h-20 ">
           <p className="text-xl font-bold text-left">Usuarios</p>
         </div>
         {usersList.map((user, index) => {
