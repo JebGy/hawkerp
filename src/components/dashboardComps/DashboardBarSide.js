@@ -70,7 +70,7 @@ function DashboardBarSide() {
           localStorage.removeItem("user");
           window.location.href = "/";
         }}
-        className="active:scale-95 p-5 hover:bg-red-400 hover:text-white transition-all text-left w-full "
+        className="active:scale-95 p-5 hover:bg-red-500 hover:text-white transition-all text-left w-full "
       >
         Cerrar sesión
       </button>
