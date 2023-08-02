@@ -55,7 +55,6 @@ function AddTaskForm({ ...porps }) {
       }),
     }).then(() => {
       alert("Tarea agregada con éxito");
-      setIsLoaded(false);
       loadFromFirebase();
       e.target[0].value = "";
     });
@@ -131,7 +130,6 @@ function AddTaskForm({ ...porps }) {
           </button>
         </div>
         <div className="w-full h-full flex flex-col overflow-y-auto">
-          {console.log(taskList)}
           {
             // Tareas
             isLoaded ? (
@@ -190,7 +188,7 @@ function AddTaskForm({ ...porps }) {
                         if (task._taskId === area.id) {
                           return (
                             <div
-                              className="w-full grid grid-cols-2 place-items-center justify-between items-center p-3 gap-5 bg-neutral-200 rounded-xl"
+                              className="w-full grid grid-cols-2 place-items-center justify-between items-center p-3 gap-5 bg-neutral-200 rounded-xl shadow-lg"
                               key={task._taskName}
                             >
                               <p
@@ -227,7 +225,6 @@ function AddTaskForm({ ...porps }) {
                                         _taskIsDone: true,
                                       }),
                                     }).then(() => {
-                                      setIsLoaded(false);
                                       loadFromFirebase();
                                     });
                                   }}
@@ -263,7 +260,6 @@ function AddTaskForm({ ...porps }) {
                                         _taskIsDone: task._taskIsDone,
                                       }),
                                     }).then(() => {
-                                      setIsLoaded(!isLoaded);
                                       loadFromFirebase();
                                     });
                                   }}
