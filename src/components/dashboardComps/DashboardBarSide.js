@@ -16,6 +16,7 @@ function DashboardBarSide() {
         getUsers();
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_user]);
 
   const readFromStorage = () => {
@@ -43,7 +44,7 @@ function DashboardBarSide() {
     >
       <div>
         <div className="flex flex-col justify-center items-center w-full h-20 ">
-          <p className="text-xl font-bold">Usuarios</p>
+          <p className="text-xl font-bold text-left">Usuarios</p>
         </div>
         {usersList.map((user, index) => {
           if (user.user === _user.user) {
