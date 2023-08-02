@@ -8,36 +8,40 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
-import { Area } from "@/Classes/Area";
-import addAreaImage from "../../../../public/addArea.svg";
-import Image from "next/image";
 
-function AddAreaForm({ setReload, reload }) {
+function AddTrabajoForm({ setReload, reload }) {
   const db = getFirestore(app);
 
   const [error, setError] = useState(false);
-  const [areas, setAreas] = useState([]);
+  const [trabajos, settrabajos] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [nowEditing, setNowEditing] = useState(false);
-  const [areaToEdit, setAreaToEdit] = useState(null);
+  const [trabajoToEdit, settrabajoToEdit] = useState(null);
+
+  const [_trabajoEncargado, set_trabajoEncargado] = useState("");
+  const [_trabajoFecha, set_trabajoFecha] = useState("");
+  const [_trabajoDescripcion, set_trabajoDescripcion] = useState("");
+  const [_trabajoEstado, set_trabajoEstado] = useState("");
 
   useEffect(() => {
     loadFromFirebase();
   }, []);
 
   const loadFromFirebase = async () => {
-    await getDocs(collection(db, "areas"))
+    await getDocs(query(collection(db, "trabajos"), orderBy("_trabajoFecha")))
       .then((querySnapshot) => {
-        setAreas(querySnapshot.docs);
+        settrabajos(querySnapshot.docs);
       })
       .then(() => {
         setIsLoaded(true);
       });
   };
 
-  const addArea = async (e) => {
+  const addtrabajo = async (e) => {
     if (e.target[0].value === "" || e.target[1].value === "") {
       alert("Debes llenar todos los campos");
       setError(true);
@@ -45,26 +49,21 @@ function AddAreaForm({ setReload, reload }) {
     }
     if (!nowEditing) {
       const db = getFirestore(app);
-      const areasRef = collection(db, "areas");
-      const area = new Area(
-        "",
-        e.target[0].value,
-        Number.parseInt(e.target[1].value),
-        0,
-        true
-      );
-      await addDoc(areasRef, {
-        _areaName: area.areaName,
-        _areaPopulation: area.areaPopulation,
-        _tareas: [],
+      const trabajosRef = collection(db, "trabajos");
+      await addDoc(trabajosRef, {
+        _trabajoEncargado: e.target[0].value,
+        _trabajoFecha: e.target[1].value,
+        _trabajoDescripcion: e.target[2].value,
+        _trabajoEstado: e.target[3].value,
       })
         .then(() => {
           setError(false);
+          setIsLoaded(false);
+          loadFromFirebase();
           alert("Área agregada con éxito");
-          setReload(!reload);
           e.target[0].value = "";
           e.target[1].value = "";
-          loadFromFirebase();
+          e.target[2].value = "";
         })
         .catch((error) => {
           console.log(error);
@@ -72,14 +71,17 @@ function AddAreaForm({ setReload, reload }) {
       return;
     }
     const db = getFirestore(app);
-    const areasRef = collection(db, "areas");
-    await updateDoc(doc(areasRef, areaToEdit.id), {
-      _areaName: e.target[0].value,
-      _areaPopulation: Number.parseInt(e.target[1].value),
+    const trabajosRef = collection(db, "trabajos");
+    await updateDoc(doc(trabajosRef, trabajoToEdit.id), {
+      _trabajoEncargado: e.target[0].value,
+      _trabajoFecha: e.target[1].value,
+      _trabajoDescripcion: e.target[2].value,
+      _trabajoEstado: e.target[3].value,
     }).then(() => {
       alert("Área editada con éxito");
       e.target[0].value = "";
       e.target[1].value = "";
+      e.target[2].value = "";
       setNowEditing(!nowEditing);
       loadFromFirebase();
     });
@@ -91,16 +93,31 @@ function AddAreaForm({ setReload, reload }) {
         className="flex flex-col p-5 transition-all h-full col-span-1"
         onSubmit={(e) => {
           e.preventDefault();
-          addArea(e);
+          addtrabajo(e);
         }}
       >
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-3">
-          Agregar Área
+          Agregar Trabajo
         </h2>
         <div className="flex flex-col justify-center">
           <input
             type="text"
-            placeholder="Nombre del Área"
+            value={
+              nowEditing ? trabajoToEdit._trabajoEncargado : _trabajoEncargado
+            }
+            onChange={
+              nowEditing
+                ? (e) => {
+                    settrabajoToEdit({
+                      ...trabajoToEdit,
+                      _trabajoEncargado: e.target.value,
+                    });
+                  }
+                : (e) => {
+                    set_trabajoEncargado(e.target.value);
+                  }
+            }
+            placeholder="Encargado por"
             className={
               error
                 ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500"
@@ -108,10 +125,49 @@ function AddAreaForm({ setReload, reload }) {
             }
           />
           <input
-            type="number"
-            placeholder="Población"
+            type="date"
+            value={nowEditing ? trabajoToEdit._trabajoFecha : _trabajoFecha}
+            onChange={
+              nowEditing
+                ? (e) => {
+                    settrabajoToEdit({
+                      ...trabajoToEdit,
+                      _trabajoFecha: e.target.value,
+                    });
+                  }
+                : (e) => {
+                    set_trabajoFecha(e.target.value);
+                  }
+            }
+            placeholder="Fecha de entrega"
             className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
           />
+          <textarea
+            placeholder="Descripción . . ."
+            value={nowEditing ? trabajoToEdit._trabajoDescripcion : null}
+            onChange={
+              nowEditing
+                ? (e) => {
+                    settrabajoToEdit({
+                      ...trabajoToEdit,
+                      _trabajoDescripcion: e.target.value,
+                    });
+                  }
+                : (e) => {
+                    set_trabajoDescripcion(e.target.value);
+                  }
+            }
+            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+          />
+          <select
+            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            name="estado"
+            id="estado"
+          >
+            <option value="Pendiente">Pendiente</option>
+            <option value="En proceso">En proceso</option>
+            <option value="Terminado">Terminado</option>
+          </select>
 
           <button
             type="submit"
@@ -127,7 +183,7 @@ function AddAreaForm({ setReload, reload }) {
       <div className="w-full h-full col-span-3 flex flex-col overflow-hidden p-5">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
-            Áreas registradas
+            Trabajos Registrados
           </h2>
           <button
             className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-50"
@@ -154,52 +210,55 @@ function AddAreaForm({ setReload, reload }) {
         </div>
         <div className="w-full h-full flex flex-col overflow-y-auto">
           {
-            // Tareas
+            // Ttrabajos
             isLoaded ? (
-              areas.map((area, index) => {
+              trabajos.map((trabajo, index) => {
                 return (
                   <div
                     className={
-                      nowEditing && areaToEdit.id === area.id
+                      nowEditing && trabajoToEdit.id === trabajo.id
                         ? "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
                         : "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     }
-                    key={area.id}
+                    key={trabajo.id}
                   >
                     <div className="flex flex-row justify-between items-center w-full">
-                      <div className="">
-                        <h3 className="text-lg font-bold">
-                          {area.data()._areaName}
-                        </h3>
-                        <p className="text-xs">
-                          Población: {area.data()._areaPopulation}
+                      <div className="flex flex-col justify-start items-start">
+                        <h2 className="text-lg font-semibold">
+                          {trabajo.data()._trabajoEncargado}
+                        </h2>
+                        <p className="text-sm">
+                          Entregar: {trabajo.data()._trabajoFecha}
+                        </p>
+                        <p className="text-sm">
+                          {trabajo.data()._trabajoDescripcion}
                         </p>
                         <p
                           className={
-                            area.data()._tareas.length <=
-                            area.data()._areaPopulation
-                              ? "text-xs text-green-500 font-semibold"
-                              : "text-xs text-red-500 font-semibold"
+                            "text-sm font-bold" +
+                            (trabajo.data()._trabajoEstado === "Pendiente"
+                              ? " text-red-500"
+                              : trabajo.data()._trabajoEstado === "En proceso"
+                              ? " text-yellow-500"
+                              : " text-green-500")
                           }
                         >
-                          {area.data()._tareas.length <=
-                          area.data()._areaPopulation
-                            ? `Área disponible para asignar tareas, tareas actuales ${
-                                area.data()._tareas.length
-                              }`
-                            : `Área saturada, tareas actuales ${
-                                area.data()._tareas.length
-                              }`}
+                          Estado: {trabajo.data()._trabajoEstado}
                         </p>
                       </div>
+
                       <div className="flex flex-row gap-2">
                         <button
                           className="transition-all active:scale-95 hover:shadow-xl hover:shadow-orange-500 p-2 rounded-full"
                           onClick={() => {
-                            setAreaToEdit({
-                              id: area.id,
-                              areaName: area.data()._areaName,
-                              areaPopulation: area.data()._areaPopulation,
+                            settrabajoToEdit({
+                              id: trabajo.id,
+                              _trabajoEncargado:
+                                trabajo.data()._trabajoEncargado,
+                              _trabajoFecha: trabajo.data()._trabajoFecha,
+                              _trabajoDescripcion:
+                                trabajo.data()._trabajoDescripcion,
+                              _trabajoEstado: trabajo.data()._trabajoEstado,
                             });
                             setNowEditing(!nowEditing);
                           }}
@@ -245,11 +304,13 @@ function AddAreaForm({ setReload, reload }) {
                                 "¿Estás seguro de que quieres eliminar esta área? Esta acción no se puede deshacer."
                               )
                             ) {
-                              //delete area
-                              deleteDoc(doc(db, "areas", area.id)).then(() => {
-                                alert("Área eliminada con éxito");
-                                loadFromFirebase();
-                              });
+                              //delete trabajo
+                              deleteDoc(doc(db, "trabajos", trabajo.id)).then(
+                                () => {
+                                  alert("Área eliminada con éxito");
+                                  loadFromFirebase();
+                                }
+                              );
                             }
                           }}
                         >
@@ -283,4 +344,4 @@ function AddAreaForm({ setReload, reload }) {
   );
 }
 
-export default AddAreaForm;
+export default AddTrabajoForm;

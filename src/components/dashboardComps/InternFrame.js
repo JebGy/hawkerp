@@ -4,8 +4,9 @@ import DashboardCard from "./DashboardCard";
 import AddAreaForm from "./dashboarSubView/AddAreaForm";
 import AddTaskForm from "./dashboarSubView/AddTaskForm";
 import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
+import AddTrabajoForm from "./dashboarSubView/AddTrabajoForm";
 
-function InternFrame({ setReload ,reload }) {
+function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
 
   const updateArea = (n) => {
@@ -14,7 +15,7 @@ function InternFrame({ setReload ,reload }) {
 
   return (
     <div className="col-span-full grid grid-rows-4 w-full h-screen">
-      <div className="grid grid-cols-3 gap-5 p-2 row-span-1">
+      <div className="grid grid-flow-col gap-5 p-2 row-span-1">
         <DashboardCard
           idX={0}
           title="Áreas"
@@ -54,13 +55,28 @@ function InternFrame({ setReload ,reload }) {
           }}
           currentView={currentView}
         />
+        <DashboardCard
+          idX={3}
+          title="Trabajos"
+          text={
+            "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina tareas."
+          }
+          gradient={"from-cyan-500 to-emerald-300"}
+          shadow={"shadow-purple-500"}
+          funcion={() => {
+            updateArea(3);
+          }}
+          currentView={currentView}
+        />
       </div>
       {currentView === 0 ? (
-        <AddAreaForm setReload={setReload} reload={reload}/>
+        <AddAreaForm setReload={setReload} reload={reload} />
       ) : currentView === 1 ? (
         <AddTaskForm />
       ) : currentView === 2 ? (
         <AddTrabajadorForm />
+      ) : currentView === 3 ? (
+        <AddTrabajoForm />
       ) : null}
     </div>
   );
