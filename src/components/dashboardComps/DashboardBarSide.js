@@ -6,9 +6,12 @@ import React, { useEffect } from "react";
 function DashboardBarSide() {
   const db = getFirestore(app);
   const [usersList, setUsersList] = React.useState([]);
-  const _user = JSON.parse(localStorage.getItem("user"));
+  const [_user, _setUser] = React.useState(null);
 
   useEffect(() => {
+    const u = JSON.parse(localStorage.getItem("user"));
+    _setUser(u);
+
     if (_user) {
       if (_user.primary) {
         getUsers();
