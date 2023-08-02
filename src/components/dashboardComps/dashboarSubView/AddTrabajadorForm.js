@@ -19,6 +19,10 @@ export default function AddTrabajadorForm() {
   const [nowEdit, setNowEdit] = useState(false);
   const [trabajadorEdit, setTrabajadorEdit] = useState({});
 
+  const [_trabajadorName, set_trabajadorName] = useState("");
+  const [_trabajadorLastName, set_trabajadorLastName] = useState("");
+  const [_trabajadorArea, set_trabajadorArea] = useState("");
+
   useEffect(() => {
     loadFromFirebase();
   }, []);
@@ -95,14 +99,59 @@ export default function AddTrabajadorForm() {
             className="col-span-2"
           >
             <input
+              value={nowEdit ? trabajadorEdit._trabajadorName : _trabajadorName}
+              onChange={
+                nowEdit
+                  ? (e) => {
+                      setTrabajadorEdit({
+                        ...trabajadorEdit,
+                        _trabajadorName: e.target.value,
+                      });
+                    }
+                  : (e) => {
+                      set_trabajadorName(e.target.value);
+                    }
+              }
               className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
               placeholder="Nombre"
             />
             <input
+              value={
+                nowEdit
+                  ? trabajadorEdit._trabajadorLastName
+                  : _trabajadorLastName
+              }
+              onChange={
+                nowEdit
+                  ? (e) => {
+                      setTrabajadorEdit({
+                        ...trabajadorEdit,
+                        _trabajadorLastName: e.target.value,
+                      });
+                    }
+                  : (e) => {
+                      set_trabajadorLastName(e.target.value);
+                    }
+              }
               className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
               placeholder="Apellido"
             />
-            <select className="underline underline-offset-4 p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer">
+            <select
+              value={nowEdit ? trabajadorEdit._trabajadorArea : _trabajadorArea}
+              onChange={
+                nowEdit
+                  ? (e) => {
+                      setTrabajadorEdit({
+                        ...trabajadorEdit,
+                        _trabajadorArea: e.target.value,
+                      });
+                    }
+                  : (e) => {
+                      set_trabajadorArea(e.target.value);
+                    }
+              }
+              className="underline underline-offset-4 p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer"
+            >
               {isLoaded ? (
                 areas.map((area) => {
                   return <option key={area.id}>{area.data()._areaName}</option>;
@@ -164,7 +213,10 @@ export default function AddTrabajadorForm() {
                       <button
                         className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                         onClick={() => {
-                          setTrabajadorEdit(trabajador);
+                          setTrabajadorEdit({
+                            ...trabajador.data(),
+                            id: trabajador.id,
+                          });
                           setNowEdit(!nowEdit);
                         }}
                       >

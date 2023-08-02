@@ -23,6 +23,9 @@ function AddAreaForm({ setReload, reload }) {
   const [nowEditing, setNowEditing] = useState(false);
   const [areaToEdit, setAreaToEdit] = useState(null);
 
+  const [_areaName, setAreaName] = useState("");
+  const [_areaPopulation, setAreaPopulation] = useState(0);
+
   useEffect(() => {
     loadFromFirebase();
   }, []);
@@ -100,6 +103,24 @@ function AddAreaForm({ setReload, reload }) {
         <div className="flex flex-col justify-center">
           <input
             type="text"
+            value={
+              nowEditing && areaToEdit !== null
+                ? areaToEdit.areaName
+                : _areaName
+            }
+            onChange={
+              nowEditing && areaToEdit !== null
+                ? (e) => {
+                    setAreaToEdit({
+                      id: areaToEdit.id,
+                      areaName: e.target.value,
+                      areaPopulation: areaToEdit.areaPopulation,
+                    });
+                  }
+                : (e) => {
+                    setAreaName(e.target.value);
+                  }
+            }
             placeholder="Nombre del Área"
             className={
               error
@@ -109,6 +130,24 @@ function AddAreaForm({ setReload, reload }) {
           />
           <input
             type="number"
+            value={
+              nowEditing && areaToEdit !== null
+                ? areaToEdit.areaPopulation
+                : _areaPopulation
+            }
+            onChange={
+              nowEditing && areaToEdit !== null
+                ? (e) => {
+                    setAreaToEdit({
+                      id: areaToEdit.id,
+                      areaName: areaToEdit.areaName,
+                      areaPopulation: Number.parseInt(e.target.value),
+                    });
+                  }
+                : (e) => {
+                    setAreaPopulation(Number.parseInt(e.target.value));
+                  }
+            }
             placeholder="Población"
             className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
           />
