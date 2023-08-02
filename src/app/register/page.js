@@ -1,5 +1,5 @@
 import Image from "next/image";
-import addArea from "../../public/addArea.svg";
+import addArea from "../../../public/addArea.svg";
 import LoginForm from "@/components/loginComps/LoginForm";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
           className="object-contain "
         />
       </div>
-      <LoginForm />
+      <LoginForm reg={true}/>
     </div>
   );
 }
