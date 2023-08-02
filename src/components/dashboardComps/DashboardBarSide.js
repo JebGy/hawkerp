@@ -9,17 +9,23 @@ function DashboardBarSide() {
   const [_user, _setUser] = React.useState(null);
 
   useEffect(() => {
-    const u = JSON.parse(localStorage.getItem("user"));
-    _setUser(u);
+    readFromStorage();
 
     if (_user) {
       if (_user.primary) {
         getUsers();
       }
-    } else {
-      window.location.href = "/";
     }
-  }, []);
+  }, [_user]);
+
+  const readFromStorage = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user === null) {
+      window.location.href = "/";
+      return;
+    }
+    _setUser(user);
+  };
 
   const getUsers = async () => {
     await getDocs(collection(db, "usuarios")).then((querySnapshot) => {
