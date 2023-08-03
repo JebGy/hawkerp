@@ -18,9 +18,10 @@ export default function AddTrabajadorForm() {
   const [trabajadores, setTrabajadores] = useState([]);
   const [nowEdit, setNowEdit] = useState(false);
   const [trabajadorEdit, setTrabajadorEdit] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   const [_trabajadorName, set_trabajadorName] = useState("");
-  const [_trabajadorLastName, set_trabajadorLastName] = useState("");
+  const [_trabajadorLastName, set_trabajadorLastName] = useState(0);
   const [_trabajadorArea, set_trabajadorArea] = useState("");
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function AddTrabajadorForm() {
       });
       console.log(querySnapshot.docs);
     });
-    await getDocs(collection(db, "trabajadores"))
+    await getDocs(collection(db, "usuarios"))
       .then((querySnapshot) => {
         setTrabajadores(querySnapshot.docs);
         console.log(querySnapshot.docs);
@@ -52,34 +53,19 @@ export default function AddTrabajadorForm() {
   const addTrabajador = async (e) => {
     //add trabajador
     e.preventDefault();
-    if (!nowEdit) {
-      const trabRef = collection(db, "trabajadores");
-      await addDoc(trabRef, {
-        _trabajadorName: e.target[0].value,
-        _trabajadorLastName: e.target[1].value,
-        _trabajadorArea: e.target[2].value,
+    if (nowEdit) {
+      const trabRef = doc(db, "usuarios", trabajadorEdit.id);
+      console.log(trabajadorEdit);
+      await updateDoc(trabRef, {
+        ...trabajadorEdit,
+        auth: trabajadorEdit.auth === "1" ? true : false,
+        area: trabajadorEdit.area,
       }).then(() => {
-        alert("Trabajador agregado con éxito");
-        e.target[0].value = "";
-        e.target[1].value = "";
+        alert("Trabajador editado con éxito");
+        setNowEdit(false);
       });
       loadFromFirebase();
-      return;
     }
-    //edit trabajador
-
-    const trabRef = doc(db, "trabajadores", trabajadorEdit.id);
-    await updateDoc(trabRef, {
-      _trabajadorName: e.target[0].value,
-      _trabajadorLastName: e.target[1].value,
-      _trabajadorArea: e.target[2].value,
-    }).then(() => {
-      alert("Trabajador editado con éxito");
-      e.target[0].value = "";
-      e.target[1].value = "";
-      setNowEdit(false);
-    });
-    loadFromFirebase();
   };
 
   nowEdit ? () => {} : null;
@@ -88,7 +74,7 @@ export default function AddTrabajadorForm() {
     <div className="grid grid-cols-4 p-5 row-span-3  w-full h-full">
       <div className="col-span-1 h-full">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
-          Agregar Trabajador
+          Editar usuarios
         </h2>
 
         <div className="grid grid-cols-2 gap-5 p-5">
@@ -98,27 +84,12 @@ export default function AddTrabajadorForm() {
             }}
             className="col-span-2"
           >
-            <input
-              value={nowEdit ? trabajadorEdit._trabajadorName : _trabajadorName}
-              onChange={
-                nowEdit
-                  ? (e) => {
-                      setTrabajadorEdit({
-                        ...trabajadorEdit,
-                        _trabajadorName: e.target.value,
-                      });
-                    }
-                  : (e) => {
-                      set_trabajadorName(e.target.value);
-                    }
-              }
-              className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
-              placeholder="Nombre"
-            />
-            <input
+            <select
               value={
                 nowEdit
-                  ? trabajadorEdit._trabajadorLastName
+                  ? trabajadorEdit.auth
+                    ? "1"
+                    : "0"
                   : _trabajadorLastName
               }
               onChange={
@@ -126,7 +97,7 @@ export default function AddTrabajadorForm() {
                   ? (e) => {
                       setTrabajadorEdit({
                         ...trabajadorEdit,
-                        _trabajadorLastName: e.target.value,
+                        auth: e.target.value,
                       });
                     }
                   : (e) => {
@@ -134,8 +105,11 @@ export default function AddTrabajadorForm() {
                     }
               }
               className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
-              placeholder="Apellido"
-            />
+            >
+              <option value={"1"}>Autenticado</option>
+              <option value={"0"}>No Autenticado</option>
+            </select>
+
             <select
               value={nowEdit ? trabajadorEdit._trabajadorArea : _trabajadorArea}
               onChange={
@@ -143,7 +117,7 @@ export default function AddTrabajadorForm() {
                   ? (e) => {
                       setTrabajadorEdit({
                         ...trabajadorEdit,
-                        _trabajadorArea: e.target.value,
+                        area: e.target.value,
                       });
                     }
                   : (e) => {
@@ -164,7 +138,7 @@ export default function AddTrabajadorForm() {
               type="submit"
               className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95"
             >
-              {nowEdit ? "Editar" : "Agregar"}
+              {nowEdit ? "Editar" : "Selecciona un usuario porfavor"}
             </button>
           </form>
         </div>
@@ -175,13 +149,16 @@ export default function AddTrabajadorForm() {
           <thead className="">
             <tr className="border-b-2 border-b-purple-500">
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Nombre
+                Usuario
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Apellido
+                Auth
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
                 Área
+              </th>
+              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+                Tareas
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
                 Acciones
@@ -201,13 +178,36 @@ export default function AddTrabajadorForm() {
                     }
                   >
                     <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data()._trabajadorName}
+                      {trabajador.data().user}
+                    </td>
+                    <td
+                      className={
+                        trabajador.data().auth
+                          ? "p-2 text-xs font-semibold text-center  text-green-500"
+                          : "p-2 text-xs font-semibold text-center text-red-500"
+                      }
+                    >
+                      {trabajador.data().auth
+                        ? "Autenticado"
+                        : "No Autenticado"}
                     </td>
                     <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data()._trabajadorLastName}
+                      {trabajador.data().area}
                     </td>
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data()._trabajadorArea}
+                    <td className="text-xs font-semibold text-center text-zinc-900">
+                      <button
+                        className="border-2 w-10 rounded-lg border-purple-500 p-2"
+                        onClick={() => {
+                          setTrabajadorEdit({
+                            ...trabajador.data(),
+                          });
+                          setOpenModal(true);
+                        }}
+                      >
+                        {trabajador.data().tareas
+                          ? trabajador.data().tareas.length
+                          : 0}
+                      </button>
                     </td>
                     <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
                       <button
@@ -298,6 +298,56 @@ export default function AddTrabajadorForm() {
           </tbody>
         </table>
       </div>
+
+      {openModal ? (
+        <div className="fixed z-10 inset-0 overflow-y-auto w-screen h-screen bg-black bg-opacity-70 p-5">
+          <button
+            onClick={() => setOpenModal(false)}
+            className="p-2 z-50 rounded-full bg-red-500 active:scale-95 transition-all duration-150 absolute top-5 right-5 "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-6 h-6 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div className="flex flex-col  h-full bg-white rounded-xl w-5/6 mx-auto p-5 overflow-y-auto">
+            {isLoaded && trabajadorEdit.tareas ? (
+              trabajadorEdit.tareas.map((tarea) => {
+                return (
+                  <div
+                    className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
+                    key={tarea.nombre}
+                  >
+                    <div className="flex flex-col ">
+                      <h1 className="text-md font-bold mb-5">{tarea.nombre}</h1>
+                      <p className="text-md">{tarea.descripcion}</p>
+                    </div>
+                    <h2 className={
+                      tarea.estado
+                        ? "text-green-500 text-md font-bold"
+                        : "text-red-500 text-md font-bold"
+                    }>{tarea.estado ? "Completada" : "Pendiente"}</h2>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="flex flex-col justify-center items-center w-full h-full">
+                <h1 className="text-3xl font-bold mb-5">Cargando...</h1>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

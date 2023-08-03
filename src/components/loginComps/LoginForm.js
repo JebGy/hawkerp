@@ -48,7 +48,9 @@ function LoginForm({ ...props }) {
             password: hashPassword(e.target[1].value),
             access: [false, false, false, false],
             primary: false,
+            tareas:[],
             rol: rol,
+            auth: false,
           };
 
           setDoc(doc(db, "usuarios", user.user), user).then(() => {

@@ -69,7 +69,7 @@ function InternFrame({ setReload, reload }) {
           {_user.access[2] ? (
             <DashboardCard
               idX={2}
-              title="Trabajadores"
+              title="Usuarios/Trabajadores"
               text={
                 "Gestiona los trabajadores de la empresa de manera eficiente. Crea, edita y elimina tareas."
               }

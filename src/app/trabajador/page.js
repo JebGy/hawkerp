@@ -24,7 +24,7 @@ function page() {
     <div className="p-5 h-screen w-screen flex flex-col justify-between">
       <div className="flex flex-col justify-center">
         <header className="flex flex-row justify-between items-center">
-          <h2 className="font-bold text-2xl">
+          <h2 className="font-bold text-xl">
             Bienvenido, {user ? user.user : null}
           </h2>
           <button
@@ -38,7 +38,7 @@ function page() {
           </button>
         </header>
         <div className="flex flex-col">
-          {isLoaded ? (
+          {isLoaded && user.auth ? (
             <div className="flex flex-col gap-5 mt-5">
               <DashboardCard
                 title="Tareas Individuales"
@@ -61,7 +61,25 @@ function page() {
                 }
               />
             </div>
-          ) : null}
+          ) : (
+            <div className="flex flex-col gap-5 mt-5">
+              <h3 className="text-lg">
+                Hola {user ? user.user : null}, tu usuario está pendiente de
+                aprobación.{" "}
+                <a
+                  target="_blank"
+                  href={`https://wa.me/+51949358892?text=Hola, mi nombre es ${
+                    user ? user.user : null
+                  }. Requiero autenticar mi cuenta de usuario.`}
+                  className="text-purple-600 underline underline-offset-2 cursor-pointer hover:scale-95 active:scale-95 transition-all"
+                >
+                  {" "}
+                  Comunícate con el departamento de TI{" "}
+                </a>{" "}
+                {"  "} para autenticar tu cuenta. Gracias.
+              </h3>
+            </div>
+          )}
         </div>
       </div>
       <Image src={tareasImage} alt="tareas" />
