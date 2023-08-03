@@ -68,7 +68,7 @@ function LoginForm({ ...props }) {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="p-10 h-3/6 rounded-xl shadow-xl border-2 border-purple-400 shadow-purple-500 flex flex-col items-center "
+        className="p-10  rounded-xl shadow-xl border-2 border-purple-400 shadow-purple-500 flex flex-col items-center "
       >
         <input
           type="text"
