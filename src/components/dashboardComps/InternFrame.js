@@ -17,6 +17,12 @@ function InternFrame({ setReload, reload }) {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    if (user !== null) {
+      if (user.rol === "1") {
+        window.location.href = "/trabajador";
+        return;
+      }
+    }
     if (user === null) {
       window.location.href = "/";
       return;

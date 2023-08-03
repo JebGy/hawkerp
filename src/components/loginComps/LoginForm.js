@@ -13,6 +13,7 @@ import React from "react";
 
 function LoginForm({ ...props }) {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [rol, setRol] = React.useState("");
 
   const db = getFirestore(app);
 
@@ -41,11 +42,13 @@ function LoginForm({ ...props }) {
         if (docSnap.exists()) {
           alert("Usuario ya existe");
         } else {
+          console.log(rol);
           const user = {
             user: e.target[0].value,
             password: hashPassword(e.target[1].value),
             access: [false, false, false, false],
             primary: false,
+            rol: rol,
           };
 
           setDoc(doc(db, "usuarios", user.user), user).then(() => {
@@ -124,6 +127,21 @@ function LoginForm({ ...props }) {
           </button>
         </div>
 
+        {
+          // eslint-disable-next-line react/jsx-no-undef
+          props.reg ? (
+            <select
+              className="w-full mb-5 p-2 outline-none bg-inherit"
+              name="rol"
+              onChange={(e) => {
+                setRol(e.target.value);
+              }}
+            >
+              <option value="0">Selecciona un rol</option>
+              <option value="1">Trabajador</option>
+            </select>
+          ) : null
+        }
         <button
           type="submit"
           className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-lg w-full mb-5 hover:shadow-lg hover:shadow-purple-500 transition-all active:scale-95"

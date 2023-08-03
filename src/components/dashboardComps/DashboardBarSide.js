@@ -13,16 +13,23 @@ function DashboardBarSide() {
 
     if (_user) {
       if (_user.primary) {
+        
         getUsers();
       }
+      
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+  }, []);
 
   const readFromStorage = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user === null) {
       window.location.href = "/";
+      return;
+    }
+    if (user.rol === "trabajador") {
+      window.location.href = "/trabajador";
       return;
     }
     _setUser(user);
@@ -43,8 +50,17 @@ function DashboardBarSide() {
       className={"col-span-1  h-screen w-full flex flex-col  justify-between"}
     >
       <div>
-        <div className="flex flex-col p-5  h-20 ">
+        <div className="flex flex-col p-5">
           <p className="text-xl font-bold text-left">Usuarios</p>
+          <p
+            className={
+              "text-left text-sm font-semibold text-gray-500 mt-2 mb-2"
+            }
+          >
+            {
+              "Seleccione un usuario para cambiar de cuenta. Si no hay usuarios disponibles, cree uno nuevo."
+            }
+          </p>
         </div>
         {usersList.map((user, index) => {
           if (user.user === _user.user) {
