@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
 import {
