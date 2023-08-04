@@ -66,7 +66,7 @@ function AddTrabajoForm({ setReload, reload }) {
           e.target[2].value = "";
         })
         .catch((error) => {
-          console.log(error);
+          (error);
         });
       return;
     }

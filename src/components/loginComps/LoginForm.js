@@ -19,7 +19,7 @@ function LoginForm({ ...props }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(hashPassword(e.target[1].value));
+    (hashPassword(e.target[1].value));
     const userRef = doc(db, "usuarios", e.target[0].value);
     if (!props.reg) {
       await getDoc(userRef).then((docSnap) => {
@@ -42,7 +42,7 @@ function LoginForm({ ...props }) {
         if (docSnap.exists()) {
           alert("Usuario ya existe");
         } else {
-          console.log(rol);
+          (rol);
           const user = {
             user: e.target[0].value,
             password: hashPassword(e.target[1].value),

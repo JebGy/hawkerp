@@ -70,7 +70,7 @@ function AddAreaForm({ setReload, reload }) {
           loadFromFirebase();
         })
         .catch((error) => {
-          console.log(error);
+          (error);
         });
       return;
     }

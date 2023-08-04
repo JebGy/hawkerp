@@ -51,9 +51,9 @@ export default function AddTrabajadorForm() {
             return doc.id === today;
           })
         ) {
-          console.log("si");
+          ("si");
         } else {
-          console.log("no");
+          ("no");
         }
 
         setReportes(
@@ -83,12 +83,12 @@ export default function AddTrabajadorForm() {
           _taskList.push(task);
         });
       });
-      console.log(querySnapshot.docs);
+      (querySnapshot.docs);
     });
     await getDocs(collection(db, "usuarios"))
       .then((querySnapshot) => {
         setTrabajadores(querySnapshot.docs);
-        console.log(querySnapshot.docs);
+        (querySnapshot.docs);
       })
       .then(() => {
         setIsLoaded(true);
@@ -100,7 +100,7 @@ export default function AddTrabajadorForm() {
     e.preventDefault();
     if (nowEdit) {
       const trabRef = doc(db, "usuarios", trabajadorEdit.id);
-      console.log(trabajadorEdit);
+      (trabajadorEdit);
       await updateDoc(trabRef, {
         ...trabajadorEdit,
         auth: trabajadorEdit.auth === "1" ? true : false,

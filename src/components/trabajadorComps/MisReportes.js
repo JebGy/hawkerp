@@ -67,9 +67,9 @@ function MisReportes() {
             return doc.id === today;
           })
         ) {
-          console.log("si");
+          ("si");
         } else {
-          console.log("no");
+          ("no");
           createReporte();
         }
 
@@ -119,7 +119,7 @@ function MisReportes() {
       estado: true,
     })
       .then(() => {
-        console.log("Document successfully updated!");
+        ("Document successfully updated!");
       })
       .catch((error) => {
         console.error("Error updating document: ", error);

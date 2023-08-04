@@ -31,7 +31,7 @@ function AddTaskForm({ ...porps }) {
           });
         });
         setTaskList(_taskList);
-        console.log(querySnapshot.docs);
+        (querySnapshot.docs);
       })
       .then(() => {
         setIsLoaded(true);
@@ -81,7 +81,7 @@ function AddTaskForm({ ...porps }) {
           <select className="underline underline-offset-4 p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer">
             {isLoaded ? (
               areas.map((area) => {
-                console.log(area.data()._areaName);
+                (area.data()._areaName);
                 return (
                   <option value={area.id} key={area.id}>
                     {area.data()._areaName}
