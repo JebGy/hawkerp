@@ -386,126 +386,132 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="flex flex-col  h-full bg-white rounded-xl w-5/6 mx-auto p-5 overflow-y-auto">
-            <h2 className="text-3xl font-bold mb-5">
-              Tareas de {trabajadorEdit.user}
-            </h2>
-            {isLoaded && trabajadorEdit.tareas ? (
-              trabajadorEdit.tareas.map((tarea) => {
-                return (
-                  <div
-                    className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
-                    key={tarea.nombre}
-                  >
-                    <div className="flex flex-col ">
-                      <h1 className="text-md font-bold mb-5">{tarea.nombre}</h1>
-                      <p className="text-md">{tarea.descripcion}</p>
-                    </div>
-                    <h2
-                      className={
-                        tarea.estado
-                          ? "text-green-500 text-md font-bold"
-                          : "text-red-500 text-md font-bold"
-                      }
-                    >
-                      {tarea.estado ? "Completada" : "Pendiente"}
-                    </h2>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="flex flex-col justify-center items-center w-full h-full">
-                <h1 className="text-3xl font-bold mb-5">Cargando...</h1>
-              </div>
-            )}
-            <div className="flex flex-row justify-between items-center">
-              <h2 className="text-3xl font-bold mb-5 mt-5">
-                Reportes de {trabajadorEdit.id}
+          <div className="grid grid-cols-2  h-full bg-white rounded-xl w-5/6 mx-auto p-5 overflow-y-auto">
+            <div className="p-5">
+              <h2 className="text-3xl font-bold mb-5">
+                Tareas de {trabajadorEdit.user}
               </h2>
-              <button
-                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                onClick={() => {
-                  getReportes(trabajadorEdit.id);
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div>
-              {load ? (
-                reportes.map((reporte) => {
+              {isLoaded && trabajadorEdit.tareas ? (
+                trabajadorEdit.tareas.map((tarea) => {
                   return (
                     <div
                       className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
-                      key={reporte.id}
+                      key={tarea.nombre}
                     >
-                      <div className="flex flex-col w-full">
-                        <div className="flex flex-row justify-between items-center">
-                          <h1 className="text-xl font-bold mb-5">
-                            {reporte.id}
-                          </h1>
-                          <button
-                            className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                            onClick={() => {
-                              setReportTosee(reporte.id);
-                              setCanSeeReportes(!canSeeReportes);
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                        {canSeeReportes && reportTosee === reporte.id ? (
-                          <div className="flex flex-col gap-5">
-                            {reporte.data().lista.map((tarea) => {
-                              return (
-                                <div
-                                  className="flex flex-row justify-between items-center p-2 w-full border-b-purple-500 border-b-2"
-                                  key={tarea}
-                                >
-                                  <p>{tarea}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        ) : null}
+                      <div className="flex flex-col ">
+                        <h1 className="text-md font-bold mb-5">
+                          {tarea.nombre}
+                        </h1>
+                        <p className="text-md">{tarea.descripcion}</p>
                       </div>
+                      <h2
+                        className={
+                          tarea.estado
+                            ? "text-green-500 text-md font-bold"
+                            : "text-red-500 text-md font-bold"
+                        }
+                      >
+                        {tarea.estado ? "Completada" : "Pendiente"}
+                      </h2>
                     </div>
                   );
                 })
               ) : (
-                <h1 className="text-3xl font-bold mb-5">No hay reportes</h1>
+                <div className="flex flex-col justify-center items-center w-full h-full">
+                  <h1 className="text-3xl font-bold mb-5">Cargando...</h1>
+                </div>
               )}
+            </div>
+            <div className="p-5">
+              <div className="flex flex-row justify-between items-center">
+                <h2 className="text-3xl font-bold mb-5 ">
+                  Reportes de {trabajadorEdit.id}
+                </h2>
+                <button
+                  className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                  onClick={() => {
+                    getReportes(trabajadorEdit.id);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div>
+                {load ? (
+                  reportes.map((reporte) => {
+                    return (
+                      <div
+                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
+                        key={reporte.id}
+                      >
+                        <div className="flex flex-col w-full">
+                          <div className="flex flex-row justify-between items-center">
+                            <h1 className="text-xl font-bold mb-5">
+                              {reporte.id}
+                            </h1>
+                            <button
+                              className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                              onClick={() => {
+                                setReportTosee(reporte.id);
+                                setCanSeeReportes(!canSeeReportes);
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                          {canSeeReportes && reportTosee === reporte.id ? (
+                            <div className="flex flex-col gap-5">
+                              {reporte.data().lista.map((tarea) => {
+                                return (
+                                  <div
+                                    className="flex flex-row justify-between items-center p-2 w-full border-b-purple-500 border-b-2"
+                                    key={tarea}
+                                  >
+                                    <p>{tarea}</p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <h1 className="text-3xl font-bold mb-5">No hay reportes</h1>
+                )}
+              </div>
             </div>
           </div>
         </div>
