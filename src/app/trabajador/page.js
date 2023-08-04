@@ -60,6 +60,17 @@ function page() {
                   (window.location.href = "/trabajador/areaTareas")
                 }
               />
+              <DashboardCard
+                title="Generar reporte diario"
+                gradient="from-yellow-500 to-green-300"
+                shadow="from-yellow-600 to-green-400"
+                text="Generar reporte diario de tareas"
+                idX={2} 
+                currentView={0}
+                funcion={() =>
+                  (window.location.href = "/trabajador/reporteDiario")
+                }
+              />
             </div>
           ) : (
             <div className="flex flex-col gap-5 mt-5">

@@ -7,6 +7,8 @@ import {
   doc,
   getDocs,
   getFirestore,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
@@ -19,6 +21,10 @@ export default function AddTrabajadorForm() {
   const [nowEdit, setNowEdit] = useState(false);
   const [trabajadorEdit, setTrabajadorEdit] = useState({});
   const [openModal, setOpenModal] = useState(false);
+  const [reportes, setReportes] = useState([]);
+  const [load, setLoad] = useState(false);
+  const [canSeeReportes, setCanSeeReportes] = useState(false);
+  const [reportTosee, setReportTosee] = useState("");
 
   const [_trabajadorName, set_trabajadorName] = useState("");
   const [_trabajadorLastName, set_trabajadorLastName] = useState(0);
@@ -27,6 +33,45 @@ export default function AddTrabajadorForm() {
   useEffect(() => {
     loadFromFirebase();
   }, []);
+
+  const getReportes = async (id) => {
+    let today =
+      new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate();
+    await getDocs(
+      query(collection(db, `usuarios/${trabajadorEdit.id}/reportes`)),
+      orderBy("fecha", "asc")
+    )
+      .then((querySnapshot) => {
+        if (
+          querySnapshot.docs.some((doc) => {
+            return doc.id === today;
+          })
+        ) {
+          console.log("si");
+        } else {
+          console.log("no");
+        }
+
+        setReportes(
+          querySnapshot.docs.sort((a, b) => {
+            if (a.id > b.id) {
+              return -1;
+            }
+            if (a.id < b.id) {
+              return 1;
+            }
+            return 0;
+          })
+        );
+      })
+      .then(() => {
+        setLoad(true);
+      });
+  };
 
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas")).then((querySnapshot) => {
@@ -158,7 +203,7 @@ export default function AddTrabajadorForm() {
                 Área
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Tareas
+                Detalles
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
                 Acciones
@@ -201,12 +246,29 @@ export default function AddTrabajadorForm() {
                           setTrabajadorEdit({
                             ...trabajador.data(),
                           });
+                          getReportes(trabajador.id);
                           setOpenModal(true);
                         }}
                       >
-                        {trabajador.data().tareas
-                          ? trabajador.data().tareas.length
-                          : 0}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="w-6 h-6 text-purple-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
                       </button>
                     </td>
                     <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
@@ -261,7 +323,7 @@ export default function AddTrabajadorForm() {
                             )
                           ) {
                             await deleteDoc(
-                              doc(db, "trabajadores", trabajador.id)
+                              doc(db, "usuarios", trabajador.id)
                             ).then(() => {
                               alert("Trabajador eliminado con éxito");
                               loadFromFirebase();
@@ -302,7 +364,11 @@ export default function AddTrabajadorForm() {
       {openModal ? (
         <div className="fixed z-10 inset-0 overflow-y-auto w-screen h-screen bg-black bg-opacity-70 p-5">
           <button
-            onClick={() => setOpenModal(false)}
+            onClick={() => {
+              setLoad(false);
+              setOpenModal(false);
+              setReportes([]);
+            }}
             className="p-2 z-50 rounded-full bg-red-500 active:scale-95 transition-all duration-150 absolute top-5 right-5 "
           >
             <svg
@@ -321,6 +387,9 @@ export default function AddTrabajadorForm() {
             </svg>
           </button>
           <div className="flex flex-col  h-full bg-white rounded-xl w-5/6 mx-auto p-5 overflow-y-auto">
+            <h2 className="text-3xl font-bold mb-5">
+              Tareas de {trabajadorEdit.user}
+            </h2>
             {isLoaded && trabajadorEdit.tareas ? (
               trabajadorEdit.tareas.map((tarea) => {
                 return (
@@ -332,11 +401,15 @@ export default function AddTrabajadorForm() {
                       <h1 className="text-md font-bold mb-5">{tarea.nombre}</h1>
                       <p className="text-md">{tarea.descripcion}</p>
                     </div>
-                    <h2 className={
-                      tarea.estado
-                        ? "text-green-500 text-md font-bold"
-                        : "text-red-500 text-md font-bold"
-                    }>{tarea.estado ? "Completada" : "Pendiente"}</h2>
+                    <h2
+                      className={
+                        tarea.estado
+                          ? "text-green-500 text-md font-bold"
+                          : "text-red-500 text-md font-bold"
+                      }
+                    >
+                      {tarea.estado ? "Completada" : "Pendiente"}
+                    </h2>
                   </div>
                 );
               })
@@ -345,6 +418,95 @@ export default function AddTrabajadorForm() {
                 <h1 className="text-3xl font-bold mb-5">Cargando...</h1>
               </div>
             )}
+            <div className="flex flex-row justify-between items-center">
+              <h2 className="text-3xl font-bold mb-5 mt-5">
+                Reportes de {trabajadorEdit.id}
+              </h2>
+              <button
+                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                onClick={() => {
+                  getReportes(trabajadorEdit.id);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div>
+              {load ? (
+                reportes.map((reporte) => {
+                  return (
+                    <div
+                      className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
+                      key={reporte.id}
+                    >
+                      <div className="flex flex-col w-full">
+                        <div className="flex flex-row justify-between items-center">
+                          <h1 className="text-xl font-bold mb-5">
+                            {reporte.id}
+                          </h1>
+                          <button
+                            className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                            onClick={() => {
+                              setReportTosee(reporte.id);
+                              setCanSeeReportes(!canSeeReportes);
+                            }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                              />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        {canSeeReportes && reportTosee === reporte.id ? (
+                          <div className="flex flex-col gap-5">
+                            {reporte.data().lista.map((tarea) => {
+                              return (
+                                <div
+                                  className="flex flex-row justify-between items-center p-2 w-full border-b-purple-500 border-b-2"
+                                  key={tarea}
+                                >
+                                  <p>{tarea}</p>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <h1 className="text-3xl font-bold mb-5">No hay reportes</h1>
+              )}
+            </div>
           </div>
         </div>
       ) : null}
