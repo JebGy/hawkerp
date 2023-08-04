@@ -386,7 +386,7 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-cols-2  h-full bg-white rounded-xl w-5/6 mx-auto p-5 overflow-y-auto">
+          <div className="grid grid-rows-2 lg:grid-cols-2  h-5/6 bg-white rounded-xl w-full lg:w-3/6 mx-auto p-5 overflow-y-auto">
             <div className="p-5">
               <h2 className="text-3xl font-bold mb-5">
                 Tareas de {trabajadorEdit.user}
