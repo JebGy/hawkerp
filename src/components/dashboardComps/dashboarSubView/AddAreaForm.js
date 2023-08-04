@@ -64,9 +64,9 @@ function AddAreaForm({ setReload, reload }) {
         .then(() => {
           setError(false);
           alert("Área agregada con éxito");
-          setReload(!reload);
           e.target[0].value = "";
-          e.target[1].value = "";
+          setAreaName("");
+          e.target[1].value = 0;
           loadFromFirebase();
         })
         .catch((error) => {
@@ -82,7 +82,9 @@ function AddAreaForm({ setReload, reload }) {
     }).then(() => {
       alert("Área editada con éxito");
       e.target[0].value = "";
-      e.target[1].value = "";
+      setAreaName("");
+
+      e.target[1].value = 0;
       setNowEditing(!nowEditing);
       loadFromFirebase();
     });
