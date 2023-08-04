@@ -37,7 +37,7 @@ function InternFrame({ setReload, reload }) {
 
   return (
     <div className="lg:col-span-6 lg:grid lg:grid-rows-4 lg:w-full lg:h-screen grid col-span-7">
-      {windowWidth < 800 && isLoaded ? (
+      {windowWidth > 800 && isLoaded ? (
         <div className="flex flex-flex items-center justify-between p-5">
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
           <button
