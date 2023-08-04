@@ -10,13 +10,14 @@ function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  let windowWidth = window.innerWidth;
+  let windowWidth = 0;
 
   const updateArea = (n) => {
     setCurrentView(n);
   };
 
   useEffect(() => {
+    windowWidth = window.innerWidth;
     const user = JSON.parse(localStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
