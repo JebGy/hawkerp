@@ -11,14 +11,14 @@ function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  let windowWidth = 0;
+  const [windowWidth, setWindowWidth] = useState(0);
 
   const updateArea = (n) => {
     setCurrentView(n);
   };
 
   useEffect(() => {
-    windowWidth = window.innerWidth;
+    setWindowWidth(window.innerWidth);
     const user = JSON.parse(localStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
@@ -33,11 +33,12 @@ function InternFrame({ setReload, reload }) {
     _setUser(user);
 
     setIsLoaded(true);
+    console.log(windowWidth)
   }, []);
 
   return (
     <div className="lg:col-span-6 lg:grid lg:grid-rows-4 lg:w-full lg:h-screen grid col-span-7">
-      {windowWidth > 800 && isLoaded ? (
+      {windowWidth < 800 && isLoaded ? (
         <div className="flex flex-flex items-center justify-between p-5">
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
           <button
