@@ -47,7 +47,7 @@ function DashboardBarSide() {
 
   return (
     <div
-      className={"col-span-1  h-screen w-full flex flex-col  justify-between"}
+      className={"hidden lg:col-span-1  lg:h-screen lg:w-full lg:flex lg:flex-col  lg:justify-between"}
     >
       <div>
         <div className="flex flex-col p-5">

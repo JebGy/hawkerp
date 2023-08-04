@@ -10,6 +10,7 @@ function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  let windowWidth = window.innerWidth;
 
   const updateArea = (n) => {
     setCurrentView(n);
@@ -33,9 +34,23 @@ function InternFrame({ setReload, reload }) {
   }, []);
 
   return (
-    <div className="col-span-6 grid grid-rows-4 w-full h-screen">
+    <div className="lg:col-span-6 lg:grid lg:grid-rows-4 lg:w-full lg:h-screen grid col-span-7">
+      {windowWidth < 1024 && isLoaded ? (
+        <div className="flex flex-flex items-center justify-between p-5">
+          <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
+          <button
+            onClick={() => {
+              localStorage.removeItem("user");
+              window.location.href = "/";
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      ) : null}
       {isLoaded ? (
-        <div className="grid grid-flow-col gap-5 p-2 row-span-1">
+        <div className="grid lg:grid-flow-col grid-col-2 grid-flow-row gap-5 p-2">
           {_user.access[0] ? (
             <DashboardCard
               idX={0}

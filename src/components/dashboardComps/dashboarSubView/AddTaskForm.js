@@ -62,7 +62,7 @@ function AddTaskForm({ ...porps }) {
 
   return (
     <div className="grid grid-cols-4 p-5 row-span-3 w-full h-full">
-      <div className="col-span-1">
+      <div className="col-span-4 lg:col-span-1">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Agregar Tarea
         </h2>
@@ -101,7 +101,7 @@ function AddTaskForm({ ...porps }) {
         </form>
       </div>
 
-      <div className="w-full h-full col-span-3 flex flex-col overflow-hidden">
+      <div className="w-full h-full col-span-4 lg:col-span-3 flex flex-col overflow-hidden">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
             Tareas
@@ -151,7 +151,7 @@ function AddTaskForm({ ...porps }) {
                       
                     </div>
 
-                    <div className="w-full grid grid-flow-row grid-cols-3 gap-5 ">
+                    <div className="w-full grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 ">
                       {taskList.map((task, index) => {
                         if (task._taskId === area.id) {
                           return (

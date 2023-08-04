@@ -117,7 +117,7 @@ export default function AddTrabajadorForm() {
 
   return (
     <div className="grid grid-cols-4 p-5 row-span-3  w-full h-full">
-      <div className="col-span-1 h-full">
+      <div className="col-span-full lg:col-span-1 h-full">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Editar usuarios
         </h2>
@@ -189,7 +189,7 @@ export default function AddTrabajadorForm() {
         </div>
       </div>
 
-      <div className="col-span-3 w-full h-full">
+      <div className="col-span-full lg:col-span-3 w-full h-full overflow-x-auto">
         <table className="w-full">
           <thead className="">
             <tr className="border-b-2 border-b-purple-500">
@@ -241,7 +241,7 @@ export default function AddTrabajadorForm() {
                     </td>
                     <td className="text-xs font-semibold text-center text-zinc-900">
                       <button
-                        className="border-2 w-10 rounded-lg border-purple-500 p-2"
+                        className="border-2 rounded-lg border-purple-500 p-2"
                         onClick={() => {
                           setTrabajadorEdit({
                             ...trabajador.data(),
