@@ -75,6 +75,7 @@ function AddTaskForm({ ...porps }) {
         >
           <input
             type="text"
+            required
             placeholder="Nombre de la tarea"
             className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
           />

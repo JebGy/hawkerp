@@ -106,6 +106,7 @@ function AddAreaForm({ setReload, reload }) {
         <div className="flex flex-col justify-center">
           <input
             type="text"
+            required
             value={
               nowEditing && areaToEdit !== null
                 ? areaToEdit.areaName
@@ -133,6 +134,7 @@ function AddAreaForm({ setReload, reload }) {
           />
           <input
             type="number"
+            required
             value={
               nowEditing && areaToEdit !== null
                 ? areaToEdit.areaPopulation

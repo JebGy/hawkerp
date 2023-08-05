@@ -67,7 +67,7 @@ function AddTrabajoForm({ setReload, reload }) {
           e.target[2].value = "";
         })
         .catch((error) => {
-          (error);
+          error;
         });
       return;
     }
@@ -103,6 +103,7 @@ function AddTrabajoForm({ setReload, reload }) {
         <div className="flex flex-col justify-center">
           <input
             type="text"
+            required
             value={
               nowEditing ? trabajoToEdit._trabajoEncargado : _trabajoEncargado
             }
@@ -127,6 +128,7 @@ function AddTrabajoForm({ setReload, reload }) {
           />
           <input
             type="date"
+            required
             value={nowEditing ? trabajoToEdit._trabajoFecha : _trabajoFecha}
             onChange={
               nowEditing
@@ -145,6 +147,7 @@ function AddTrabajoForm({ setReload, reload }) {
           />
           <textarea
             placeholder="Descripción . . ."
+            required
             value={nowEditing ? trabajoToEdit._trabajoDescripcion : null}
             onChange={
               nowEditing
