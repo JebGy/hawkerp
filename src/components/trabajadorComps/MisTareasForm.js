@@ -199,7 +199,7 @@ function MisTareasForm() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full py-5 rounded-lg bg-white px-10"
+              className="flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
               onSubmit={async (e) => {
                 e.preventDefault();
                 const nombre = e.target[0].value;
@@ -221,7 +221,7 @@ function MisTareasForm() {
               />
               <textarea
                 placeholder="Descripción de la tarea"
-                className="w-full h-20 px-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full h-20 p-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
               />
               <button
                 type="submit"
