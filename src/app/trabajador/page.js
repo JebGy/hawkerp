@@ -48,7 +48,7 @@ function page() {
                 text="Gestionar mis tareas individuales."
                 idX={0}
                 currentView={0}
-                funcion={() => redirect("/trabajador/misTareas")}
+                funcion={() => redirect("/misTareas")}
               />
               <DashboardCard
                 title="Tareas de área"
@@ -58,7 +58,7 @@ function page() {
                 idX={1}
                 currentView={0}
                 funcion={() =>
-                  redirect("/trabajador/areaTareas")
+                  redirect("/areaTareas")
                 }
               />
               <DashboardCard
@@ -69,7 +69,7 @@ function page() {
                 idX={2}
                 currentView={0}
                 funcion={() =>
-                  redirect("/trabajador/reporteDiario")
+                  redirect("/reporteDiario")
                 }
               />
               <DashboardCard
