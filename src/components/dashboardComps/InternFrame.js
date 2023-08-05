@@ -53,13 +53,13 @@ function InternFrame({ setReload, reload }) {
         </div>
       ) : null}
       {isLoaded ? (
-        <div className="grid lg:grid-flow-col grid-col-2 grid-flow-row gap-5 p-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 p-2">
           {_user.access[0] ? (
             <DashboardCard
               idX={0}
               title="Áreas"
               text={
-                "Gestiona las áreas de la empresa de manera eficiente. Crea, edita y elimina áreas."
+                "Gestiona las áreas de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-purple-500 to-cyan-300"}
               shadow={"shadow-purple-500"}
@@ -74,7 +74,7 @@ function InternFrame({ setReload, reload }) {
               idX={1}
               title="Tareas"
               text={
-                "Gestiona las tareas de la empresa de manera eficiente. Crea, edita y elimina tareas."
+                "Gestiona las tareas de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-red-500 to-pink-300"}
               shadow={"shadow-purple-500"}
@@ -87,11 +87,11 @@ function InternFrame({ setReload, reload }) {
           {_user.access[2] ? (
             <DashboardCard
               idX={2}
-              title="Usuarios/Trabajadores"
+              title="Trabajadores"
               text={
-                "Gestiona los trabajadores de la empresa de manera eficiente. Crea, edita y elimina tareas."
+                "Gestiona los trabajadores de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-purple-500 to-pink-300"}
+              gradient={"from-green-500 to-yellow-300"}
               shadow={"shadow-purple-500"}
               funcion={() => {
                 updateArea(2);
@@ -104,9 +104,9 @@ function InternFrame({ setReload, reload }) {
               idX={3}
               title="Trabajos"
               text={
-                "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina tareas."
+                "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-cyan-500 to-emerald-300"}
+              gradient={"from-cyan-600 to-emerald-300"}
               shadow={"shadow-purple-500"}
               funcion={() => {
                 updateArea(3);

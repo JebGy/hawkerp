@@ -35,6 +35,12 @@ export default function AddTrabajadorForm() {
     loadFromFirebase();
   }, []);
 
+  useEffect(() => {
+    if (trabajadorEdit.id && openModal) {
+      getReportes(trabajadorEdit.id);
+    }
+  }, [trabajadorEdit]);
+
   const getReportes = async (id) => {
     let today =
       new Date().getFullYear() +
@@ -47,16 +53,6 @@ export default function AddTrabajadorForm() {
       orderBy("fecha", "asc")
     )
       .then((querySnapshot) => {
-        if (
-          querySnapshot.docs.some((doc) => {
-            return doc.id === today;
-          })
-        ) {
-          ("si");
-        } else {
-          ("no");
-        }
-
         setReportes(
           querySnapshot.docs.sort((a, b) => {
             if (a.id > b.id) {
@@ -69,9 +65,7 @@ export default function AddTrabajadorForm() {
           })
         );
       })
-      .then(() => {
-        setLoad(true);
-      });
+      .then(() => {});
   };
 
   const loadFromFirebase = async () => {
@@ -84,12 +78,12 @@ export default function AddTrabajadorForm() {
           _taskList.push(task);
         });
       });
-      (querySnapshot.docs);
+      querySnapshot.docs;
     });
     await getDocs(collection(db, "usuarios"))
       .then((querySnapshot) => {
         setTrabajadores(querySnapshot.docs);
-        (querySnapshot.docs);
+        querySnapshot.docs;
       })
       .then(() => {
         setIsLoaded(true);
@@ -101,7 +95,7 @@ export default function AddTrabajadorForm() {
     e.preventDefault();
     if (nowEdit) {
       const trabRef = doc(db, "usuarios", trabajadorEdit.id);
-      (trabajadorEdit);
+      trabajadorEdit;
       await updateDoc(trabRef, {
         ...trabajadorEdit,
         auth: trabajadorEdit.auth === "1" ? true : false,
@@ -249,6 +243,7 @@ export default function AddTrabajadorForm() {
                           });
                           getReportes(trabajador.id);
                           setOpenModal(true);
+                          setLoad(true);
                         }}
                       >
                         <svg
@@ -363,7 +358,7 @@ export default function AddTrabajadorForm() {
       </div>
 
       {openModal ? (
-        <div className="fixed z-10 inset-0 overflow-y-auto w-screen h-screen bg-black bg-opacity-70 p-5">
+        <div className="fixed z-10 inset-0 overflow-hidden w-screen h-screen bg-black bg-opacity-70 p-5">
           <button
             onClick={() => {
               setLoad(false);
@@ -387,45 +382,47 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-2 lg:grid-cols-2  h-5/6 bg-white rounded-xl w-full lg:w-3/6 mx-auto p-5 overflow-y-auto">
+          <div className="grid grid-rows-2 lg:grid-cols-2 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
             <div className="p-5">
-              <h2 className="text-3xl font-bold mb-5">
+              <h2 className="text-2xl font-bold mb-5">
                 Tareas de {trabajadorEdit.user}
               </h2>
-              {isLoaded && trabajadorEdit.tareas ? (
-                trabajadorEdit.tareas.map((tarea) => {
-                  return (
-                    <div
-                      className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
-                      key={tarea.nombre}
-                    >
-                      <div className="flex flex-col ">
-                        <h1 className="text-md font-bold mb-5">
-                          {tarea.nombre}
-                        </h1>
-                        <p className="text-md">{tarea.descripcion}</p>
-                      </div>
-                      <h2
-                        className={
-                          tarea.estado
-                            ? "text-green-500 text-md font-bold"
-                            : "text-red-500 text-md font-bold"
-                        }
+              <div className="flex flex-col gap-5 h-full overflow-y-auto">
+                {isLoaded && trabajadorEdit.tareas && reportes ? (
+                  trabajadorEdit.tareas.map((tarea) => {
+                    return (
+                      <div
+                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
+                        key={tarea.nombre}
                       >
-                        {tarea.estado ? "Completada" : "Pendiente"}
-                      </h2>
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="flex flex-col justify-center items-center w-full h-full">
-                  <h1 className="text-3xl font-bold mb-5">Cargando...</h1>
-                </div>
-              )}
+                        <div className="flex flex-col ">
+                          <h1 className="text-md font-bold mb-5">
+                            {tarea.nombre}
+                          </h1>
+                          <p className="text-md">{tarea.descripcion}</p>
+                        </div>
+                        <h2
+                          className={
+                            tarea.estado
+                              ? "text-green-500 text-md font-bold"
+                              : "text-red-500 text-md font-bold"
+                          }
+                        >
+                          {tarea.estado ? "Completada" : "Pendiente"}
+                        </h2>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="flex flex-col justify-center items-center w-full h-full">
+                    <h1 className="text-xl font-semibold">Cargando...</h1>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="p-5">
-              <div className="flex flex-row justify-between items-center">
-                <h2 className="text-3xl font-bold mb-5 ">
+            <div className="p-2">
+              <div className="flex flex-row justify-between items-center mb-5 gap-5">
+                <h2 className="text-xl font-bold ">
                   Reportes de {trabajadorEdit.id}
                 </h2>
                 <button
@@ -450,17 +447,23 @@ export default function AddTrabajadorForm() {
                   </svg>
                 </button>
               </div>
-              <div>
+              <div className="flex flex-col gap-5 h-full overflow-y-scroll">
                 {load ? (
                   reportes.map((reporte) => {
                     return (
                       <div
-                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
+                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2 mb-5"
                         key={reporte.id}
                       >
                         <div className="flex flex-col w-full">
-                          <div className="flex flex-row justify-between items-center">
-                            <h1 className="text-xl font-bold mb-5">
+                          <div className="flex flex-row justify-between items-center mb-6">
+                            <h1
+                              className={
+                                reporte.data().lista.length < 1
+                                  ? "text-red-500 text-md font-bold"
+                                  : "text-green-500 text-md font-bold"
+                              }
+                            >
                               {reporte.id}
                             </h1>
                             <button
@@ -492,14 +495,19 @@ export default function AddTrabajadorForm() {
                             </button>
                           </div>
                           {canSeeReportes && reportTosee === reporte.id ? (
-                            <div className="flex flex-col gap-5">
+                            <div className="flex flex-col gap-5 ">
                               {reporte.data().lista.map((tarea) => {
                                 return (
                                   <div
-                                    className="flex flex-row justify-between items-center p-2 w-full border-b-purple-500 border-b-2"
+                                    className="flex flex-row justify-between items-center w-full mb-2 border-b border-gray-500"
                                     key={tarea}
                                   >
-                                    <p>{tarea}</p>
+                                    <p>
+                                      {tarea}{" "}
+                                      {reporte.data().lista.length < 1
+                                        ? "No hay valores"
+                                        : ""}
+                                    </p>
                                   </div>
                                 );
                               })}

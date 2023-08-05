@@ -102,12 +102,17 @@ function MisReportes() {
       ).then(() => {
         if (
           window.confirm(
-            "Se ha creado un reporte para el día de hoy, desea completarlo?"
+            "Se ha creado un reporte para el día de hoy, Debe completarlo ahora."
           )
         ) {
           createReport();
+        } else {
+          alert(
+            "No se creó el reporte para el día de hoy, puede crearlo más tarde."
+          );
         }
       });
+
       setIsLoaded(true);
     }
   };
@@ -297,7 +302,7 @@ function MisReportes() {
                 e.target[0].value = "";
               }}
             >
-              <h1 className="text-3xl font-bold mb-5">
+              <h1 className="text-xl font-bold mb-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
               <div className="flex flex-row justify-between items-center gap-5">

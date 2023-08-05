@@ -7,7 +7,7 @@ function DashboardCard({ title, gradient, shadow,text,...props }) {
       onClick={
         props.funcion
       }
-      className={`bg-gradient-to-r ${gradient} p-3 rounded-lg text-white hover:shadow-2xl transition-all active:scale-95 hover:${shadow} ${
+      className={`bg-gradient-to-r col-auto ${gradient} p-3 rounded-lg text-white hover:shadow-2xl transition-all active:scale-95 hover:${shadow} ${
         props.currentView === props.idX ? `shadow-2xl ${shadow} ` : ""
       }`}
     >

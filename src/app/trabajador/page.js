@@ -21,8 +21,8 @@ function page() {
   }, []);
 
   return (
-    <div className="p-5 h-screen w-screen flex flex-col justify-between">
-      <div className="flex flex-col justify-center">
+    <div className="p-5 h-screen w-screen flex flex-col justify-between items-center">
+      <div className="flex flex-col justify-center w-full">
         <header className="flex flex-row justify-between items-center">
           <h2 className="font-bold text-xl">
             Bienvenido, {user ? user.user : null}
@@ -39,12 +39,12 @@ function page() {
         </header>
         <div className="flex flex-col">
           {isLoaded && user.auth ? (
-            <div className="flex flex-col gap-5 mt-5">
+            <div className="grid grid-row lg:grid-cols-4 gap-5 mt-5">
               <DashboardCard
                 title="Tareas Individuales"
                 gradient="from-red-500 to-pink-300"
                 shadow="from-red-600 to-pink-400"
-                text="Gestionar mis tareas individuales"
+                text="Gestionar mis tareas individuales."
                 idX={0}
                 currentView={0}
                 funcion={() => (window.location.href = "/trabajador/misTareas")}
@@ -65,10 +65,21 @@ function page() {
                 gradient="from-yellow-500 to-green-300"
                 shadow="from-yellow-600 to-green-400"
                 text="Generar reporte diario de tareas"
-                idX={2} 
+                idX={2}
                 currentView={0}
                 funcion={() =>
                   (window.location.href = "/trabajador/reporteDiario")
+                }
+              />
+              <DashboardCard
+                title="Proximamente"
+                gradient="from-orange-500 to-yellow-300"
+                shadow="from-yellow-600 to-green-400"
+                text="Funcionalidades próximas"
+                idX={3}
+                currentView={0}
+                funcion={() =>
+                  alert("Esta funcionalidad aún no está disponible.")
                 }
               />
             </div>
@@ -93,7 +104,7 @@ function page() {
           )}
         </div>
       </div>
-      <Image src={tareasImage} alt="tareas" />
+      <Image src={tareasImage} alt="tareas" height={300} />
     </div>
   );
 }
