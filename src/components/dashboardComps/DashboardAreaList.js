@@ -42,7 +42,7 @@ function DashboardAreaList({ reload }) {
       </h2>
       {isLoaded ? (
         areaList.map((area) => {
-          localStorage.setItem("areaList", JSON.stringify(areaList));
+          sesionStorage.setItem("areaList", JSON.stringify(areaList));
           return (
             <AreaListItem
               areaName={area._areaName}

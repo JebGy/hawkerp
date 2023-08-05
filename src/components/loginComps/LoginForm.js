@@ -28,7 +28,7 @@ function LoginForm({ ...props }) {
 
           if (user.password === hashPassword(e.target[1].value)) {
             //navigate to home
-            localStorage.setItem("user", JSON.stringify(user));
+            sesionStorage.setItem("user", JSON.stringify(user));
             window.location.href = "/dashboard";
           } else {
             alert("Contraseña incorrecta");
@@ -55,7 +55,7 @@ function LoginForm({ ...props }) {
 
           setDoc(doc(db, "usuarios", user.user), user).then(() => {
             alert("Usuario creado");
-            localStorage.setItem("user", JSON.stringify(user));
+            sesionStorage.setItem("user", JSON.stringify(user));
             window.location.href = "/dashboard";
           });
         }

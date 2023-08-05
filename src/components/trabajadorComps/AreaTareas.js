@@ -23,7 +23,7 @@ function AreaTareas() {
   const db = getFirestore(app);
 
   useEffect(() => {
-    const _user = JSON.parse(localStorage.getItem("user"));
+    const _user = JSON.parse(sesionStorage.getItem("user"));
     if (_user === null) {
       window.location.href = "/";
       return;

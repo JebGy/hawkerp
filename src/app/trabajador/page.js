@@ -11,7 +11,7 @@ function page() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   React.useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sesionStorage.getItem("user"));
     if (user === null) {
       window.location.href = "/";
       return;
@@ -30,7 +30,7 @@ function page() {
           <button
             className="bg-red-500 text-white rounded-md p-2"
             onClick={() => {
-              localStorage.removeItem("user");
+              sesionStorage.removeItem("user");
               window.location.href = "/";
             }}
           >
