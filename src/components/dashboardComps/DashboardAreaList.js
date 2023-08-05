@@ -11,7 +11,6 @@ function DashboardAreaList({ reload }) {
   const [areaList, setAreaList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-
   useEffect(() => {
     getAreaList();
   }, [reload]);
