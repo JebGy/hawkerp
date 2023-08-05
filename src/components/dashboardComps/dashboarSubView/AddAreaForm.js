@@ -100,7 +100,7 @@ function AddAreaForm({ setReload, reload }) {
           addArea(e);
         }}
       >
-        <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-3">
+        <h2 className="text-lg p-2 text-left underline underline-offset-8 mb-2 col-span-3">
           Agregar Área
         </h2>
         <div className="flex flex-col justify-center">
