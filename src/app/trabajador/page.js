@@ -5,6 +5,7 @@ import TrabCard from "@/components/trabajadorComps/TrabCard";
 import React, { useState } from "react";
 import tareasImage from "../../../public/tareas.svg";
 import Image from "next/image";
+import { redirect } from "next/dist/server/api-utils";
 
 function page() {
   const [user, setUser] = useState(null);
@@ -47,7 +48,7 @@ function page() {
                 text="Gestionar mis tareas individuales."
                 idX={0}
                 currentView={0}
-                funcion={() => (window.location.href = "/trabajador/misTareas")}
+                funcion={() => redirect("/trabajador/misTareas")}
               />
               <DashboardCard
                 title="Tareas de área"
@@ -57,7 +58,7 @@ function page() {
                 idX={1}
                 currentView={0}
                 funcion={() =>
-                  (window.location.href = "/trabajador/areaTareas")
+                  redirect("/trabajador/areaTareas")
                 }
               />
               <DashboardCard
@@ -68,7 +69,7 @@ function page() {
                 idX={2}
                 currentView={0}
                 funcion={() =>
-                  (window.location.href = "/trabajador/reporteDiario")
+                  redirect("/trabajador/reporteDiario")
                 }
               />
               <DashboardCard
