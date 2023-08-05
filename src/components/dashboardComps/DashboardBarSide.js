@@ -22,7 +22,7 @@ function DashboardBarSide() {
   }, []);
 
   const readFromStorage = () => {
-    const user = JSON.parse(sesionStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     if (user === null) {
       window.location.href = "/";
       return;
@@ -70,7 +70,7 @@ function DashboardBarSide() {
               key={index}
               onClick={() => {
                 if (window.confirm(`¿Desea cambiar de usuario?`)) {
-                  sesionStorage.setItem("user", JSON.stringify(user));
+                  sessionStorage.setItem("user", JSON.stringify(user));
                   window.location.reload();
                 }
               }}
@@ -83,7 +83,7 @@ function DashboardBarSide() {
       </div>
       <button
         onClick={() => {
-          sesionStorage.removeItem("user");
+          sessionStorage.removeItem("user");
           window.location.href = "/";
         }}
         className="active:scale-95 p-5 hover:bg-red-500 hover:text-white transition-all text-left w-full "

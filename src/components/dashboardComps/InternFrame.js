@@ -19,7 +19,7 @@ function InternFrame({ setReload, reload }) {
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    const user = JSON.parse(sesionStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
         window.location.href = "/trabajador";
@@ -43,7 +43,7 @@ function InternFrame({ setReload, reload }) {
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
           <button
             onClick={() => {
-              sesionStorage.removeItem("user");
+              sessionStorage.removeItem("user");
               window.location.href = "/";
             }}
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"

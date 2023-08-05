@@ -40,7 +40,7 @@ function MisReportes() {
   }, [isLoaded]);
 
   useEffect(() => {
-    const _user = JSON.parse(sesionStorage.getItem("user"));
+    const _user = JSON.parse(sessionStorage.getItem("user"));
     if (_user === null) {
       window.location.href = "/";
       return;
