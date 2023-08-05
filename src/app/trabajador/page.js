@@ -46,7 +46,7 @@ function page() {
                 shadow="from-red-600 to-pink-400"
                 text="Gestionar mis tareas individuales."
                 idX={0}
-                currentView={0}
+                currentView={1}
                 funcion={() => (window.location.href = "/trabajador/misTareas")}
               />
               <DashboardCard
