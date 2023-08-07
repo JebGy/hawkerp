@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
+import { getCurrenthour } from "@/app/service/dateWorker";
 import {
   arrayRemove,
   arrayUnion,
@@ -320,8 +321,21 @@ function MisReportes() {
               className="flex flex-col justify-center items-center w-full lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
               onSubmit={(e) => {
                 e.preventDefault();
-                const actividad = e.target[0].value;
+                let hora = new Date();
+
+                const actividad =
+                  e.target[0].value +
+                  " - " +
+                  hora.toLocaleTimeString("en-US", {
+                    hour12: true,
+                    hour: "numeric",
+                    minute: "numeric",
+                  });
                 setListaSubTareas([...listaSubTareas, actividad]);
+                localStorage.setItem(
+                  "listaSubTareas",
+                  JSON.stringify(listaSubTareas)
+                );
                 localStorage.setItem(
                   "reporteEdit",
                   JSON.stringify(listaSubTareas)
@@ -332,13 +346,12 @@ function MisReportes() {
               <h1 className="text-xl font-bold mb-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-row justify-between items-center gap-5">
+              <div className="flex flex-col justify-between items-center gap-5">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
                   className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
-
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
