@@ -445,7 +445,7 @@ export default function AddTrabajadorForm() {
                   </svg>
                 </button>
               </div>
-              <div className="flex flex-col gap-5 h-full overflow-y-scroll">
+              <div className="flex flex-col gap-5 h-4/6 overflow-y-scroll">
                 {load ? (
                   reportes.map((reporte) => {
                     return (
