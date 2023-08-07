@@ -185,8 +185,20 @@ function MisReportes() {
                       <button
                         onClick={() => {
                           setReporteEdit(reporte);
-                          setListaSubTareas(JSON.parse(localStorage.getItem("reporteEdit")));
-                          setListaSubTareas(JSON.parse(localStorage.getItem("reporteEdit")));
+                          //validate localStorage
+                          if (
+                            JSON.parse(localStorage.getItem("reporteEdit")) !==
+                            null
+                          ) {
+                            setListaSubTareas(
+                              JSON.parse(localStorage.getItem("reporteEdit"))
+                            );
+                            setListaSubTareas(
+                              JSON.parse(localStorage.getItem("reporteEdit"))
+                            );
+                          } else {
+                            setListaSubTareas(reporte.data().lista);
+                          }
                           setOpenModal(true);
                         }}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg active:scale-90 transition duration-150"
