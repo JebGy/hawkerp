@@ -89,7 +89,7 @@ function AddTrabajoForm({ setReload, reload }) {
   };
 
   return (
-    <div className="grid grid-cols-4 w-full row-span-3 transition-all">
+    <div className="grid grid-cols-4 w-full row-span-4 transition-all">
       <form
         className="flex flex-col p-5 transition-all h-full col-span-full lg:col-span-1"
         onSubmit={(e) => {

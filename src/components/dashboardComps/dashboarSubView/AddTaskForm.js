@@ -61,13 +61,13 @@ function AddTaskForm({ ...porps }) {
   };
 
   return (
-    <div className="grid grid-cols-4 p-5 row-span-3 w-full h-full">
+    <div className="grid grid-cols-4 p-5 row-span-4 w-full h-full">
       <div className="col-span-4 lg:col-span-1">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Agregar Tarea
         </h2>
         <form
-          className="p-5 flex flex-col justify-start items-center"
+          className="p-5 flex flex-col justify-start w-full"
           onSubmit={(e) => {
             e.preventDefault();
             addTaskToFirebase(e);
@@ -102,7 +102,7 @@ function AddTaskForm({ ...porps }) {
         </form>
       </div>
 
-      <div className="w-full h-full col-span-4 lg:col-span-3 flex flex-col overflow-hidden">
+      <div className="w-full h-full col-span-full lg:col-span-3 flex flex-col overflow-hidden p-5">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
             Tareas

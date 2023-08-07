@@ -33,13 +33,13 @@ function InternFrame({ setReload, reload }) {
     _setUser(user);
 
     setIsLoaded(true);
-    console.log(windowWidth)
+    console.log(windowWidth);
   }, []);
 
   return (
-    <div className="lg:col-span-6 lg:grid lg:grid-rows-4 lg:w-full lg:h-screen grid col-span-7">
-      {windowWidth < 800 && isLoaded ? (
-        <div className="flex flex-flex items-center justify-between p-5">
+    <div className="lg:col-span-7 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7">
+      {isLoaded ? (
+        <div className="flex flex-flex items-center justify-between p-5 row-span-1">
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
           <button
             onClick={() => {
@@ -53,7 +53,7 @@ function InternFrame({ setReload, reload }) {
         </div>
       ) : null}
       {isLoaded ? (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 p-2">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 p-2 row-span-1">
           {_user.access[0] ? (
             <DashboardCard
               idX={0}

@@ -92,15 +92,15 @@ function AddAreaForm({ setReload, reload }) {
   };
 
   return (
-    <div className="grid grid-cols-4 w-full row-span-3 transition-all">
+    <div className="grid grid-cols-4 w-full row-span-4 transition-all">
       <form
-        className="flex flex-col p-5 transition-all h-full w-full col-span-full lg:col-span-1  lg:w-full lg:flex lg:flex-col  lg:items-center lg:gap-5"
+        className="flex flex-col p-5 transition-all h-fit  w-full col-span-full lg:col-span-1  lg:w-full lg:flex lg:flex-col  lg:gap-5"
         onSubmit={(e) => {
           e.preventDefault();
           addArea(e);
         }}
       >
-        <h2 className="text-lg p-2 text-left underline underline-offset-8 mb-2 col-span-3">
+        <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Agregar Área
         </h2>
         <div className="flex flex-col justify-center">
@@ -168,7 +168,7 @@ function AddAreaForm({ setReload, reload }) {
           </button>
         </div>
       </form>
-      <div className="w-full h-full col-span-full lg:col-span-3  flex flex-col overflow-hidden p-5">
+      <div className="w-full h-full col-span-full lg:col-span-3 flex flex-col overflow-hidden p-5">
         <div className="w-full flex flex-row justify-between items-center">
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
             Áreas registradas
@@ -196,7 +196,7 @@ function AddAreaForm({ setReload, reload }) {
             </svg>
           </button>
         </div>
-        <div className="w-full h-full flex flex-col overflow-y-auto">
+        <div className="w-full flex flex-col overflow-y-scroll">
           {
             // Tareas
             isLoaded ? (
