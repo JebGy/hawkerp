@@ -385,7 +385,7 @@ export default function AddTrabajadorForm() {
               <h2 className="text-xl font-bold mb-5">
                 Tareas de {trabajadorEdit.user}
               </h2>
-              <div className="flex flex-col gap-5 h-full overflow-y-auto">
+              <div className="flex flex-col gap-5 h-5/6 overflow-y-auto">
                 {isLoaded && trabajadorEdit.tareas && reportes ? (
                   trabajadorEdit.tareas.map((tarea) => {
                     return (
