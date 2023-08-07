@@ -46,7 +46,10 @@ function MisReportes() {
       return;
     }
     setUser(_user);
-
+    const listaSubEdit = JSON.parse(localStorage.getItem("listaSubTareas"));
+    if (listaSubEdit) {
+      setListaSubTareas(listaSubEdit);
+    }
     setIsLoaded(true);
   }, [openModal]);
 
@@ -125,6 +128,7 @@ function MisReportes() {
     })
       .then(() => {
         ("Document successfully updated!");
+        localStorage.removeItem("listaSubTareas");
       })
       .catch((error) => {
         console.error("Error updating document: ", error);
@@ -181,6 +185,8 @@ function MisReportes() {
                       <button
                         onClick={() => {
                           setReporteEdit(reporte);
+                          setListaSubTareas(JSON.parse(localStorage.getItem("reporteEdit")));
+                          setListaSubTareas(JSON.parse(localStorage.getItem("reporteEdit")));
                           setOpenModal(true);
                         }}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg active:scale-90 transition duration-150"
@@ -273,7 +279,10 @@ function MisReportes() {
         <div className="fixed z-10 inset-0 overflow-y-auto w-screen h-screen bg-black bg-opacity-70 p-5">
           <button
             onClick={() => {
-              setListaSubTareas([]);
+              localStorage.setItem(
+                "reporteEdit",
+                JSON.stringify(listaSubTareas)
+              );
               setOpenModal(false);
             }}
             className="p-2 z-50 rounded-full bg-red-500 active:scale-95 transition-all duration-150 absolute top-5 right-5 "
@@ -301,6 +310,10 @@ function MisReportes() {
                 e.preventDefault();
                 const actividad = e.target[0].value;
                 setListaSubTareas([...listaSubTareas, actividad]);
+                localStorage.setItem(
+                  "reporteEdit",
+                  JSON.stringify(listaSubTareas)
+                );
                 e.target[0].value = "";
               }}
             >
