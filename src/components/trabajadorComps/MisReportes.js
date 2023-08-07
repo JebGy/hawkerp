@@ -162,102 +162,104 @@ function MisReportes() {
               <h1 className="text-xl font-bold">Reporte diario</h1>
             </div>
           </div>
-          {reportes.map((reporte) => {
-            return (
-              <div
-                key={reporte.id}
-                className="flex flex-col w-full rounded-lg mb-5 bg-neutral-100 shadow-xl"
-              >
-                <div className="font-bold text-x items-center  p-5 rounded-t-lg flex flex-row justify-between">
-                  <p>
-                    {reporte.id.split("-")[2] +
-                      "/" +
-                      reporte.id.split("-")[1] +
-                      "/" +
-                      reporte.id.split("-")[0]}
-                  </p>
-                  {today === reporte.id && !reporte.data().estado ? (
-                    <button
-                      onClick={() => {
-                        setReporteEdit(reporte);
-                        setOpenModal(true);
-                      }}
-                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg active:scale-90 transition duration-150"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-6 h-6"
+          <div className="lg:grid-cols-3 gap-5 grid">
+            {reportes.map((reporte) => {
+              return (
+                <div
+                  key={reporte.id}
+                  className="flex flex-col w-full rounded-lg bg-neutral-100 shadow-xl"
+                >
+                  <div className="font-bold text-x items-center  p-5 rounded-t-lg flex flex-row justify-between">
+                    <p>
+                      {reporte.id.split("-")[2] +
+                        "/" +
+                        reporte.id.split("-")[1] +
+                        "/" +
+                        reporte.id.split("-")[0]}
+                    </p>
+                    {today === reporte.id && !reporte.data().estado ? (
+                      <button
+                        onClick={() => {
+                          setReporteEdit(reporte);
+                          setOpenModal(true);
+                        }}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg active:scale-90 transition duration-150"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
-                    </button>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={3}
-                      stroke="currentColor"
-                      className="w-6 h-6 text-red-500"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                      />
-                    </svg>
-                  )}
-                </div>
-                <div className="p-5 mb-2">
-                  {reporte.data().lista.length < 1 ? (
-                    <div className="flex flex-row  items-center gap-5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-8 h-8 text-orange-500"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                        />
-                      </svg>
-                      <h2 className="text-xl font-bold">No hay datos!</h2>
-                    </div>
-                  ) : (
-                    <div className="flex flex-row  items-center gap-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                          />
+                        </svg>
+                      </button>
+                    ) : (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={3}
                         stroke="currentColor"
-                        className="w-6 h-6 text-green-500"
+                        className="w-6 h-6 text-red-500"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
+                          d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
                         />
                       </svg>
-                      <h2 className="text-xl font-bold">Completado</h2>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  <div className="p-5 mb-2">
+                    {reporte.data().lista.length < 1 ? (
+                      <div className="flex flex-row  items-center gap-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="w-8 h-8 text-orange-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                          />
+                        </svg>
+                        <h2 className="text-xl font-bold">No hay datos!</h2>
+                      </div>
+                    ) : (
+                      <div className="flex flex-row  items-center gap-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={3}
+                          stroke="currentColor"
+                          className="w-6 h-6 text-green-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.5 12.75l6 6 9-13.5"
+                          />
+                        </svg>
+                        <h2 className="text-xl font-bold">Completado</h2>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center w-full h-full">
@@ -294,7 +296,7 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full py-5 rounded-t-lg bg-white px-5"
+              className="flex flex-col justify-center items-center w-full lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
               onSubmit={(e) => {
                 e.preventDefault();
                 const actividad = e.target[0].value;
@@ -321,7 +323,7 @@ function MisReportes() {
               </div>
             </form>
 
-            <div className="flex flex-col bg-white w-full rounded-b-xl p-7 max-h-64 overflow-y-auto">
+            <div className="flex flex-col bg-white w-full rounded-b-xl p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
               {listaSubTareas.map((subTarea) => {
                 return (
                   <div
