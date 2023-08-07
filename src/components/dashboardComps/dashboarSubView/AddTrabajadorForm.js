@@ -108,8 +108,6 @@ export default function AddTrabajadorForm() {
     }
   };
 
-  nowEdit ? () => {} : null;
-
   return (
     <div className="grid grid-cols-4 p-5 row-span-3  w-full h-full">
       <div className="col-span-full lg:col-span-1 h-full">
@@ -382,9 +380,9 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-2 lg:grid-cols-2 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
+          <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
             <div className="p-5">
-              <h2 className="text-2xl font-bold mb-5">
+              <h2 className="text-xl font-bold mb-5">
                 Tareas de {trabajadorEdit.user}
               </h2>
               <div className="flex flex-col gap-5 h-full overflow-y-auto">
