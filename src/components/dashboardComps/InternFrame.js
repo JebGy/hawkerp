@@ -41,15 +41,25 @@ function InternFrame({ setReload, reload }) {
       {isLoaded ? (
         <div className="flex flex-flex items-center justify-between p-5 row-span-1">
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
-          <button
-            onClick={() => {
-              sessionStorage.removeItem("user");
-              window.location.href = "/";
-            }}
-            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Cerrar sesión
-          </button>
+          <div className="flex flex-row gap-10 items-center">
+            <button
+              onClick={() => {
+                window.location.href = "/trabajador";
+              }}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Mi perfil
+            </button>
+            <button
+              onClick={() => {
+                sessionStorage.removeItem("user");
+                window.location.href = "/";
+              }}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Cerrar sesión
+            </button>
+          </div>
         </div>
       ) : null}
       {isLoaded ? (

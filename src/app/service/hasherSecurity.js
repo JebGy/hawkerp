@@ -5,3 +5,5 @@ export const hashPassword = (password) => {
   const hashedPassword = CryptoJS.SHA256(password).toString();
   return hashedPassword;
 };
+
+
