@@ -185,189 +185,138 @@ export default function AddTrabajadorForm() {
         </div>
       </div>
 
-      <div className="col-span-full lg:col-span-3 row-span-5 w-full h-full overflow-x-auto">
-        <table className="w-full">
-          <thead className="">
-            <tr className="border-b-2 border-b-purple-500">
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Usuario
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Auth
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                <button
-                  onClick={() => {
-                    if (!selector) {
-                      setTrabajadores(provitionaList);
-                      setSelector(!selector);
-                      return;
-                    }
+      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
+        <thead className="grid grid-cols-1">
+          <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Usuario
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Auth
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              <button
+                onClick={() => {
+                  if (!selector) {
+                    setTrabajadores(provitionaList);
                     setSelector(!selector);
-                  }}
-                  className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
+                    return;
+                  }
+                  setSelector(!selector);
+                }}
+                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
+              >
+                Área
+              </button>
+              {
+                <div
+                  className={
+                    selector
+                      ? "flex flex-col gap-2 absolute h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
+                      : "hidden"
+                  }
                 >
-                  Área
-                </button>
-                {
-                  <div
+                  {areas.map((area) => {
+                    return (
+                      <button
+                        key={area.id}
+                        onClick={() => {
+                          let sub = trabajadores.filter((trabajador) => {
+                            return (
+                              trabajador.data().area === area.data()._areaName
+                            );
+                          });
+                          setTrabajadores(sub);
+                        }}
+                        className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
+                      >
+                        {area.data()._areaName}
+                      </button>
+                    );
+                  })}
+                </div>
+              }
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Detalles
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody className=" overflow-y-auto h-full grid grid-cols-1">
+          {isLoaded ? (
+            trabajadores.map((trabajador) => {
+              return (
+                <tr
+                  key={trabajador.id}
+                  className={
+                    trabajadorEdit.id === trabajador.id && nowEdit
+                      ? "border-b-2 border-b-purple-500 bg-purple-200 grid grid-cols-5 h-fit"
+                      : "border-b-2 border-b-purple-500 grid grid-cols-5 h-fit"
+                  }
+                >
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                    {trabajador.data().user}
+                  </td>
+                  <td
                     className={
-                      selector
-                        ? "flex flex-col gap-2 absolute h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
-                        : "hidden"
+                      trabajador.data().auth
+                        ? "p-2 text-xs font-semibold text-center  text-green-500"
+                        : "p-2 text-xs font-semibold text-center text-red-500"
                     }
                   >
-                    {areas.map((area) => {
-                      return (
-                        <button
-                          key={area.id}
-                          onClick={() => {
-                            let sub = trabajadores.filter((trabajador) => {
-                              return (
-                                trabajador.data().area === area.data()._areaName
-                              );
-                            });
-                            setTrabajadores(sub);
-                          }}
-                          className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
-                        >
-                          {area.data()._areaName}
-                        </button>
-                      );
-                    })}
-                  </div>
-                }
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Detalles
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-center h-full overflow-y-auto">
-            {isLoaded ? (
-              trabajadores.map((trabajador) => {
-                return (
-                  <tr
-                    key={trabajador.id}
-                    className={
-                      trabajadorEdit.id === trabajador.id && nowEdit
-                        ? "border-b-2 border-b-purple-500 bg-purple-200"
-                        : "border-b-2 border-b-purple-500"
-                    }
-                  >
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data().user}
-                    </td>
-                    <td
-                      className={
-                        trabajador.data().auth
-                          ? "p-2 text-xs font-semibold text-center  text-green-500"
-                          : "p-2 text-xs font-semibold text-center text-red-500"
-                      }
+                    {trabajador.data().auth ? "Autenticado" : "No Autenticado"}
+                  </td>
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                    {trabajador.data().area}
+                  </td>
+                  <td className="text-xs font-semibold text-center text-zinc-900">
+                    <button
+                      className="border-2 rounded-lg border-purple-500 p-2"
+                      onClick={() => {
+                        setTrabajadorEdit({
+                          ...trabajador.data(),
+                        });
+                        getReportes(trabajador.id);
+                        setOpenModal(true);
+                        setLoad(true);
+                      }}
                     >
-                      {trabajador.data().auth
-                        ? "Autenticado"
-                        : "No Autenticado"}
-                    </td>
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data().area}
-                    </td>
-                    <td className="text-xs font-semibold text-center text-zinc-900">
-                      <button
-                        className="border-2 rounded-lg border-purple-500 p-2"
-                        onClick={() => {
-                          setTrabajadorEdit({
-                            ...trabajador.data(),
-                          });
-                          getReportes(trabajador.id);
-                          setOpenModal(true);
-                          setLoad(true);
-                        }}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-6 h-6 text-purple-500"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-6 h-6 text-purple-500"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                      </button>
-                    </td>
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
-                      <button
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                        onClick={() => {
-                          setTrabajadorEdit({
-                            ...trabajador.data(),
-                            id: trabajador.id,
-                          });
-                          setNowEdit(!nowEdit);
-                        }}
-                      >
-                        {!nowEdit ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        )}
-                      </button>
-                      <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                        onClick={async () => {
-                          if (
-                            window.confirm(
-                              "¿Estás seguro de que quieres eliminar este trabajador?"
-                            )
-                          ) {
-                            await deleteDoc(
-                              doc(db, "usuarios", trabajador.id)
-                            ).then(() => {
-                              alert("Trabajador eliminado con éxito");
-                              loadFromFirebase();
-                            });
-                          }
-                        }}
-                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
+                    <button
+                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                      onClick={() => {
+                        setTrabajadorEdit({
+                          ...trabajador.data(),
+                          id: trabajador.id,
+                        });
+                        setNowEdit(!nowEdit);
+                      }}
+                    >
+                      {!nowEdit ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -379,24 +328,71 @@ export default function AddTrabajadorForm() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
                           />
                         </svg>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr className="border-b-2 border-b-purple-500">
-                <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                  Cargando...
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                      onClick={async () => {
+                        if (
+                          window.confirm(
+                            "¿Estás seguro de que quieres eliminar este trabajador?"
+                          )
+                        ) {
+                          await deleteDoc(
+                            doc(db, "usuarios", trabajador.id)
+                          ).then(() => {
+                            alert("Trabajador eliminado con éxito");
+                            loadFromFirebase();
+                          });
+                        }
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr className="border-b-2 border-b-purple-500">
+              <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                Cargando...
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
 
       {openModal ? (
         <div className="fixed z-10 inset-0 overflow-hidden w-screen h-screen bg-black bg-opacity-70 p-5">
