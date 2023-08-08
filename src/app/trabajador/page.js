@@ -98,7 +98,7 @@ function page() {
             </button>
           </div>
           {openNotify ? (
-            <div className="absolute right-0 top-0 mt-16 mr-5 w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5"
+            <div className="absolute right-0 left-0 top-0 mt-16 lg:mr-5 mx-auto w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5"
               
             >
               <h3 className="font-bold text-xl text-purple-600">
