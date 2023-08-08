@@ -122,8 +122,8 @@ function AddTrabajoForm({ setReload, reload }) {
             placeholder="Encargado por"
             className={
               error
-                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500"
-                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -143,7 +143,7 @@ function AddTrabajoForm({ setReload, reload }) {
                   }
             }
             placeholder="Fecha de entrega"
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
           />
           <textarea
             placeholder="Descripción . . ."
@@ -161,7 +161,7 @@ function AddTrabajoForm({ setReload, reload }) {
                     set_trabajoDescripcion(e.target.value);
                   }
             }
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
           />
           <select
             className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"

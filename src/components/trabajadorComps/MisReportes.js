@@ -218,6 +218,9 @@ function MisReportes() {
                       <button
                         onClick={() => {
                           getListaSubTareas();
+                          alert(
+                            "Las actividades se guardan automaticamente. Al finalizar su jornada, presione el boton 'Completar Reporte'"
+                          );
                           setReporteEdit(reporte);
                           //validate localStorage
                           if (

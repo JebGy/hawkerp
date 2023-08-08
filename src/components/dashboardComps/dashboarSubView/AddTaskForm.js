@@ -77,9 +77,9 @@ function AddTaskForm({ ...porps }) {
             type="text"
             required
             placeholder="Nombre de la tarea"
-            className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+            className="outline-none border-2 border-gray-300 rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
           />
-          <select className="underline underline-offset-4 p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer">
+          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer">
             {isLoaded ? (
               areas.map((area) => {
                 (area.data()._areaName);

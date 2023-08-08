@@ -6,19 +6,21 @@ import AddAreaForm from "./dashboarSubView/AddAreaForm";
 import AddTaskForm from "./dashboarSubView/AddTaskForm";
 import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
 import AddTrabajoForm from "./dashboarSubView/AddTrabajoForm";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { app } from "@/app/firebase/firebaseConf";
 
 function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const db = getFirestore(app);
 
   const updateArea = (n) => {
     setCurrentView(n);
   };
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
@@ -33,7 +35,6 @@ function InternFrame({ setReload, reload }) {
     _setUser(user);
 
     setIsLoaded(true);
-    console.log(windowWidth);
   }, []);
 
   return (
@@ -42,19 +43,24 @@ function InternFrame({ setReload, reload }) {
         <div className="flex flex-flex items-center justify-between p-5 row-span-1">
           <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
           <div className="flex flex-row gap-10 items-center">
-            <button className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all">
+            <button
+              onClick={() => {
+                showForm ? setShowForm(false) : setShowForm(true);
+              }}
+              className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 text-purple-500 hover:text-purple-600 cursor-pointer  transition-all"
+                className="w-6 h-6 text-purple-600"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                  d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"
                 />
               </svg>
             </button>
@@ -76,6 +82,69 @@ function InternFrame({ setReload, reload }) {
               Cerrar sesión
             </button>
           </div>
+          {showForm ? (
+            <div className="absolute z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center">
+              <button
+                onClick={() => {
+                  setShowForm(false);
+                }}
+                className="p-2 z-50 rounded-full bg-red-500 active:scale-95 transition-all duration-150 absolute top-5 right-5 "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-6 h-6 text-white"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <div className="bg-white rounded-xl p-5 w-96 h-5/6">
+                <h1 className="text-2xl font-bold mb-5">Enviar Mensaje</h1>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setDoc(
+                      doc(db, "mensajes", new Date().getTime().toString()),
+                      {
+                        titulo: e.target[0].value,
+                        descrip: e.target[1].value,
+                      }
+                    ).then(() => {
+                      alert("Mensaje enviado");
+                      setShowForm(false);
+                    });
+                  }}
+                  className="flex flex-col gap-5"
+                >
+                  <label className="text-xl font-bold">Título</label>
+                  <input
+                    type="text"
+                    className="border-2 border-gray-300 rounded-xl p-2"
+                  />
+                  <label className="text-xl font-bold">Mensaje</label>
+                  <textarea
+                    className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none"
+                    rows="2"
+                    cols="50"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-purple-500 hover:bg-purple-600 text-white font-bold  py-3 px-4 rounded"
+                  >
+                    Enviar
+                  </button>
+                </form>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
       {isLoaded ? (

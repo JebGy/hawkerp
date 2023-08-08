@@ -128,8 +128,8 @@ function AddAreaForm({ setReload, reload }) {
             placeholder="Nombre del Área"
             className={
               error
-                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500"
-                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -154,7 +154,7 @@ function AddAreaForm({ setReload, reload }) {
                   }
             }
             placeholder="Población"
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none border-2 border-gray-300 rounded-lg focus:border-b-2 focus:border-purple-500"
           />
 
           <button
@@ -174,7 +174,7 @@ function AddAreaForm({ setReload, reload }) {
             Áreas registradas
           </h2>
           <button
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-50"
+            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-40"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();
