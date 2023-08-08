@@ -14,6 +14,7 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 
 export default function AddTrabajadorForm() {
@@ -32,6 +33,8 @@ export default function AddTrabajadorForm() {
   const [_trabajadorName, set_trabajadorName] = useState("");
   const [_trabajadorLastName, set_trabajadorLastName] = useState(0);
   const [_trabajadorArea, set_trabajadorArea] = useState("");
+  const [provitionaList, setProvitionaList] = useState([]);
+  const [selector, setSelector] = useState(false);
 
   useEffect(() => {
     loadFromFirebase();
@@ -51,11 +54,9 @@ export default function AddTrabajadorForm() {
       "-" +
       new Date().getDate();
 
-    await getDocs(
-      query(collection(db, `usuarios/${trabajadorEdit.id}/reportes`)),
-      orderBy("fecha", "asc")
-    )
-      .then((querySnapshot) => {
+    const unsuscribe = onSnapshot(
+      query(collection(db, `usuarios/${id}/reportes`), orderBy("fecha", "asc")),
+      (querySnapshot) => {
         setReportes(
           querySnapshot.docs.sort((a, b) => {
             if (a.id > b.id) {
@@ -67,8 +68,8 @@ export default function AddTrabajadorForm() {
             return 0;
           })
         );
-      })
-      .then(() => {});
+      }
+    );
   };
 
   const loadFromFirebase = async () => {
@@ -81,12 +82,11 @@ export default function AddTrabajadorForm() {
           _taskList.push(task);
         });
       });
-      querySnapshot.docs;
     });
     await getDocs(collection(db, "usuarios"))
       .then((querySnapshot) => {
         setTrabajadores(querySnapshot.docs);
-        querySnapshot.docs;
+        setProvitionaList(querySnapshot.docs);
       })
       .then(() => {
         setIsLoaded(true);
@@ -196,7 +196,47 @@ export default function AddTrabajadorForm() {
                 Auth
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Área
+                <button
+                  onClick={() => {
+                    if (!selector) {
+                      setTrabajadores(provitionaList);
+                      setSelector(!selector);
+                      return;
+                    }
+                    setSelector(!selector);
+                  }}
+                  className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
+                >
+                  Área
+                </button>
+                {
+                  <div
+                    className={
+                      selector
+                        ? "flex flex-col gap-2 absolute h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
+                        : "hidden"
+                    }
+                  >
+                    {areas.map((area) => {
+                      return (
+                        <button
+                          key={area.id}
+                          onClick={() => {
+                            let sub = trabajadores.filter((trabajador) => {
+                              return (
+                                trabajador.data().area === area.data()._areaName
+                              );
+                            });
+                            setTrabajadores(sub);
+                          }}
+                          className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
+                        >
+                          {area.data()._areaName}
+                        </button>
+                      );
+                    })}
+                  </div>
+                }
               </th>
               <th className="p-2 text-xs font-semibold text-center text-zinc-900">
                 Detalles
@@ -383,44 +423,7 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
-            <div className="p-5">
-              <h2 className="text-xl font-bold mb-5">
-                Tareas de {trabajadorEdit.user}
-              </h2>
-              <div className="flex flex-col gap-5 h-5/6 overflow-y-auto">
-                {isLoaded && trabajadorEdit.tareas && reportes ? (
-                  trabajadorEdit.tareas.map((tarea) => {
-                    return (
-                      <div
-                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
-                        key={tarea.nombre}
-                      >
-                        <div className="flex flex-col ">
-                          <h1 className="text-md font-bold mb-5">
-                            {tarea.nombre}
-                          </h1>
-                          <p className="text-md">{tarea.descripcion}</p>
-                        </div>
-                        <h2
-                          className={
-                            tarea.estado
-                              ? "text-green-500 text-md font-bold"
-                              : "text-red-500 text-md font-bold"
-                          }
-                        >
-                          {tarea.estado ? "Completada" : "Pendiente"}
-                        </h2>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="flex flex-col justify-center items-center w-full h-full">
-                    <h1 className="text-xl font-semibold">Cargando...</h1>
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="grid grid-rows-2 lg:grid-cols-1 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
             <div className="p-2">
               <div className="flex flex-row justify-between items-center mb-5 gap-5">
                 <h2 className="text-xl font-bold ">
@@ -448,7 +451,7 @@ export default function AddTrabajadorForm() {
                   </svg>
                 </button>
               </div>
-              <div className="flex flex-col gap-5 h-5/6 overflow-y-auto">
+              <div className="flex flex-col gap-5 h-[90%] overflow-y-auto">
                 {load ? (
                   reportes.map((reporte) => {
                     return (
@@ -500,11 +503,7 @@ export default function AddTrabajadorForm() {
                               {reporte.data().lista.map((tarea) => {
                                 return (
                                   <ReportItem
-                                    url={
-                                      tarea.imagenurl
-                                        ? tarea.imagenurl
-                                        : "../../../app/favicon.ico"
-                                    }
+                                    url={tarea.imagenurl ? tarea.imagenurl : ""}
                                     key={
                                       tarea.actividad ? tarea.actividad : tarea
                                     }

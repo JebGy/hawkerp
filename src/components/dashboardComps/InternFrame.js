@@ -107,7 +107,7 @@ function InternFrame({ setReload, reload }) {
               </button>
 
               <div className="bg-white rounded-xl p-5 w-96 h-5/6">
-                <h1 className="text-2xl font-bold mb-5">Enviar Mensaje</h1>
+                <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">Enviar Mensaje</h1>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -125,12 +125,12 @@ function InternFrame({ setReload, reload }) {
                   }}
                   className="flex flex-col gap-5"
                 >
-                  <label className="text-xl font-bold">Título</label>
+                  <label className="text-lg font-bold">Título</label>
                   <input
                     type="text"
                     className="border-2 border-gray-300 rounded-xl p-2"
                   />
-                  <label className="text-xl font-bold">Mensaje</label>
+                  <label className="text-lg font-bold">Mensaje</label>
                   <textarea
                     className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none"
                     rows="2"

@@ -14,18 +14,24 @@ function ReportItem({ url, actividad, hora }) {
   });
 
   return (
-    <div className="border-b-2 p-2 flex flex-col justify-between w-full">
+    <div className="border-b-2 border-rose-500 p-2 grid grid-cols-2 gap-5 justify-between w-full">
       <div className="mb-5">
+        <p className="text-rose-600 font-bold w-full border-b-2 border-rose-600 mb-5">
+          {hora}
+        </p>
         <h3 className="text-lg">{actividad}</h3>
-        <p className="text-rose-600 font-bold">{hora}</p>
       </div>
-      {image ? (
+      {image || url === "" ? (
         <Image
-          src={image}
+          src={
+            image
+              ? image
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+          }
           alt="Picture of the author"
-          width={500}
-          height={500}
-          className="rounded-lg"
+          width={250}
+          height={250}
+          className="rounded-lg w-full h-full object-cover"
         />
       ) : (
         <p>Loading...</p>
