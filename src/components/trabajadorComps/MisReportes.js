@@ -348,7 +348,7 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
+              className="flex flex-col justify-center items-center w-full p-5 lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
               onSubmit={(e) => {
                 e.preventDefault();
                 let reportname = reporteEdit.id;
