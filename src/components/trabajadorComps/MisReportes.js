@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { app, uploadFile } from "@/app/firebase/firebaseConf";
+import { app, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
 import { getCurrenthour } from "@/app/service/dateWorker";
 import {
   arrayRemove,
@@ -17,7 +17,9 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import Image from "next/image";
 import React, { useEffect } from "react";
+import ReportItem from "./ReportItem";
 
 function MisReportes() {
   const [user, setUser] = React.useState(null);
@@ -26,6 +28,8 @@ function MisReportes() {
   const [openModal, setOpenModal] = React.useState(false);
   const [reporteEdit, setReporteEdit] = React.useState(null);
   const [listaSubTareas, setListaSubTareas] = React.useState([]);
+  const [loadedLista, setLoadedLista] = React.useState(false);
+  const [urlImages, setUrlImages] = React.useState([]);
 
   const today =
     new Date().getFullYear() +
@@ -53,6 +57,32 @@ function MisReportes() {
     }
     setIsLoaded(true);
   }, [openModal]);
+
+  const getListaSubTareas = async () => {
+    if (user) {
+      await getDoc(doc(db, `usuarios/${user.user}/reportes`, today))
+        .then((doc) => {
+          if (doc.exists()) {
+            setListaSubTareas(doc.data().lista);
+            setListaSubTareas(doc.data().lista);
+            doc.data().lista.map((subTarea) => {
+              dowloadFile(subTarea.imagenurl).then((url) => {
+                console.log(url.url);
+                setUrlImages([...urlImages, url]);
+              });
+            });
+            setLoadedLista(true);
+            setLoadedLista(true);
+          } else {
+            // doc.data() will be undefined in this case
+            ("No such document!");
+          }
+        })
+        .catch((error) => {
+          "Error getting document:", error;
+        });
+    }
+  };
 
   const createReport = async () => {
     if (user) {
@@ -185,6 +215,7 @@ function MisReportes() {
                     {today === reporte.id && !reporte.data().estado ? (
                       <button
                         onClick={() => {
+                          getListaSubTareas();
                           setReporteEdit(reporte);
                           //validate localStorage
                           if (
@@ -346,7 +377,7 @@ function MisReportes() {
                     alert("Se ha agregado la actividad correctamente");
                     e.target[0].value = "";
                     e.target[1].value = "";
-                    createReport();
+                    getListaSubTareas();
                   });
                 });
                 // e.preventDefault();
@@ -393,22 +424,24 @@ function MisReportes() {
             </form>
 
             <div className="flex flex-col bg-white w-full rounded-b-xl p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
-              {listaSubTareas.map((subTarea) => {
-                return (
-                  <div
-                    key={subTarea}
-                    className="flex flex-row justify-between items-center gap-5 p-5 border-b-2 border-gray-200"
-                  >
-                    <p>{subTarea}</p>
-                  </div>
-                );
-              })}
+              {loadedLista && listaSubTareas
+                ? listaSubTareas.map((subTarea, index) => {
+                    return (
+                      <ReportItem
+                        key={index}
+                        url={subTarea.imagenurl}
+                        actividad={subTarea.actividad}
+                        hora={subTarea.hora}
+                      />
+                    );
+                  })
+                : null}
             </div>
             <button
               onClick={handleUpdate}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150 mt-5"
             >
-              Guardar
+              Completar Reporte
             </button>
           </div>
         </div>

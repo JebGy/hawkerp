@@ -31,8 +31,8 @@ export const uploadFile = async (file, url) => {
   });
 };
 
-export const dowloadFile = async (id) => {
-  const storageRef = ref(storage, `photos/${id}`);
+export const dowloadFile = async (urlImage) => {
+  const storageRef = ref(storage, urlImage);
   const url = await getDownloadURL(storageRef);
   return url;
 };
