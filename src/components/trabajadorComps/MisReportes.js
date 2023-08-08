@@ -152,20 +152,19 @@ function MisReportes() {
   };
 
   const handleUpdate = async () => {
-    await updateDoc(doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id), {
-      ...reporteEdit.data(),
-      lista: listaSubTareas,
-      estado: true,
-    })
-      .then(() => {
-        ("Document successfully updated!");
-        localStorage.removeItem("listaSubTareas");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
+    if(window.confirm("¿Está seguro de completar el reporte?")){
+      await updateDoc(
+        doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+        {
+          ...reporteEdit.data(),
+          lista: listaSubTareas,
+          estado: true,
+        }
+      ).then(() => {
+        alert("Se ha completado el reporte correctamente");
+        setOpenModal(false);
       });
-    createReport();
-    setOpenModal(false);
+    }
   };
 
   return (
