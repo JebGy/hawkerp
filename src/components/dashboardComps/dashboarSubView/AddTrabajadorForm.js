@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
+import ReportItem from "@/components/trabajadorComps/ReportItem";
 import {
   addDoc,
   collection,
@@ -496,17 +497,16 @@ export default function AddTrabajadorForm() {
                             <div className="flex flex-col gap-5 ">
                               {reporte.data().lista.map((tarea) => {
                                 return (
-                                  <div
-                                    className="flex flex-row justify-between items-center w-full mb-2 border-b border-gray-500"
-                                    key={tarea}
-                                  >
-                                    <p>
-                                      {tarea}{" "}
-                                      {reporte.data().lista.length < 1
-                                        ? "No hay valores"
-                                        : ""}
-                                    </p>
-                                  </div>
+                                  <ReportItem
+                                    url={tarea.imagenurl ? tarea.imagenurl : "../../../app/favicon.ico"}
+                                    key={
+                                      tarea.actividad ? tarea.actividad : tarea
+                                    }
+                                    actividad={
+                                      tarea.actividad ? tarea.actividad : tarea
+                                    }
+                                    hora={tarea.hora ? tarea.hora : ""}
+                                  />
                                 );
                               })}
                             </div>
