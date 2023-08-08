@@ -152,7 +152,7 @@ function MisReportes() {
   };
 
   const handleUpdate = async () => {
-    if(window.confirm("¿Está seguro de completar el reporte?")){
+    if (window.confirm("¿Está seguro de completar el reporte?")) {
       await updateDoc(
         doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
         {
@@ -162,6 +162,9 @@ function MisReportes() {
         }
       ).then(() => {
         alert("Se ha completado el reporte correctamente");
+        localStorage.removeItem("reporteEdit");
+        localStorage.removeItem("listaSubTareas");
+        createReport();
         setOpenModal(false);
       });
     }
