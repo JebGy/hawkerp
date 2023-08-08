@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { app } from "@/app/firebase/firebaseConf";
+import { app, uploadFile } from "@/app/firebase/firebaseConf";
 import { getCurrenthour } from "@/app/service/dateWorker";
 import {
   arrayRemove,
@@ -321,37 +321,68 @@ function MisReportes() {
               className="flex flex-col justify-center items-center w-full lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
               onSubmit={(e) => {
                 e.preventDefault();
-                let hora = new Date();
+                let reportname = reporteEdit.id;
+                const urlImage =
+                  user.user +
+                  "/" +
+                  reportname +
+                  "/" +
+                  e.target[1].files[0].name;
+                uploadFile(e.target[1].files[0], urlImage).then(() => {
+                  const report = {
+                    actividad: e.target[0].value,
+                    hora: getCurrenthour(),
+                    imagenurl: urlImage,
+                  };
 
-                const actividad =
-                  e.target[0].value +
-                  " - " +
-                  hora.toLocaleTimeString("en-US", {
-                    hour12: true,
-                    hour: "numeric",
-                    minute: "numeric",
+                  updateDoc(
+                    doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+                    {
+                      ...reporteEdit.data(),
+                      lista: arrayUnion(report),
+                      estado: false,
+                    }
+                  ).then(() => {
+                    alert("Se ha agregado la actividad correctamente");
+                    e.target[0].value = "";
+                    e.target[1].value = "";
+                    createReport();
                   });
-                setListaSubTareas([...listaSubTareas, actividad]);
-                localStorage.setItem(
-                  "listaSubTareas",
-                  JSON.stringify(listaSubTareas)
-                );
-                localStorage.setItem(
-                  "reporteEdit",
-                  JSON.stringify(listaSubTareas)
-                );
-                e.target[0].value = "";
+                });
+                // e.preventDefault();
+                // let hora = new Date();
+
+                // const actividad =
+                //   e.target[0].value +
+                //   " - " +
+                //   hora.toLocaleTimeString("en-US", {
+                //     hour12: true,
+                //     hour: "numeric",
+                //     minute: "numeric",
+                //   });
+                // setListaSubTareas([...listaSubTareas, actividad]);
+                // localStorage.setItem(
+                //   "listaSubTareas",
+                //   JSON.stringify(listaSubTareas)
+                // );
+                // localStorage.setItem(
+                //   "reporteEdit",
+                //   JSON.stringify(listaSubTareas)
+                // );
+                // e.target[0].value = "";
               }}
             >
               <h1 className="text-xl font-bold mb-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-col justify-between items-center gap-5">
+              <div className="flex flex-col justify-between  gap-5">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
                   className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
+                <label>Imagen de actividad:</label>
+                <input type="file" required />
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"

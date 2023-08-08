@@ -24,8 +24,8 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 
-export const uploadFile = async (file, id) => {
-  const storageRef = ref(storage, `photos/${id}`);
+export const uploadFile = async (file, url) => {
+  const storageRef = ref(storage, url);
   await uploadBytes(storageRef, file).then((snapshot) => {
     alert("File uploaded successfully");
   });
