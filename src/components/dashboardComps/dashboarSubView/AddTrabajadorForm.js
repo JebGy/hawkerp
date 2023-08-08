@@ -9,6 +9,7 @@ import {
   doc,
   getDocs,
   getFirestore,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
@@ -49,6 +50,7 @@ export default function AddTrabajadorForm() {
       (new Date().getMonth() + 1) +
       "-" +
       new Date().getDate();
+
     await getDocs(
       query(collection(db, `usuarios/${trabajadorEdit.id}/reportes`)),
       orderBy("fecha", "asc")
@@ -498,7 +500,11 @@ export default function AddTrabajadorForm() {
                               {reporte.data().lista.map((tarea) => {
                                 return (
                                   <ReportItem
-                                    url={tarea.imagenurl ? tarea.imagenurl : "../../../app/favicon.ico"}
+                                    url={
+                                      tarea.imagenurl
+                                        ? tarea.imagenurl
+                                        : "../../../app/favicon.ico"
+                                    }
                                     key={
                                       tarea.actividad ? tarea.actividad : tarea
                                     }
