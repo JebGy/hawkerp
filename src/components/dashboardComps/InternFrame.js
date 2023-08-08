@@ -116,6 +116,7 @@ function InternFrame({ setReload, reload }) {
                       {
                         titulo: e.target[0].value,
                         descrip: e.target[1].value,
+                        time: new Date().getTime().toString(),
                       }
                     ).then(() => {
                       alert("Mensaje enviado");

@@ -34,10 +34,17 @@ function page() {
   const loadMensajes = async () => {
     const unSub = onSnapshot(collection(db, "mensajes"), (querySnapshot) => {
       const mensajes = [];
+      //sort by id
       querySnapshot.forEach((doc) => {
+        console.log(doc.data().time);
         mensajes.push(doc.data());
       });
-      setMensajes(mensajes);
+
+      setMensajes(
+        mensajes.sort((a, b) => {
+          return b.time - a.time;
+        })
+      );
       const notify = localStorage.getItem("notify");
       if (notify) {
         setNewMessages(mensajes.length - notify);
@@ -98,9 +105,7 @@ function page() {
             </button>
           </div>
           {openNotify ? (
-            <div className="absolute right-0 left-0 top-0 mt-16 lg:mr-5 mx-auto w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5"
-              
-            >
+            <div className="absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5">
               <h3 className="font-bold text-xl text-purple-600">
                 Notificaciones
               </h3>
