@@ -186,7 +186,7 @@ export default function AddTrabajadorForm() {
       </div>
 
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
-        <thead className="grid grid-cols-1">
+        <thead className="grid grid-cols-1 ">
           <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
             <th className="p-2 text-xs font-semibold text-center text-zinc-900">
               Usuario
@@ -245,7 +245,7 @@ export default function AddTrabajadorForm() {
             </th>
           </tr>
         </thead>
-        <tbody className=" overflow-y-auto h-full grid grid-cols-1">
+        <tbody className=" overflow-y-auto h-full w-full col-span-full lg:grid lg:grid-cols-1">
           {isLoaded ? (
             trabajadores.map((trabajador) => {
               return (
@@ -253,8 +253,8 @@ export default function AddTrabajadorForm() {
                   key={trabajador.id}
                   className={
                     trabajadorEdit.id === trabajador.id && nowEdit
-                      ? "border-b-2 border-b-purple-500 bg-purple-200 grid grid-cols-5 h-fit"
-                      : "border-b-2 border-b-purple-500 grid grid-cols-5 h-fit"
+                      ? "border-b-2 border-b-purple-500 bg-purple-200 lg:grid lg:grid-cols-5 gap-5"
+                      : "border-b-2 border-b-purple-500 lg:grid lg:grid-cols-5 gap-5"
                   }
                 >
                   <td className="p-2 text-xs font-semibold text-center text-zinc-900">
@@ -419,7 +419,7 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-2 lg:grid-cols-1 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
+          <div className="grid grid-rows-1 lg:grid-cols-1 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
             <div className="p-2">
               <div className="flex flex-row justify-between items-center mb-5 gap-5">
                 <h2 className="text-xl font-bold ">
@@ -495,7 +495,7 @@ export default function AddTrabajadorForm() {
                             </button>
                           </div>
                           {canSeeReportes && reportTosee === reporte.id ? (
-                            <div className="flex flex-col gap-5 ">
+                            <div className="flex flex-col h-full gap-5 ">
                               {reporte.data().lista.map((tarea) => {
                                 return (
                                   <ReportItem

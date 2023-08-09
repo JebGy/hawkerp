@@ -59,7 +59,7 @@ function page() {
     <div className="p-5 h-screen w-screen flex flex-col justify-between items-center">
       <div className="flex flex-col justify-center w-full">
         <header className="flex flex-row justify-between items-center">
-          <h2 className="font-bold text-xl">
+          <h2 className="font-bold text-lg">
             Bienvenido, {user ? user.user : null}
           </h2>
           <div className="flex flex-row gap-5 items-center">

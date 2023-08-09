@@ -41,8 +41,8 @@ function InternFrame({ setReload, reload }) {
     <div className="lg:col-span-7 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7">
       {isLoaded ? (
         <div className="flex flex-flex items-center justify-between p-5 row-span-1">
-          <h1 className="text-2xl font-bold ">Bienvenido {_user.user}</h1>
-          <div className="flex flex-row gap-10 items-center">
+          <h1 className="text-lg font-bold ">Bienvenido {_user.user}</h1>
+          <div className="grid grid-flow-col gap-5 items-center">
             <button
               onClick={() => {
                 showForm ? setShowForm(false) : setShowForm(true);
