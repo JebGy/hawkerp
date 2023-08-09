@@ -116,7 +116,7 @@ function page() {
                     return (
                       <div
                         key={index}
-                        className="flex flex-col gap-2 border-b border-neutral-200 pb-2"
+                        className="flex flex-col gap-2 border-b border-neutral-500 pb-2"
                       >
                         <h3 className="font-semibold text-lg">
                           {mensaje.titulo}
