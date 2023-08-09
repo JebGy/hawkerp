@@ -354,7 +354,7 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full p-10 lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
+              className="flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-5 rounded-t-lg bg-slate-50"
               onSubmit={(e) => {
                 e.preventDefault();
                 let reportname = reporteEdit.id;
@@ -411,7 +411,7 @@ function MisReportes() {
               <h1 className="text-xl font-bold mb-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-col justify-between  gap-5">
+              <div className="flex flex-col justify-between  gap-5 px-5">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
@@ -428,7 +428,7 @@ function MisReportes() {
               </div>
             </form>
 
-            <div className="flex flex-col bg-white w-full rounded-b-xl p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
+            <div className="flex flex-col bg-white w-96 rounded-b-xl p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
               {loadedLista && listaSubTareas
                 ? listaSubTareas.map((subTarea, index) => {
                     return (
