@@ -217,7 +217,7 @@ export default function AddTrabajadorForm() {
             </th>
           </tr>
         </thead>
-        <tbody className=" overflow-y-auto h-full w-full col-span-full lg:grid lg:grid-cols-1">
+        <tbody className=" overflow-y-auto  w-full col-span-full lg:grid lg:grid-cols-1">
           {isLoaded ? (
             trabajadores.map((trabajador) => {
               return (
@@ -225,8 +225,8 @@ export default function AddTrabajadorForm() {
                   key={trabajador.id}
                   className={
                     trabajadorEdit.id === trabajador.id && nowEdit
-                      ? "border-b-2 border-b-purple-500 bg-purple-200 lg:grid lg:grid-cols-5 gap-5"
-                      : "border-b-2 border-b-purple-500 lg:grid lg:grid-cols-5 gap-5"
+                      ? "border-b-2 border-b-purple-500 bg-purple-200 lg:grid lg:grid-cols-5 gap-5 h-fit"
+                      : "border-b-2 border-b-purple-500 lg:grid lg:grid-cols-5 gap-5 h-fit"
                   }
                 >
                   <td className="p-2 text-xs font-semibold text-center text-zinc-900">
