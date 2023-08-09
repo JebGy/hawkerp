@@ -11,7 +11,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { app } from "@/app/firebase/firebaseConf";
+import { app } from "../../../app/firebase/firebaseConf";
 
 function AddTaskForm({ ...porps }) {
   const db = getFirestore(app);

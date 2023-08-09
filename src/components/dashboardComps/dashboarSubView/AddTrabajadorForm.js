@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { app } from "@/app/firebase/firebaseConf";
-import ReportItem from "@/components/trabajadorComps/ReportItem";
+import { app } from "../../../app/firebase/firebaseConf";
+import ReportItem from "../../trabajadorComps/ReportItem";
 import {
   addDoc,
   collection,

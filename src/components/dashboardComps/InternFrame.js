@@ -7,7 +7,7 @@ import AddTaskForm from "./dashboarSubView/AddTaskForm";
 import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
 import AddTrabajoForm from "./dashboarSubView/AddTrabajoForm";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import { app } from "@/app/firebase/firebaseConf";
+import { app } from "../../app/firebase/firebaseConf";
 
 function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
