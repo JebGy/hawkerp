@@ -208,34 +208,6 @@ export default function AddTrabajadorForm() {
               >
                 Área
               </button>
-              {
-                <div
-                  className={
-                    selector
-                      ? "flex flex-col gap-2 absolute h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
-                      : "hidden"
-                  }
-                >
-                  {areas.map((area) => {
-                    return (
-                      <button
-                        key={area.id}
-                        onClick={() => {
-                          let sub = trabajadores.filter((trabajador) => {
-                            return (
-                              trabajador.data().area === area.data()._areaName
-                            );
-                          });
-                          setTrabajadores(sub);
-                        }}
-                        className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
-                      >
-                        {area.data()._areaName}
-                      </button>
-                    );
-                  })}
-                </div>
-              }
             </th>
             <th className="p-2 text-xs font-semibold text-center text-zinc-900">
               Detalles
@@ -524,6 +496,33 @@ export default function AddTrabajadorForm() {
           </div>
         </div>
       ) : null}
+
+      {
+        <div
+          className={
+            selector
+              ? "flex flex-col gap-2 absolute mt-80 lg:mt-0 lg:right-0 h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
+              : "hidden"
+          }
+        >
+          {areas.map((area) => {
+            return (
+              <button
+                key={area.id}
+                onClick={() => {
+                  let sub = trabajadores.filter((trabajador) => {
+                    return trabajador.data().area === area.data()._areaName;
+                  });
+                  setTrabajadores(sub);
+                }}
+                className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
+              >
+                {area.data()._areaName}
+              </button>
+            );
+          })}
+        </div>
+      }
     </div>
   );
 }
