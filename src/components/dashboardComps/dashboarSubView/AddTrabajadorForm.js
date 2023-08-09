@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
+import ReportItem from "@/components/trabajadorComps/ReportItem";
 import {
   addDoc,
   collection,
@@ -8,10 +9,12 @@ import {
   doc,
   getDocs,
   getFirestore,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
 } from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 
 export default function AddTrabajadorForm() {
@@ -30,6 +33,8 @@ export default function AddTrabajadorForm() {
   const [_trabajadorName, set_trabajadorName] = useState("");
   const [_trabajadorLastName, set_trabajadorLastName] = useState(0);
   const [_trabajadorArea, set_trabajadorArea] = useState("");
+  const [provitionaList, setProvitionaList] = useState([]);
+  const [selector, setSelector] = useState(false);
 
   useEffect(() => {
     loadFromFirebase();
@@ -48,11 +53,10 @@ export default function AddTrabajadorForm() {
       (new Date().getMonth() + 1) +
       "-" +
       new Date().getDate();
-    await getDocs(
-      query(collection(db, `usuarios/${trabajadorEdit.id}/reportes`)),
-      orderBy("fecha", "asc")
-    )
-      .then((querySnapshot) => {
+
+    const unsuscribe = onSnapshot(
+      query(collection(db, `usuarios/${id}/reportes`), orderBy("fecha", "asc")),
+      (querySnapshot) => {
         setReportes(
           querySnapshot.docs.sort((a, b) => {
             if (a.id > b.id) {
@@ -64,8 +68,8 @@ export default function AddTrabajadorForm() {
             return 0;
           })
         );
-      })
-      .then(() => {});
+      }
+    );
   };
 
   const loadFromFirebase = async () => {
@@ -78,12 +82,11 @@ export default function AddTrabajadorForm() {
           _taskList.push(task);
         });
       });
-      querySnapshot.docs;
     });
     await getDocs(collection(db, "usuarios"))
       .then((querySnapshot) => {
         setTrabajadores(querySnapshot.docs);
-        querySnapshot.docs;
+        setProvitionaList(querySnapshot.docs);
       })
       .then(() => {
         setIsLoaded(true);
@@ -109,7 +112,7 @@ export default function AddTrabajadorForm() {
   };
 
   return (
-    <div className="grid grid-cols-4 p-5 row-span-3  w-full h-full">
+    <div className="grid grid-cols-4 p-5 row-span-4  w-full h-full">
       <div className="col-span-full lg:col-span-1 h-full">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Editar usuarios
@@ -182,149 +185,138 @@ export default function AddTrabajadorForm() {
         </div>
       </div>
 
-      <div className="col-span-full lg:col-span-3 w-full h-full overflow-x-auto">
-        <table className="w-full">
-          <thead className="">
-            <tr className="border-b-2 border-b-purple-500">
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Usuario
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Auth
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
+        <thead className="grid grid-cols-1">
+          <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Usuario
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Auth
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              <button
+                onClick={() => {
+                  if (!selector) {
+                    setTrabajadores(provitionaList);
+                    setSelector(!selector);
+                    return;
+                  }
+                  setSelector(!selector);
+                }}
+                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
+              >
                 Área
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Detalles
-              </th>
-              <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-center h-full overflow-y-auto">
-            {isLoaded ? (
-              trabajadores.map((trabajador) => {
-                return (
-                  <tr
-                    key={trabajador.id}
+              </button>
+              {
+                <div
+                  className={
+                    selector
+                      ? "flex flex-col gap-2 absolute h-fit p-5 rounded-xl w-96 bg-slate-50 shadow-xl shadow-rose-500"
+                      : "hidden"
+                  }
+                >
+                  {areas.map((area) => {
+                    return (
+                      <button
+                        key={area.id}
+                        onClick={() => {
+                          let sub = trabajadores.filter((trabajador) => {
+                            return (
+                              trabajador.data().area === area.data()._areaName
+                            );
+                          });
+                          setTrabajadores(sub);
+                        }}
+                        className=" bg-rose-500 p-2 rounded-lg text-white hover:bg-rose-600 transition-all active:scale-95"
+                      >
+                        {area.data()._areaName}
+                      </button>
+                    );
+                  })}
+                </div>
+              }
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Detalles
+            </th>
+            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody className=" overflow-y-auto h-full grid grid-cols-1">
+          {isLoaded ? (
+            trabajadores.map((trabajador) => {
+              return (
+                <tr
+                  key={trabajador.id}
+                  className={
+                    trabajadorEdit.id === trabajador.id && nowEdit
+                      ? "border-b-2 border-b-purple-500 bg-purple-200 grid grid-cols-5 h-fit"
+                      : "border-b-2 border-b-purple-500 grid grid-cols-5 h-fit"
+                  }
+                >
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                    {trabajador.data().user}
+                  </td>
+                  <td
                     className={
-                      trabajadorEdit.id === trabajador.id && nowEdit
-                        ? "border-b-2 border-b-purple-500 bg-purple-200"
-                        : "border-b-2 border-b-purple-500"
+                      trabajador.data().auth
+                        ? "p-2 text-xs font-semibold text-center  text-green-500"
+                        : "p-2 text-xs font-semibold text-center text-red-500"
                     }
                   >
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data().user}
-                    </td>
-                    <td
-                      className={
-                        trabajador.data().auth
-                          ? "p-2 text-xs font-semibold text-center  text-green-500"
-                          : "p-2 text-xs font-semibold text-center text-red-500"
-                      }
+                    {trabajador.data().auth ? "Autenticado" : "No Autenticado"}
+                  </td>
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                    {trabajador.data().area}
+                  </td>
+                  <td className="text-xs font-semibold text-center text-zinc-900">
+                    <button
+                      className="border-2 rounded-lg border-purple-500 p-2"
+                      onClick={() => {
+                        setTrabajadorEdit({
+                          ...trabajador.data(),
+                        });
+                        getReportes(trabajador.id);
+                        setOpenModal(true);
+                        setLoad(true);
+                      }}
                     >
-                      {trabajador.data().auth
-                        ? "Autenticado"
-                        : "No Autenticado"}
-                    </td>
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                      {trabajador.data().area}
-                    </td>
-                    <td className="text-xs font-semibold text-center text-zinc-900">
-                      <button
-                        className="border-2 rounded-lg border-purple-500 p-2"
-                        onClick={() => {
-                          setTrabajadorEdit({
-                            ...trabajador.data(),
-                          });
-                          getReportes(trabajador.id);
-                          setOpenModal(true);
-                          setLoad(true);
-                        }}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-6 h-6 text-purple-500"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-6 h-6 text-purple-500"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                      </button>
-                    </td>
-                    <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
-                      <button
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                        onClick={() => {
-                          setTrabajadorEdit({
-                            ...trabajador.data(),
-                            id: trabajador.id,
-                          });
-                          setNowEdit(!nowEdit);
-                        }}
-                      >
-                        {!nowEdit ? (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        )}
-                      </button>
-                      <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
-                        onClick={async () => {
-                          if (
-                            window.confirm(
-                              "¿Estás seguro de que quieres eliminar este trabajador?"
-                            )
-                          ) {
-                            await deleteDoc(
-                              doc(db, "usuarios", trabajador.id)
-                            ).then(() => {
-                              alert("Trabajador eliminado con éxito");
-                              loadFromFirebase();
-                            });
-                          }
-                        }}
-                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
+                    <button
+                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                      onClick={() => {
+                        setTrabajadorEdit({
+                          ...trabajador.data(),
+                          id: trabajador.id,
+                        });
+                        setNowEdit(!nowEdit);
+                      }}
+                    >
+                      {!nowEdit ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -336,24 +328,71 @@ export default function AddTrabajadorForm() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
                           />
                         </svg>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr className="border-b-2 border-b-purple-500">
-                <td className="p-2 text-xs font-semibold text-center text-zinc-900">
-                  Cargando...
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                      onClick={async () => {
+                        if (
+                          window.confirm(
+                            "¿Estás seguro de que quieres eliminar este trabajador?"
+                          )
+                        ) {
+                          await deleteDoc(
+                            doc(db, "usuarios", trabajador.id)
+                          ).then(() => {
+                            alert("Trabajador eliminado con éxito");
+                            loadFromFirebase();
+                          });
+                        }
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr className="border-b-2 border-b-purple-500">
+              <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                Cargando...
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
 
       {openModal ? (
         <div className="fixed z-10 inset-0 overflow-hidden w-screen h-screen bg-black bg-opacity-70 p-5">
@@ -380,44 +419,7 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
-            <div className="p-5">
-              <h2 className="text-xl font-bold mb-5">
-                Tareas de {trabajadorEdit.user}
-              </h2>
-              <div className="flex flex-col gap-5 h-5/6 overflow-y-auto">
-                {isLoaded && trabajadorEdit.tareas && reportes ? (
-                  trabajadorEdit.tareas.map((tarea) => {
-                    return (
-                      <div
-                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2"
-                        key={tarea.nombre}
-                      >
-                        <div className="flex flex-col ">
-                          <h1 className="text-md font-bold mb-5">
-                            {tarea.nombre}
-                          </h1>
-                          <p className="text-md">{tarea.descripcion}</p>
-                        </div>
-                        <h2
-                          className={
-                            tarea.estado
-                              ? "text-green-500 text-md font-bold"
-                              : "text-red-500 text-md font-bold"
-                          }
-                        >
-                          {tarea.estado ? "Completada" : "Pendiente"}
-                        </h2>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="flex flex-col justify-center items-center w-full h-full">
-                    <h1 className="text-xl font-semibold">Cargando...</h1>
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="grid grid-rows-2 lg:grid-cols-1 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
             <div className="p-2">
               <div className="flex flex-row justify-between items-center mb-5 gap-5">
                 <h2 className="text-xl font-bold ">
@@ -445,7 +447,7 @@ export default function AddTrabajadorForm() {
                   </svg>
                 </button>
               </div>
-              <div className="flex flex-col gap-5 h-5/6 overflow-y-auto">
+              <div className="flex flex-col gap-5 h-[90%] overflow-y-auto">
                 {load ? (
                   reportes.map((reporte) => {
                     return (
@@ -496,17 +498,16 @@ export default function AddTrabajadorForm() {
                             <div className="flex flex-col gap-5 ">
                               {reporte.data().lista.map((tarea) => {
                                 return (
-                                  <div
-                                    className="flex flex-row justify-between items-center w-full mb-2 border-b border-gray-500"
-                                    key={tarea}
-                                  >
-                                    <p>
-                                      {tarea}{" "}
-                                      {reporte.data().lista.length < 1
-                                        ? "No hay valores"
-                                        : ""}
-                                    </p>
-                                  </div>
+                                  <ReportItem
+                                    url={tarea.imagenurl ? tarea.imagenurl : ""}
+                                    key={
+                                      tarea.actividad ? tarea.actividad : tarea
+                                    }
+                                    actividad={
+                                      tarea.actividad ? tarea.actividad : tarea
+                                    }
+                                    hora={tarea.hora ? tarea.hora : ""}
+                                  />
                                 );
                               })}
                             </div>

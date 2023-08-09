@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { app } from "@/app/firebase/firebaseConf";
+import { app, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
 import { getCurrenthour } from "@/app/service/dateWorker";
 import {
   arrayRemove,
@@ -17,7 +17,9 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import Image from "next/image";
 import React, { useEffect } from "react";
+import ReportItem from "./ReportItem";
 
 function MisReportes() {
   const [user, setUser] = React.useState(null);
@@ -26,6 +28,8 @@ function MisReportes() {
   const [openModal, setOpenModal] = React.useState(false);
   const [reporteEdit, setReporteEdit] = React.useState(null);
   const [listaSubTareas, setListaSubTareas] = React.useState([]);
+  const [loadedLista, setLoadedLista] = React.useState(false);
+  const [urlImages, setUrlImages] = React.useState([]);
 
   const today =
     new Date().getFullYear() +
@@ -53,6 +57,32 @@ function MisReportes() {
     }
     setIsLoaded(true);
   }, [openModal]);
+
+  const getListaSubTareas = async () => {
+    if (user) {
+      await getDoc(doc(db, `usuarios/${user.user}/reportes`, today))
+        .then((doc) => {
+          if (doc.exists()) {
+            setListaSubTareas(doc.data().lista);
+            setListaSubTareas(doc.data().lista);
+            doc.data().lista.map((subTarea) => {
+              dowloadFile(subTarea.imagenurl).then((url) => {
+                console.log(url.url);
+                setUrlImages([...urlImages, url]);
+              });
+            });
+            setLoadedLista(true);
+            setLoadedLista(true);
+          } else {
+            // doc.data() will be undefined in this case
+            ("No such document!");
+          }
+        })
+        .catch((error) => {
+          "Error getting document:", error;
+        });
+    }
+  };
 
   const createReport = async () => {
     if (user) {
@@ -122,20 +152,22 @@ function MisReportes() {
   };
 
   const handleUpdate = async () => {
-    await updateDoc(doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id), {
-      ...reporteEdit.data(),
-      lista: listaSubTareas,
-      estado: true,
-    })
-      .then(() => {
-        ("Document successfully updated!");
+    if (window.confirm("¿Está seguro de completar el reporte?")) {
+      await updateDoc(
+        doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+        {
+          ...reporteEdit.data(),
+          lista: listaSubTareas,
+          estado: true,
+        }
+      ).then(() => {
+        alert("Se ha completado el reporte correctamente");
+        localStorage.removeItem("reporteEdit");
         localStorage.removeItem("listaSubTareas");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
+        createReport();
+        setOpenModal(false);
       });
-    createReport();
-    setOpenModal(false);
+    }
   };
 
   return (
@@ -185,6 +217,10 @@ function MisReportes() {
                     {today === reporte.id && !reporte.data().estado ? (
                       <button
                         onClick={() => {
+                          getListaSubTareas();
+                          alert(
+                            "Las actividades se guardan automaticamente. Al finalizar su jornada, presione el boton 'Completar Reporte'"
+                          );
                           setReporteEdit(reporte);
                           //validate localStorage
                           if (
@@ -318,40 +354,71 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
+              className="flex flex-col justify-center items-center w-full p-10 lg:w-2/6 md:w-3/6 py-5 rounded-t-lg bg-white px-5"
               onSubmit={(e) => {
                 e.preventDefault();
-                let hora = new Date();
+                let reportname = reporteEdit.id;
+                const urlImage =
+                  user.user +
+                  "/" +
+                  reportname +
+                  "/" +
+                  e.target[1].files[0].name;
+                uploadFile(e.target[1].files[0], urlImage).then(() => {
+                  const report = {
+                    actividad: e.target[0].value,
+                    hora: getCurrenthour(),
+                    imagenurl: urlImage,
+                  };
 
-                const actividad =
-                  e.target[0].value +
-                  " - " +
-                  hora.toLocaleTimeString("en-US", {
-                    hour12: true,
-                    hour: "numeric",
-                    minute: "numeric",
+                  updateDoc(
+                    doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+                    {
+                      ...reporteEdit.data(),
+                      lista: arrayUnion(report),
+                      estado: false,
+                    }
+                  ).then(() => {
+                    alert("Se ha agregado la actividad correctamente");
+                    e.target[0].value = "";
+                    e.target[1].value = "";
+                    getListaSubTareas();
                   });
-                setListaSubTareas([...listaSubTareas, actividad]);
-                localStorage.setItem(
-                  "listaSubTareas",
-                  JSON.stringify(listaSubTareas)
-                );
-                localStorage.setItem(
-                  "reporteEdit",
-                  JSON.stringify(listaSubTareas)
-                );
-                e.target[0].value = "";
+                });
+                // e.preventDefault();
+                // let hora = new Date();
+
+                // const actividad =
+                //   e.target[0].value +
+                //   " - " +
+                //   hora.toLocaleTimeString("en-US", {
+                //     hour12: true,
+                //     hour: "numeric",
+                //     minute: "numeric",
+                //   });
+                // setListaSubTareas([...listaSubTareas, actividad]);
+                // localStorage.setItem(
+                //   "listaSubTareas",
+                //   JSON.stringify(listaSubTareas)
+                // );
+                // localStorage.setItem(
+                //   "reporteEdit",
+                //   JSON.stringify(listaSubTareas)
+                // );
+                // e.target[0].value = "";
               }}
             >
               <h1 className="text-xl font-bold mb-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-col justify-between items-center gap-5">
+              <div className="flex flex-col justify-between  gap-5">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
                   className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
+                <label>Imagen de actividad:</label>
+                <input type="file" required />
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
@@ -362,22 +429,24 @@ function MisReportes() {
             </form>
 
             <div className="flex flex-col bg-white w-full rounded-b-xl p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
-              {listaSubTareas.map((subTarea) => {
-                return (
-                  <div
-                    key={subTarea}
-                    className="flex flex-row justify-between items-center gap-5 p-5 border-b-2 border-gray-200"
-                  >
-                    <p>{subTarea}</p>
-                  </div>
-                );
-              })}
+              {loadedLista && listaSubTareas
+                ? listaSubTareas.map((subTarea, index) => {
+                    return (
+                      <ReportItem
+                        key={index}
+                        url={subTarea.imagenurl}
+                        actividad={subTarea.actividad}
+                        hora={subTarea.hora}
+                      />
+                    );
+                  })
+                : null}
             </div>
             <button
               onClick={handleUpdate}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150 mt-5"
             >
-              Guardar
+              Completar Reporte
             </button>
           </div>
         </div>

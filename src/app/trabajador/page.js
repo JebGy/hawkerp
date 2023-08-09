@@ -1,14 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import DashboardCard from "@/components/dashboardComps/DashboardCard";
-import TrabCard from "@/components/trabajadorComps/TrabCard";
 import React, { useState } from "react";
 import tareasImage from "../../../public/tareas.svg";
 import Image from "next/image";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+} from "firebase/firestore";
+import { app } from "../firebase/firebaseConf";
 
 function page() {
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [openNotify, setOpenNotify] = useState(false);
+  const [mensajes, setMensajes] = useState([]);
+  const [newMessages, setNewMessages] = useState(0);
+  const db = getFirestore(app);
 
   React.useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -16,9 +27,33 @@ function page() {
       window.location.href = "/";
       return;
     }
+    loadMensajes();
     setUser(user);
     setIsLoaded(true);
   }, []);
+
+  const loadMensajes = async () => {
+    const unSub = onSnapshot(collection(db, "mensajes"), (querySnapshot) => {
+      const mensajes = [];
+      //sort by id
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data().time);
+        mensajes.push(doc.data());
+      });
+
+      setMensajes(
+        mensajes.sort((a, b) => {
+          return b.time - a.time;
+        })
+      );
+      const notify = localStorage.getItem("notify");
+      if (notify) {
+        setNewMessages(mensajes.length - notify);
+      } else {
+        setNewMessages(mensajes.length);
+      }
+    });
+  };
 
   return (
     <div className="p-5 h-screen w-screen flex flex-col justify-between items-center">
@@ -27,15 +62,77 @@ function page() {
           <h2 className="font-bold text-xl">
             Bienvenido, {user ? user.user : null}
           </h2>
-          <button
-            className="bg-red-500 text-white rounded-md p-2"
-            onClick={() => {
-              sessionStorage.removeItem("user");
-              window.location.href = "/";
-            }}
-          >
-            Cerrar sesión
-          </button>
+          <div className="flex flex-row gap-5 items-center">
+            {newMessages > 0 ? (
+              <div className="flex flex-row gap-2 items-center">
+                <h3 className="text-sm font-semibold text-purple-600">
+                  {newMessages}
+                </h3>
+              </div>
+            ) : null}
+            <button
+              onClick={() => {
+                setOpenNotify(!openNotify);
+                if (openNotify) {
+                  localStorage.setItem("notify", mensajes.length);
+                  setNewMessages(0);
+                }
+              }}
+              className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 text-purple-500 hover:text-purple-600 cursor-pointer  transition-all"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                />
+              </svg>
+            </button>
+            <button
+              className="bg-red-500 text-white rounded-md p-2"
+              onClick={() => {
+                sessionStorage.removeItem("user");
+                window.location.href = "/";
+              }}
+            >
+              Cerrar sesión
+            </button>
+          </div>
+          {openNotify ? (
+            <div className="absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5">
+              <h3 className="font-bold text-xl text-purple-600">
+                Notificaciones
+              </h3>
+              <div className="flex flex-col gap-5 mt-5 overflow-y-auto h-5/6 p-5">
+                {mensajes.length > 0 ? (
+                  mensajes.map((mensaje, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col gap-2 border-b border-neutral-200 pb-2"
+                      >
+                        <h3 className="font-semibold text-lg">
+                          {mensaje.titulo}
+                        </h3>
+                        <p className="text-sm text-justify">
+                          {mensaje.descrip}
+                        </p>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <h3 className="text-lg">No hay notificaciones</h3>
+                )}
+              </div>
+            </div>
+          ) : null}
         </header>
         <div className="flex flex-col">
           {isLoaded && user.auth ? (
