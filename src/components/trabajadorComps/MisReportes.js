@@ -354,7 +354,7 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-5 rounded-t-lg bg-slate-50"
+              className="flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-slate-50"
               onSubmit={(e) => {
                 e.preventDefault();
                 let reportname = reporteEdit.id;
@@ -408,20 +408,20 @@ function MisReportes() {
                 // e.target[0].value = "";
               }}
             >
-              <h1 className="text-xl font-bold mb-5">
+              <h1 className="text-xl font-bold mb-5 mt-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-col justify-between  gap-5 px-5">
+              <div className="flex flex-col justify-between items-center  gap-5 px-5">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
-                  className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-5/6 h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
                 <label>Imagen de actividad:</label>
                 <input type="file" required />
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                  className="bg-blue-500 hover:bg-blue-700 w-5/6 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                 >
                   Agregar
                 </button>
