@@ -1,5 +1,5 @@
 "use client";
-import { dowloadFile } from "../../app/firebase/firebaseConf";
+import { dowloadFile } from "@/app/firebase/firebaseConf";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 

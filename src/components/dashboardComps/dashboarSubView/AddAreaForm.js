@@ -10,8 +10,8 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { app } from "../../../app/firebase/firebaseConf";
-import { Area } from "../../../Classes/Area";
+import { app } from "@/app/firebase/firebaseConf";
+import { Area } from "@/Classes/Area";
 import addAreaImage from "../../../../public/addArea.svg";
 import Image from "next/image";
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import addArea from "../../../public/addArea.svg";
-import LoginForm from "../../components/loginComps/LoginForm";
+import LoginForm from "@/components/loginComps/LoginForm";
 
 export default function Home() {
   return (

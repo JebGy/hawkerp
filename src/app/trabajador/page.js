@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import DashboardCard from "../../components/dashboardComps/DashboardCard";
+import DashboardCard from "@/components/dashboardComps/DashboardCard";
 import React, { useState } from "react";
 import tareasImage from "../../../public/tareas.svg";
 import Image from "next/image";
