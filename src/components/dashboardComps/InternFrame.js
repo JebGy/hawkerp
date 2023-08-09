@@ -8,6 +8,7 @@ import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
 import AddTrabajoForm from "./dashboarSubView/AddTrabajoForm";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
+import AddInventoryForm from "./dashboarSubView/AddInventoryForm";
 
 function InternFrame({ setReload, reload }) {
   const [currentView, setCurrentView] = useState(0);
@@ -106,8 +107,10 @@ function InternFrame({ setReload, reload }) {
                 </svg>
               </button>
 
-              <div className="bg-white rounded-xl p-5 w-96 h-5/6">
-                <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">Enviar Mensaje</h1>
+              <div className="bg-white rounded-xl p-5 w-96 ">
+                <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
+                  Enviar Mensaje
+                </h1>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -149,7 +152,7 @@ function InternFrame({ setReload, reload }) {
         </div>
       ) : null}
       {isLoaded ? (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-5 p-2 row-span-1">
+        <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 gap-5 p-2 row-span-1">
           {_user.access[0] ? (
             <DashboardCard
               idX={0}
@@ -173,7 +176,7 @@ function InternFrame({ setReload, reload }) {
                 "Gestiona las tareas de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-red-500 to-pink-300"}
-              shadow={"shadow-purple-500"}
+              shadow={"shadow-rose-500"}
               funcion={() => {
                 updateArea(1);
               }}
@@ -188,7 +191,7 @@ function InternFrame({ setReload, reload }) {
                 "Gestiona los trabajadores de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-green-500 to-yellow-300"}
-              shadow={"shadow-purple-500"}
+              shadow={"shadow-green-500"}
               funcion={() => {
                 updateArea(2);
               }}
@@ -203,13 +206,28 @@ function InternFrame({ setReload, reload }) {
                 "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-cyan-600 to-emerald-300"}
-              shadow={"shadow-purple-500"}
+              shadow={"shadow-cyan-500"}
               funcion={() => {
                 updateArea(3);
               }}
               currentView={currentView}
             />
           ) : null}
+          {
+            <DashboardCard
+              idX={4}
+              title="Inventario"
+              text={
+                "Gestiona el inventario de la empresa de manera eficiente. Crea, edita y elimina."
+              }
+              gradient={"from-rose-500 to-yellow-300"}
+              shadow={"shadow-yellow-500"}
+              currentView={currentView}
+              funcion={() => {
+                updateArea(4);
+              }}
+            />
+          }
         </div>
       ) : null}
       {isLoaded ? (
@@ -221,6 +239,8 @@ function InternFrame({ setReload, reload }) {
           <AddTrabajadorForm />
         ) : currentView === 3 && _user.access[3] ? (
           <AddTrabajoForm />
+        ) : currentView === 4 ? (
+          <AddInventoryForm />
         ) : (
           <div>
             <h1 className="text-2xl font-bold mb-5">Bienvenido {_user.user}</h1>
