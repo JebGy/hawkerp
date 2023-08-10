@@ -195,7 +195,26 @@ export default function AddTrabajadorForm() {
               Auth
             </th>
             <th className="p-2 text-xs font-semibold text-center text-zinc-900">
-              <button
+              <select
+                onChange={(e) => {
+                  if (e.target.value === "Todas las áreas") {
+                    setTrabajadores(provitionaList);
+                    return;
+                  }
+                  setTrabajadores(
+                    provitionaList.filter((trab) => {
+                      return trab.data().area === e.target.value;
+                    })
+                  );
+                }}
+                className="outline-none p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+              >
+                <option>Todas las áreas</option>
+                {areas.map((area) => {
+                  return <option key={area.id}>{area.data()._areaName}</option>;
+                })}
+              </select>
+              {/* <button
                 onClick={() => {
                   if (!selector) {
                     setTrabajadores(provitionaList);
@@ -207,7 +226,7 @@ export default function AddTrabajadorForm() {
                 className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
               >
                 Área
-              </button>
+              </button> */}
             </th>
             <th className="p-2 text-xs font-semibold text-center text-zinc-900">
               Detalles
