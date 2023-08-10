@@ -364,7 +364,7 @@ function MisReportes() {
                   reportname +
                   "/" +
                   e.target[1].files[0].name;
-                if (e.target[1].files[0]) {
+                if (e.target[1].files[0] !== undefined && e.target[1].files[0] !== null) {
                   uploadFile(e.target[1].files[0], urlImage).then(() => {
                     const report = {
                       actividad: e.target[0].value,
@@ -389,7 +389,7 @@ function MisReportes() {
                       getListaSubTareas();
                     });
                   });
-                }else{
+                } else {
                   const report = {
                     actividad: e.target[0].value,
                     hora: new Date().toLocaleTimeString("en-US", {
