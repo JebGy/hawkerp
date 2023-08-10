@@ -60,9 +60,10 @@ function AddInventoryForm({ ...porps }) {
     e.preventDefault();
 
     if (nowEdit) {
-      const inventoryRef = doc(db, "inventario", currentItem.id);
+      const inventoryRef = doc(db, "inventario");
       const inventoryData = {
         codigo: currentItem.codigo,
+        nombre: currentItem.nombre,
         cantidad: currentItem.cantidad,
         extraidoPor: currentItem.extraidoPor,
         fechaDeIngreso: currentItem.fechaDeIngreso,
@@ -79,6 +80,7 @@ function AddInventoryForm({ ...porps }) {
 
     const inventoryRef = doc(db, "inventario", e.target[0].value);
     const inventoryData = {
+      nombre: e.target[0].value,
       codigo: e.target[1].value,
       cantidad: Number.parseInt(e.target[2].value),
       extraidoPor: "no",
@@ -224,7 +226,7 @@ function AddInventoryForm({ ...porps }) {
               }
             >
               <td>{item.codigo}</td>
-              <td>{item.id}</td>
+              <td>{item.nombre}</td>
               <td
                 className={item.cantidad < 10 ? "text-red-500 font-bold" : ""}
               >
@@ -402,7 +404,7 @@ function AddInventoryForm({ ...porps }) {
               className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
             >
               {inventory.map((item) => (
-                <option key={item.id} value={item.id}>
+                <option key={item.id} value={item.nombre}>
                   {item.id}
                 </option>
               ))}

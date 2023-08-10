@@ -9,7 +9,7 @@ export const excelReader = (document) => {
         cantidad: row[2],
         extraidoPor: "no",
         fechaIngreso: new Date().toLocaleDateString(),
-        id: row[0] + row[1],
+        id: row[0],
       };
     });
   });
