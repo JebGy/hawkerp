@@ -6,7 +6,14 @@ import AddAreaForm from "./dashboarSubView/AddAreaForm";
 import AddTaskForm from "./dashboarSubView/AddTaskForm";
 import AddTrabajadorForm from "./dashboarSubView/AddTrabajadorForm";
 import AddTrabajoForm from "./dashboarSubView/AddTrabajoForm";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
 import AddInventoryForm from "./dashboarSubView/AddInventoryForm";
 
@@ -23,6 +30,21 @@ function InternFrame({ setReload, reload }) {
   };
 
   useEffect(() => {
+    const currentDay = new Date().getDay();
+    if (currentDay === 1) {
+      getDocs(collection(db, "usuarios")).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then(
+            (querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                deleteDoc(doc.ref);
+              });
+            }
+          );
+        });
+      });
+    }
+
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
