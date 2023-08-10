@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { app, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
-import { getCurrenthour } from "@/app/service/dateWorker";
+import { getCurrenthour } from "@/app/service/";
 import {
   arrayRemove,
   arrayUnion,
