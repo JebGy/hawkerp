@@ -19,6 +19,7 @@ import { excelReader } from "@/app/service/ExcelReader";
 function AddInventoryForm({ ...porps }) {
   const db = getFirestore(app);
   const [inventory, setInventory] = useState([]);
+  const [filtredInventory, setFiltredInventory] = useState([]);
   const [nowEdit, setNowEdit] = useState(false);
   const [nowExtract, setNowExtract] = useState(false);
   const [trabajadores, setTrabajadores] = useState([]);
@@ -46,6 +47,7 @@ function AddInventoryForm({ ...porps }) {
           return 0;
         });
         setInventory(inventoryDataSorted);
+        setFiltredInventory(inventoryDataSorted);
       }
     );
     return unSuscribeInventory;
@@ -165,7 +167,6 @@ function AddInventoryForm({ ...porps }) {
               file.addEventListener("change", async (e) => {
                 let content = await excelReader(e.target.files[0]).then(
                   (content) => {
-                    
                     return content;
                   }
                 );
@@ -211,7 +212,30 @@ function AddInventoryForm({ ...porps }) {
         <thead className="grid grid-cols-1  ">
           <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
             <th>Código</th>
-            <th>Nombre</th>
+            <th>
+              {" "}
+              <select
+                onChange={(e) => {
+                  if (e.target.value === "codigo") {
+                    setInventory(filtredInventory);
+                    return;
+                  }
+                  setInventory(
+                    filtredInventory.filter(
+                      (item) => item.nombre === e.target.value
+                    )
+                  );
+                }}
+                className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              >
+                <option value="codigo">Nombre</option>
+                {filtredInventory.map((item) => (
+                  <option value={item.nombre} key={item.id}>
+                    {item.nombre}
+                  </option>
+                ))}
+              </select>
+            </th>
             <th>Cantidad</th>
             <th>Extraido por</th>
             <th>Fecha de ingreso</th>
