@@ -358,13 +358,14 @@ function MisReportes() {
               onSubmit={(e) => {
                 e.preventDefault();
                 let reportname = reporteEdit.id;
-                const urlImage =
+                
+                if (e.target[1].files[0] !== undefined) {
+                  const urlImage =
                   user.user +
                   "/" +
                   reportname +
                   "/" +
                   e.target[1].files[0].name;
-                if (e.target[1].files[0] !== undefined && e.target[1].files[0] !== null) {
                   uploadFile(e.target[1].files[0], urlImage).then(() => {
                     const report = {
                       actividad: e.target[0].value,
