@@ -364,7 +364,32 @@ function MisReportes() {
                   reportname +
                   "/" +
                   e.target[1].files[0].name;
-                uploadFile(e.target[1].files[0], urlImage).then(() => {
+                if (e.target[1].files[0]) {
+                  uploadFile(e.target[1].files[0], urlImage).then(() => {
+                    const report = {
+                      actividad: e.target[0].value,
+                      hora: new Date().toLocaleTimeString("en-US", {
+                        hour12: true,
+                        hour: "numeric",
+                        minute: "numeric",
+                      }),
+                      imagenurl: urlImage,
+                    };
+                    updateDoc(
+                      doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+                      {
+                        ...reporteEdit.data(),
+                        lista: arrayUnion(report),
+                        estado: false,
+                      }
+                    ).then(() => {
+                      alert("Se ha agregado la actividad correctamente");
+                      e.target[0].value = "";
+                      e.target[1].value = "";
+                      getListaSubTareas();
+                    });
+                  });
+                }else{
                   const report = {
                     actividad: e.target[0].value,
                     hora: new Date().toLocaleTimeString("en-US", {
@@ -372,7 +397,7 @@ function MisReportes() {
                       hour: "numeric",
                       minute: "numeric",
                     }),
-                    imagenurl: urlImage,
+                    imagenurl: "",
                   };
 
                   updateDoc(
@@ -388,29 +413,44 @@ function MisReportes() {
                     e.target[1].value = "";
                     getListaSubTareas();
                   });
-                });
-                // e.preventDefault();
-                // let hora = new Date();
+                }
 
-                // const actividad =
-                //   e.target[0].value +
-                //   " - " +
-                //   hora.toLocaleTimeString("en-US", {
-                //     hour12: true,
-                //     hour: "numeric",
-                //     minute: "numeric",
-                //   });
-                // setListaSubTareas([...listaSubTareas, actividad]);
-                // localStorage.setItem(
-                //   "listaSubTareas",
-                //   JSON.stringify(listaSubTareas)
-                // );
-                // localStorage.setItem(
-                //   "reporteEdit",
-                //   JSON.stringify(listaSubTareas)
-                // );
-                // e.target[0].value = "";
+                updateDoc(
+                  doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
+                  {
+                    ...reporteEdit.data(),
+                    lista: arrayUnion(report),
+                    estado: false,
+                  }
+                ).then(() => {
+                  alert("Se ha agregado la actividad correctamente");
+                  e.target[0].value = "";
+                  e.target[1].value = "";
+                  getListaSubTareas();
+                });
               }}
+
+              // e.preventDefault();
+              // let hora = new Date();
+
+              // const actividad =
+              //   e.target[0].value +
+              //   " - " +
+              //   hora.toLocaleTimeString("en-US", {
+              //     hour12: true,
+              //     hour: "numeric",
+              //     minute: "numeric",
+              //   });
+              // setListaSubTareas([...listaSubTareas, actividad]);
+              // localStorage.setItem(
+              //   "listaSubTareas",
+              //   JSON.stringify(listaSubTareas)
+              // );
+              // localStorage.setItem(
+              //   "reporteEdit",
+              //   JSON.stringify(listaSubTareas)
+              // );
+              // e.target[0].value = "";
             >
               <h1 className="text-xl font-bold mb-5 mt-5">
                 Complete el reporte de {reporteEdit.id}
