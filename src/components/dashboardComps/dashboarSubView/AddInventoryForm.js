@@ -211,12 +211,32 @@ function AddInventoryForm({ ...porps }) {
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
           <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
-            <th>Código</th>
+            <th><select
+                onChange={(e) => {
+                  if (e.target.value === "Código") {
+                    setInventory(filtredInventory);
+                    return;
+                  }
+                  setInventory(
+                    filtredInventory.filter(
+                      (item) => item.codigo === e.target.value
+                    )
+                  );
+                }}
+                className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              >
+                <option value="Código">Código</option>
+                {filtredInventory.map((item) => (
+                  <option value={item.nombre} key={item.id}>
+                    {item.nombre}
+                  </option>
+                ))}
+              </select></th>
             <th>
               {" "}
               <select
                 onChange={(e) => {
-                  if (e.target.value === "codigo") {
+                  if (e.target.value === "Nombre") {
                     setInventory(filtredInventory);
                     return;
                   }
@@ -228,7 +248,7 @@ function AddInventoryForm({ ...porps }) {
                 }}
                 className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
               >
-                <option value="codigo">Nombre</option>
+                <option value="Nombre">Nombre</option>
                 {filtredInventory.map((item) => (
                   <option value={item.nombre} key={item.id}>
                     {item.nombre}
