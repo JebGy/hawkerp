@@ -248,8 +248,8 @@ function AddInventoryForm({ ...porps }) {
               key={item.id}
               className={
                 nowEdit && currentItem && currentItem.id === item.id
-                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-100"
-                  : "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2 "
+                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-100 h-fit"
+                  : "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
               }
             >
               <td>{item.codigo}</td>
