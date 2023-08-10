@@ -422,7 +422,7 @@ function MisReportes() {
                   className="w-5/6 h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
                 <label>Imagen de actividad:</label>
-                <input type="file" required className="w-5/6" />
+                <input type="file" className="w-5/6" />
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 w-5/6 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
