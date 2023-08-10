@@ -15,6 +15,7 @@ function InternFrame({ setReload, reload }) {
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showSelecctor, setShowSelector] = useState(false);
   const db = getFirestore(app);
 
   const updateArea = (n) => {
@@ -43,12 +44,33 @@ function InternFrame({ setReload, reload }) {
       {isLoaded ? (
         <div className="flex flex-flex items-center justify-between p-5 row-span-1">
           <h1 className="text-lg font-bold ">Bienvenido {_user.user}</h1>
-          <div className="grid grid-flow-col gap-5 items-center">
+          <div className="grid grid-flow-col gap-5 items-center ">
+            <button
+              onClick={() => {
+                showSelecctor ? setShowSelector(false) : setShowSelector(true);
+              }}
+              className="p-2 rounded-xl border-purple-500 border-2  lg:hidden md:hidden active:scale-95 transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 text-purple-600"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                />
+              </svg>
+            </button>
             <button
               onClick={() => {
                 showForm ? setShowForm(false) : setShowForm(true);
               }}
-              className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+              className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all hidden lg:block md:block"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +91,7 @@ function InternFrame({ setReload, reload }) {
               onClick={() => {
                 window.location.href = "/trabajador";
               }}
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded hidden lg:block md:block"
             >
               Mi perfil
             </button>
@@ -82,9 +104,42 @@ function InternFrame({ setReload, reload }) {
             >
               Cerrar sesión
             </button>
+            {showSelecctor ? (
+              <div className="absolute w-fit flex flex-col p-5 gap-5 bg-white shadow-xl shadow-rose-500 top-0 mt-20 rounded-lg lg:hidden md:hidden">
+                <button
+                  onClick={() => {
+                    showForm ? setShowForm(false) : setShowForm(true);
+                  }}
+                  className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-purple-600"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => {
+                    window.location.href = "/trabajador";
+                  }}
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded "
+                >
+                  Mi perfil
+                </button>
+              </div>
+            ) : null}
           </div>
           {showForm ? (
-            <div className="absolute z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center">
+            <div className="absolute z-50 top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center">
               <button
                 onClick={() => {
                   setShowForm(false);
@@ -107,7 +162,7 @@ function InternFrame({ setReload, reload }) {
                 </svg>
               </button>
 
-              <div className="bg-white rounded-xl p-5 w-96 ">
+              <div className="bg-white rounded-xl p-5 w-5/6 lg:w-96 ">
                 <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
                   Enviar Mensaje
                 </h1>

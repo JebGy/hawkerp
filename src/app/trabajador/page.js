@@ -60,7 +60,7 @@ function page() {
       <div className="flex flex-col justify-center w-full">
         <header className="flex flex-row justify-between items-center">
           <h2 className="font-bold text-lg">
-            Bienvenido, {user ? user.user : null}
+            Bienvenido, {user ? user.user.split(" ")[0] : null}
           </h2>
           <div className="flex flex-row gap-5 items-center">
             {newMessages > 0 ? (
@@ -106,7 +106,7 @@ function page() {
             </button>
           </div>
           {openNotify ? (
-            <div className="absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5">
+            <div className="absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-5/6 lg:w-96 h-96 bg-neutral-100 shadow-xl rounded-xl shadow-purple-500 p-5">
               <h3 className="font-bold text-xl text-purple-600">
                 Notificaciones
               </h3>

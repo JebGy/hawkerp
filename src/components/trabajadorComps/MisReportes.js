@@ -416,28 +416,6 @@ function MisReportes() {
                   });
                 }
               }}
-
-              // e.preventDefault();
-              // let hora = new Date();
-
-              // const actividad =
-              //   e.target[0].value +
-              //   " - " +
-              //   hora.toLocaleTimeString("en-US", {
-              //     hour12: true,
-              //     hour: "numeric",
-              //     minute: "numeric",
-              //   });
-              // setListaSubTareas([...listaSubTareas, actividad]);
-              // localStorage.setItem(
-              //   "listaSubTareas",
-              //   JSON.stringify(listaSubTareas)
-              // );
-              // localStorage.setItem(
-              //   "reporteEdit",
-              //   JSON.stringify(listaSubTareas)
-              // );
-              // e.target[0].value = "";
             >
               <h1 className="text-xl font-bold mb-5 mt-5">
                 Complete el reporte de {reporteEdit.id}
