@@ -414,20 +414,6 @@ function MisReportes() {
                     getListaSubTareas();
                   });
                 }
-
-                updateDoc(
-                  doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
-                  {
-                    ...reporteEdit.data(),
-                    lista: arrayUnion(report),
-                    estado: false,
-                  }
-                ).then(() => {
-                  alert("Se ha agregado la actividad correctamente");
-                  e.target[0].value = "";
-                  e.target[1].value = "";
-                  getListaSubTareas();
-                });
               }}
 
               // e.preventDefault();
