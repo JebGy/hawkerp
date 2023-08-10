@@ -165,14 +165,17 @@ function AddInventoryForm({ ...porps }) {
               file.addEventListener("change", async (e) => {
                 let content = await excelReader(e.target.files[0]).then(
                   (content) => {
+                    
                     return content;
                   }
                 );
                 content.map((item) => {
                   if (item) {
+                    console.log(item);
                     const inventoryRef = doc(db, "inventario", item.id);
                     const inventoryData = {
                       codigo: item.codigo,
+                      nombre: item.nombre,
                       cantidad: item.cantidad,
                       extraidoPor: item.extraidoPor,
                       fechaDeIngreso: item.fechaIngreso,
