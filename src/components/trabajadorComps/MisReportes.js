@@ -459,7 +459,7 @@ function MisReportes() {
               </div>
             </form>
 
-            <div className="flex flex-col bg-white rounded-b-xl  p-7 max-h-64 lg:w-2/6 md:w-3/6 overflow-y-auto">
+            <div className="flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto">
               {loadedLista && listaSubTareas
                 ? listaSubTareas.map((subTarea, index) => {
                     return (
