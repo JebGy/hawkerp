@@ -227,8 +227,8 @@ function AddInventoryForm({ ...porps }) {
               >
                 <option value="Código">Código</option>
                 {filtredInventory.map((item) => (
-                  <option value={item.nombre} key={item.id}>
-                    {item.nombre}
+                  <option value={item.codigo} key={item.id}>
+                    {item.codigo}
                   </option>
                 ))}
               </select></th>
