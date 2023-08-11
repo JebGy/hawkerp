@@ -10,17 +10,14 @@ import {
 import React, { useEffect } from "react";
 import BarSideButtons from "./BarSideButtons";
 
-function DashboardBarSide() {
+function DashboardBarSide({
+  theme,
+  setTheme,
+}) {
   const db = getFirestore(app);
   const [_user, _setUser] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
-  const [theme, setTheme] = React.useState(() => {
-    if (localStorage.getItem("theme") === "dark") {
-      return "dark";
-    } else {
-      return "light";
-    }
-  });
+
 
   return (
     <div

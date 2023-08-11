@@ -94,7 +94,7 @@ function AddAreaForm({ setReload, reload }) {
   return (
     <div className="grid grid-cols-4 w-full row-span-5 transition-all">
       <form
-        className="flex flex-col p-5 transition-all h-fit  w-full col-span-full lg:col-span-1  lg:w-full lg:flex lg:flex-col  lg:gap-5"
+        className="flex flex-col  p-5 transition-all h-fit  w-full col-span-full lg:col-span-1  lg:w-full lg:flex lg:flex-col  lg:gap-5"
         onSubmit={(e) => {
           e.preventDefault();
           addArea(e);
@@ -128,8 +128,8 @@ function AddAreaForm({ setReload, reload }) {
             placeholder="Nombre del Área"
             className={
               error
-                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
-                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
+                ? "mb-5 text-black w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5 text-black w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -154,7 +154,7 @@ function AddAreaForm({ setReload, reload }) {
                   }
             }
             placeholder="Población"
-            className="mb-5 w-full p-2 outline-none border-2 border-gray-300 rounded-lg focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full text-black p-2 outline-none border-2 border-gray-300 rounded-lg focus:border-b-2 focus:border-purple-500"
           />
 
           <button
@@ -205,8 +205,8 @@ function AddAreaForm({ setReload, reload }) {
                   <div
                     className={
                       nowEditing && areaToEdit.id === area.id
-                        ? "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
-                        : "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl "
+                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
+                        : "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     }
                     key={area.id}
                   >

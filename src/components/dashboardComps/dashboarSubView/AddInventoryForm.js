@@ -110,7 +110,7 @@ function AddInventoryForm({ ...porps }) {
           onSubmit={(e) => {
             addInventory(e);
           }}
-          className="flex flex-col w-full p-5 gap-2"
+          className="flex flex-col w-full p-5 gap-5"
         >
           <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
             Agregar producto
@@ -123,7 +123,7 @@ function AddInventoryForm({ ...porps }) {
                 ? setCurrentItem({ ...currentItem, id: e.target.value })
                 : setNombre(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
             type="text"
             placeholder="Nombre del producto"
           />
@@ -135,7 +135,7 @@ function AddInventoryForm({ ...porps }) {
                 ? setCurrentItem({ ...currentItem, codigo: e.target.value })
                 : setCodigo(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
             type="text"
             placeholder="Código del producto"
           />
@@ -150,7 +150,7 @@ function AddInventoryForm({ ...porps }) {
                   })
                 : setCantidad(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
             type="number"
             placeholder="Cantidad del producto"
           />
@@ -225,9 +225,9 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
               >
-                <option value="Código">Código</option>
+                <option className="text-black" value="Código">Código</option>
                 {
                   //remove duplicates
                   filtredInventory
@@ -236,7 +236,7 @@ function AddInventoryForm({ ...porps }) {
                       (value, index, self) => self.indexOf(value) === index
                     )
                     .map((item) => (
-                      <option value={item} key={item}>
+                      <option className="text-black" value={item} key={item}>
                         {item}
                       </option>
                     ))
@@ -257,11 +257,11 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
               >
-                <option value="Nombre">Nombre</option>
+                <option className="text-black" value="Nombre">Nombre</option>
                 {filtredInventory.map((item) => (
-                  <option value={item.nombre} key={item.id}>
+                  <option className="text-black" value={item.nombre} key={item.id}>
                     {item.nombre}
                   </option>
                 ))}
@@ -279,7 +279,7 @@ function AddInventoryForm({ ...porps }) {
               key={item.id}
               className={
                 nowEdit && currentItem && currentItem.id === item.id
-                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-100 h-fit"
+                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-500 bg-opacity-20 h-fit"
                   : "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
               }
             >
@@ -426,7 +426,11 @@ function AddInventoryForm({ ...porps }) {
                 console.log("Document successfully written!");
               });
             }}
-            className="flex flex-col p-5 gap-5 bg-white rounded-lg shadow-xl"
+            className={
+              localStorage.getItem("theme") === "dark"
+                ? "flex flex-col p-5 gap-5 bg-zinc-900 rounded-xl shadow-lg shadow-slate-700"
+                : "flex flex-col p-5 gap-5 bg-white rounded-xl shadow-lg shadow-slate-700"
+            }
           >
             <div className="flex flex-row justify-between items-center">
               <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
@@ -459,17 +463,17 @@ function AddInventoryForm({ ...porps }) {
                 console.log(e.target.value);
               }}
               value={currentItem.id}
-              className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-blue-400"
             >
               {inventory.map((item) => (
-                <option key={item.id} value={item.nombre}>
-                  {item.id}
+                <option className="text-black" key={item.id} value={item.id}>
+                  {item.nombre}
                 </option>
               ))}
             </select>
             <input
               required
-              className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              className="border-2 border-gray-300 text-black rounded-lg p-2 focus:outline-none focus:border-blue-400"
               type="number"
               placeholder="Cantidad del producto"
               onChange={(e) => {
@@ -478,9 +482,9 @@ function AddInventoryForm({ ...porps }) {
                 }
               }}
             />
-            <select className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400">
+            <select className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-blue-400">
               {trabajadores.map((trabajador) => (
-                <option key={trabajador.id} value={trabajador.id}>
+                <option className="text-black" key={trabajador.id} value={trabajador.id}>
                   {trabajador.id}
                 </option>
               ))}

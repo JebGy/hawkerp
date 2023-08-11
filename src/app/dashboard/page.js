@@ -1,13 +1,12 @@
-import DashboardBarSide from "@/components/dashboardComps/DashboardBarSide";
-import InternFrame from "@/components/dashboardComps/InternFrame";
+
+import Wrapper from "./Wrapper";
 
 export default function page() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
   return (
-    <div className="grid grid-cols-7">
-      <DashboardBarSide />
-      <InternFrame />
+    <div>
+      <Wrapper />
     </div>
   );
 }

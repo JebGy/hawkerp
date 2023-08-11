@@ -77,14 +77,16 @@ function AddTaskForm({ ...porps }) {
             type="text"
             required
             placeholder="Nombre de la tarea"
-            className="outline-none border-2 border-gray-300 rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+            className="outline-none border-2 border-gray-300 text-black rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
           />
-          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer">
+          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer bg-transparent">
             {isLoaded ? (
               areas.map((area) => {
                 (area.data()._areaName);
                 return (
-                  <option value={area.id} key={area.id}>
+                  <option style={
+                    {color: "black"}
+                  } value={area.id} key={area.id}>
                     {area.data()._areaName}
                   </option>
                 );
@@ -137,7 +139,7 @@ function AddTaskForm({ ...porps }) {
               areas.map((area) => {
                 return (
                   <div
-                    className="w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl "
+                    className="w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     key={area.id}
                   >
                     <div className="flex flex-row justify-between items-center w-full">

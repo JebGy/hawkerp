@@ -145,10 +145,10 @@ export default function AddTrabajadorForm() {
                       set_trabajadorLastName(e.target.value);
                     }
               }
-              className="outline-none mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+              className="outline-none mb-5 p-2 w-full bg-transparent focus:border-b-2 focus:border-purple-500 transition-all"
             >
-              <option value={"1"}>Autenticado</option>
-              <option value={"0"}>No Autenticado</option>
+              <option className="text-black" value={"1"}>Autenticado</option>
+              <option className="text-black" value={"0"}>No Autenticado</option>
             </select>
 
             <select
@@ -165,11 +165,11 @@ export default function AddTrabajadorForm() {
                       set_trabajadorArea(e.target.value);
                     }
               }
-              className="underline underline-offset-4 p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer"
+              className="underline underline-offset-4 bg-transparent p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer"
             >
               {isLoaded ? (
                 areas.map((area) => {
-                  return <option key={area.id}>{area.data()._areaName}</option>;
+                  return <option className="text-black" key={area.id}>{area.data()._areaName}</option>;
                 })
               ) : (
                 <option>Cargando...</option>
@@ -188,13 +188,13 @@ export default function AddTrabajadorForm() {
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
         <thead className="grid grid-cols-1 ">
           <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
-            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+            <th className="p-2 text-xs font-semibold text-center">
               Usuario
             </th>
-            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+            <th className="p-2 text-xs font-semibold text-center">
               Auth
             </th>
-            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+            <th className="p-2 text-xs font-semibold text-center">
               <select
                 onChange={(e) => {
                   if (e.target.value === "Todas las áreas") {
@@ -207,11 +207,11 @@ export default function AddTrabajadorForm() {
                     })
                   );
                 }}
-                className="rounded-lg p-1 border-2 border-purple-500 w-full focus:border-purple-500 transition-all"
+                className="rounded-lg p-1 border-2 border-purple-500 bg-transparent w-full focus:border-purple-500 transition-all"
               >
-                <option>Todas las áreas</option>
+                <option className="text-black">Todas las áreas</option>
                 {areas.map((area) => {
-                  return <option key={area.id}>{area.data()._areaName}</option>;
+                  return <option className="text-black" key={area.id}>{area.data()._areaName}</option>;
                 })}
               </select>
               {/* <button
@@ -228,10 +228,10 @@ export default function AddTrabajadorForm() {
                 Área
               </button> */}
             </th>
-            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+            <th className="p-2 text-xs font-semibold text-center">
               Detalles
             </th>
-            <th className="p-2 text-xs font-semibold text-center text-zinc-900">
+            <th className="p-2 text-xs font-semibold text-center">
               Acciones
             </th>
           </tr>
@@ -244,11 +244,11 @@ export default function AddTrabajadorForm() {
                   key={trabajador.id}
                   className={
                     trabajadorEdit.id === trabajador.id && nowEdit
-                      ? "border-b-2 border-b-purple-500 bg-purple-200 lg:grid lg:grid-cols-5 gap-5 h-fit"
-                      : "border-b-2 border-b-purple-500 lg:grid lg:grid-cols-5 gap-5 h-fit"
+                      ? "border-b-2 border-b-purple-500 items-center bg-purple-600 bg-opacity-20 lg:grid lg:grid-cols-5 gap-5 h-fit"
+                      : "border-b-2 border-b-purple-500 items-center lg:grid lg:grid-cols-5 gap-5 h-fit"
                   }
                 >
-                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                  <td className="p-2 text-xs font-semibold text-center ">
                     {trabajador.data().user}
                   </td>
                   <td
@@ -260,10 +260,10 @@ export default function AddTrabajadorForm() {
                   >
                     {trabajador.data().auth ? "Autenticado" : "No Autenticado"}
                   </td>
-                  <td className="p-2 text-xs font-semibold text-center text-zinc-900">
+                  <td className="p-2 text-xs font-semibold text-center ">
                     {trabajador.data().area}
                   </td>
-                  <td className="text-xs font-semibold text-center text-zinc-900">
+                  <td className="text-xs font-semibold text-center ">
                     <button
                       className="border-2 rounded-lg border-purple-500 p-2"
                       onClick={() => {
@@ -296,7 +296,7 @@ export default function AddTrabajadorForm() {
                       </svg>
                     </button>
                   </td>
-                  <td className="p-2 text-xs font-semibold text-center text-zinc-900 flex flex-row gap-3 justify-center">
+                  <td className="p-2 text-xs font-semibold text-center  flex flex-row gap-3 justify-center">
                     <button
                       className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                       onClick={() => {

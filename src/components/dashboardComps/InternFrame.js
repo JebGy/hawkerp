@@ -16,8 +16,9 @@ import {
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
 import AddInventoryForm from "./dashboarSubView/AddInventoryForm";
+import ThemeHook from "@/Hooks/ThemeHook";
 
-function InternFrame({ setReload, reload }) {
+function InternFrame({ setReload, reload, theme, setTheme }) {
   const [currentView, setCurrentView] = useState(0);
   const [_user, _setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,8 +27,11 @@ function InternFrame({ setReload, reload }) {
   const db = getFirestore(app);
 
   const updateArea = (n) => {
+    
     setCurrentView(n);
   };
+
+  
 
   useEffect(() => {
     const currentDay = new Date().getDay();
@@ -62,9 +66,15 @@ function InternFrame({ setReload, reload }) {
   }, []);
 
   return (
-    <div className="lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7">
+    <div
+      className={
+        theme === "dark"
+          ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-zinc-900 text-white"
+          : "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7"
+      }
+    >
       {isLoaded ? (
-        <div className="flex flex-flex items-center justify-between p-5 row-span-1 lg:hidden bg-white ">
+        <div className="flex flex-flex items-center justify-between p-5 row-span-1 lg:hidden  ">
           <h1 className="text-lg font-bold ">Bienvenido {_user.user}</h1>
           <div className="grid grid-flow-col gap-5 items-center ">
             <button

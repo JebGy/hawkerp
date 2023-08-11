@@ -100,7 +100,7 @@ function AddTrabajoForm({ setReload, reload }) {
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-3">
           Agregar Trabajo
         </h2>
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center ">
           <input
             type="text"
             required
@@ -122,8 +122,8 @@ function AddTrabajoForm({ setReload, reload }) {
             placeholder="Encargado por"
             className={
               error
-                ? "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
-                : "mb-5  w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
+                ? "mb-5  w-full p-2 outline-none text-black focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5  w-full p-2 outline-none text-black focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -143,7 +143,7 @@ function AddTrabajoForm({ setReload, reload }) {
                   }
             }
             placeholder="Fecha de entrega"
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
           />
           <textarea
             placeholder="Descripción . . ."
@@ -161,16 +161,16 @@ function AddTrabajoForm({ setReload, reload }) {
                     set_trabajoDescripcion(e.target.value);
                   }
             }
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
           />
           <select
-            className="mb-5 w-full p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full bg-transparent  p-2 outline-none focus:border-b-2 focus:border-purple-500"
             name="estado"
             id="estado"
           >
-            <option value="Pendiente">Pendiente</option>
-            <option value="En proceso">En proceso</option>
-            <option value="Terminado">Terminado</option>
+            <option className="text-black" value="Pendiente">Pendiente</option>
+            <option className="text-black" value="En proceso">En proceso</option>
+            <option className="text-black" value="Terminado">Terminado</option>
           </select>
 
           <button
@@ -221,8 +221,8 @@ function AddTrabajoForm({ setReload, reload }) {
                   <div
                     className={
                       nowEditing && trabajoToEdit.id === trabajo.id
-                        ? "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
-                        : "w-full flex flex-col justify-start items-start p-3 bg-neutral-100 shadow-lg mb-5 rounded-xl "
+                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
+                        : "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     }
                     key={trabajo.id}
                   >
