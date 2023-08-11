@@ -20,10 +20,12 @@ function page() {
   const [mensajes, setMensajes] = useState([]);
   const [newMessages, setNewMessages] = useState(0);
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [theme, setTheme] = useState("light");
   const db = getFirestore(app);
 
   React.useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
+    setTheme(localStorage.getItem("theme"));
     if (user === null) {
       window.location.href = "/";
       return;
@@ -59,7 +61,7 @@ function page() {
   return (
     <div
       className={
-        localStorage.getItem("theme") === "dark"
+        theme === "dark"
           ? "bg-zinc-900 p-5 h-screen w-screen flex flex-col justify-between items-center"
           : "p-5 h-screen w-screen flex flex-col justify-between items-center"
       }
@@ -68,7 +70,7 @@ function page() {
         <header className="flex flex-row justify-between items-center">
           <h2
             className={
-              localStorage.getItem("theme") === "dark"
+              theme === "dark"
                 ? "font-bold text-lg text-white"
                 : "font-bold text-lg"
             }
@@ -104,11 +106,13 @@ function page() {
             </button>
           </div>
           {toggleMenu ? (
-            <div className={
-              localStorage.getItem("theme") === "dark"
-                ?"absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-zinc-900 p-5 rounded-lg shadow-lg shadow-rose-600"
-                :"absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-white p-5 rounded-lg shadow-lg shadow-rose-600"
-            }>
+            <div
+              className={
+                theme === "dark"
+                  ? "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-zinc-900 p-5 rounded-lg shadow-lg shadow-rose-600"
+                  : "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-white p-5 rounded-lg shadow-lg shadow-rose-600"
+              }
+            >
               <button
                 onClick={() => {
                   setOpenNotify(!openNotify);
@@ -142,21 +146,11 @@ function page() {
                 </svg>
               </button>
               <button
-                onClick={
-                  localStorage.getItem("theme") === "dark"
-                    ? () => {
-                        localStorage.setItem("theme", "light");
-                        window.location.reload();
-                      }
-                    : () => {
-                        localStorage.setItem("theme", "dark");
-                        window.location.reload();
-                      }
-                }
+                onClick={setTheme(theme === "dark" ? "light" : "dark")}
                 className="
               flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
               >
-                {localStorage.getItem("theme") === "dark" ? (
+                {theme === "dark" ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -202,7 +196,7 @@ function page() {
           {openNotify ? (
             <div
               className={
-                localStorage.getItem("theme") === "dark"
+                theme === "dark"
                   ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-zinc-900 text-white shadow-xl rounded-xl shadow-purple-500 p-5"
                   : "absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-5/6 lg:w-96 h-96 bg-zinc-100 shadow-xl rounded-xl shadow-purple-500 p-5"
               }
