@@ -171,7 +171,11 @@ function MisReportes() {
   };
 
   return (
-    <div>
+    <div className={
+      localStorage.getItem("theme") === "dark"
+        ? "bg-zinc-900 text-white w-full h-screen"
+        : "bg-gray-100 text-gray-900"
+    }>
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
@@ -204,7 +208,11 @@ function MisReportes() {
               return (
                 <div
                   key={reporte.id}
-                  className="flex flex-col w-full rounded-lg bg-neutral-100 shadow-xl"
+                  className={
+                    localStorage.getItem("theme") === "dark"
+                      ? "bg-zinc-800 text-white w-full h-full rounded-lg shadow-lg"
+                      : "bg-white text-gray-900 w-full h-full rounded-lg shadow-lg"
+                  }
                 >
                   <div className="font-bold text-x items-center  p-5 rounded-t-lg flex flex-row justify-between">
                     <p>
@@ -354,7 +362,11 @@ function MisReportes() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
+              className={
+                localStorage.getItem("theme") === "dark"
+                  ?"flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-zinc-900 p-5"
+                  :"flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
+              }
               onSubmit={(e) => {
                 e.preventDefault();
                 setSend(true);
@@ -422,11 +434,11 @@ function MisReportes() {
               <h1 className="text-xl font-bold mb-5 mt-5">
                 Complete el reporte de {reporteEdit.id}
               </h1>
-              <div className="flex flex-col justify-between items-center  gap-5 px-5">
+              <div className="flex flex-col justify-between items-center  gap-5 px-2">
                 <input
                   type="text"
                   placeholder="Actividad realizada"
-                  className="w-5/6 h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-6/6 h-10 px-2 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
                 <label>Imagen de actividad:</label>
                 <input type="file" className="w-5/6" />
@@ -440,7 +452,11 @@ function MisReportes() {
               </div>
             </form>
 
-            <div className="flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto">
+            <div className={
+                localStorage.getItem("theme") === "dark"
+                ?"flex flex-col bg-zinc-900 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+                :"flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+            }>
               {loadedLista && listaSubTareas
                 ? listaSubTareas.map((subTarea, index) => {
                     return (

@@ -40,7 +40,11 @@ function MisTareasForm() {
     });
   };
   return (
-    <div>
+    <div className={
+      localStorage.getItem("theme") === "dark"
+        ? "bg-zinc-900 text-white h-screen"
+        : "bg-gray-100 text-gray-900 h-screen"
+    }>
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
@@ -199,7 +203,11 @@ function MisTareasForm() {
 
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
-              className="flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
+              className={
+                localStorage.getItem("theme") === "dark"
+                ?"flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-zinc-900 px-10"
+                :"flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
+              }
               onSubmit={async (e) => {
                 e.preventDefault();
                 const nombre = e.target[0].value;

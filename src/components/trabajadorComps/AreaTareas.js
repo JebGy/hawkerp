@@ -43,7 +43,11 @@ function AreaTareas() {
     });
   };
   return (
-    <div>
+    <div className={
+      localStorage.getItem("theme") === "dark"
+        ? "bg-zinc-900 text-white h-screen"
+        : "bg-gray-100 text-gray-900 h-screen"
+    }>
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
