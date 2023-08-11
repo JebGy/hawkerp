@@ -10,14 +10,10 @@ import {
 import React, { useEffect } from "react";
 import BarSideButtons from "./BarSideButtons";
 
-function DashboardBarSide({
-  theme,
-  setTheme,
-}) {
+function DashboardBarSide({ theme, setTheme }) {
   const db = getFirestore(app);
   const [_user, _setUser] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
-
 
   return (
     <div
@@ -161,7 +157,13 @@ function DashboardBarSide({
             </svg>
           </button>
 
-          <div className="bg-zinc-900 rounded-xl p-5 w-5/6 lg:w-96 ">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-zinc-900 rounded-xl p-5 w-5/6 lg:w-96 "
+                : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
+            }
+          >
             <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
               Enviar Mensaje
             </h1>
@@ -182,11 +184,11 @@ function DashboardBarSide({
               <label className="text-lg font-bold">Título</label>
               <input
                 type="text"
-                className="border-2 border-gray-300 rounded-xl p-2 bg-zinc-900"
+                className="border-2 border-gray-300 rounded-xl p-2 text-black"
               />
               <label className="text-lg font-bold">Mensaje</label>
               <textarea
-                className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none bg-zinc-900"
+                className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none text-black"
                 rows="2"
                 cols="50"
               />
