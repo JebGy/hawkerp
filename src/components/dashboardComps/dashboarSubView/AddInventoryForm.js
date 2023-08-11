@@ -12,6 +12,7 @@ import {
   updateDoc,
   deleteDoc,
   onSnapshot,
+  addDoc,
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
 import { excelReader } from "@/app/service/ExcelReader";
@@ -80,7 +81,7 @@ function AddInventoryForm({ ...porps }) {
       return;
     }
 
-    const inventoryRef = doc(db, "inventario", e.target[0].value);
+    const inventoryRef = collection(db, "inventario");
     const inventoryData = {
       nombre: e.target[0].value,
       codigo: e.target[1].value,
@@ -88,7 +89,7 @@ function AddInventoryForm({ ...porps }) {
       extraidoPor: "no",
       fechaDeIngreso: new Date().toLocaleDateString(),
     };
-    await setDoc(inventoryRef, inventoryData).then(() => {
+    await addDoc(inventoryRef, inventoryData).then(() => {
       console.log("Document successfully written!");
     });
   };
@@ -173,7 +174,7 @@ function AddInventoryForm({ ...porps }) {
                 content.map((item) => {
                   if (item) {
                     console.log(item);
-                    const inventoryRef = doc(db, "inventario", item.id);
+                    const inventoryRef = collection(db, "inventario");
                     const inventoryData = {
                       codigo: item.codigo,
                       nombre: item.nombre,
@@ -181,7 +182,7 @@ function AddInventoryForm({ ...porps }) {
                       extraidoPor: item.extraidoPor,
                       fechaDeIngreso: item.fechaIngreso,
                     };
-                    setDoc(inventoryRef, inventoryData).then(() => {
+                    addDoc(inventoryRef, inventoryData).then(() => {
                       console.log("Document successfully written!");
                     });
                   }
@@ -211,7 +212,8 @@ function AddInventoryForm({ ...porps }) {
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
           <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
-            <th><select
+            <th>
+              <select
                 onChange={(e) => {
                   if (e.target.value === "Código") {
                     setInventory(filtredInventory);
@@ -226,12 +228,21 @@ function AddInventoryForm({ ...porps }) {
                 className="border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400"
               >
                 <option value="Código">Código</option>
-                {filtredInventory.map((item) => (
-                  <option value={item.codigo} key={item.id}>
-                    {item.codigo}
-                  </option>
-                ))}
-              </select></th>
+                {
+                  //remove duplicates
+                  filtredInventory
+                    .map((item) => item.codigo)
+                    .filter(
+                      (value, index, self) => self.indexOf(value) === index
+                    )
+                    .map((item) => (
+                      <option value={item} key={item}>
+                        {item}
+                      </option>
+                    ))
+                }
+              </select>
+            </th>
             <th>
               {" "}
               <select
