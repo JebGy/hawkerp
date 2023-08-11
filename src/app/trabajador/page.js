@@ -25,7 +25,9 @@ function page() {
 
   React.useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
-    setTheme(localStorage.getItem("theme")? localStorage.getItem("theme") : "light");
+    setTheme(
+      localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    );
     if (user === null) {
       window.location.href = "/";
       return;
@@ -146,7 +148,13 @@ function page() {
                 </svg>
               </button>
               <button
-                onClick={setTheme(theme === "dark" ? "light" : "dark")}
+                onClick={() => {
+                  setTheme(theme === "dark" ? "light" : "dark");
+                  localStorage.setItem(
+                    "theme",
+                    theme === "dark" ? "light" : "dark"
+                  );
+                }}
                 className="
               flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
               >
