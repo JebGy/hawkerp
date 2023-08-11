@@ -112,7 +112,7 @@ export default function AddTrabajadorForm() {
   };
 
   return (
-    <div className="grid grid-cols-4 p-5 row-span-5  w-full h-full">
+    <div className="grid grid-cols-4 mt-5 p-5 row-span-5  w-full h-full">
       <div className="col-span-full lg:col-span-1 h-full">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Editar usuarios

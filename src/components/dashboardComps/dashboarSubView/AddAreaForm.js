@@ -92,7 +92,7 @@ function AddAreaForm({ setReload, reload }) {
   };
 
   return (
-    <div className="grid grid-cols-4 w-full row-span-5 transition-all">
+    <div className="grid grid-cols-4 mt-5 w-full row-span-5 transition-all">
       <form
         className="flex flex-col  p-5 transition-all h-fit  w-full col-span-full lg:col-span-1  lg:w-full lg:flex lg:flex-col  lg:gap-5"
         onSubmit={(e) => {
