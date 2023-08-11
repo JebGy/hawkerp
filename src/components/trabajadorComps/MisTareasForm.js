@@ -24,7 +24,7 @@ function MisTareasForm() {
 
   useEffect(() => {
     const _user = JSON.parse(sessionStorage.getItem("user"));
-    setTheme(localStorage.getItem("theme"));
+    setTheme(localStorage.getItem("theme")? localStorage.getItem("theme") : "light");
     if (_user === null) {
       window.location.href = "/";
       return;
