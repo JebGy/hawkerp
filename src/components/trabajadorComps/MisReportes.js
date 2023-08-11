@@ -220,7 +220,7 @@ function MisReportes() {
                 <div
                   key={reporte.id}
                   className={
-                    theme.getItem("theme") === "dark"
+                    theme === "dark"
                       ? "bg-zinc-800 text-white w-full h-full rounded-lg shadow-lg"
                       : "bg-white text-gray-900 w-full h-full rounded-lg shadow-lg"
                   }
