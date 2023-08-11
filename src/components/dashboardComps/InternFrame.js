@@ -148,8 +148,11 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                 </button>
                 <button
                   onClick={() => {
-                    theme === "dark" ? setTheme("dark") : setTheme("light");
-                    localStorage.setItem("theme", theme);
+                    theme === "dark" ? setTheme("light") : setTheme("dark");
+                    localStorage.setItem(
+                      "theme",
+                      theme === "dark" ? "light" : "dark"
+                    );
                   }}
                   className="flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
                 >
