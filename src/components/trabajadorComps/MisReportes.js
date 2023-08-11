@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { app, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
+import { app, compressAndUploadFile, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
 import {
   arrayRemove,
   arrayUnion,
@@ -29,6 +29,7 @@ function MisReportes() {
   const [listaSubTareas, setListaSubTareas] = React.useState([]);
   const [loadedLista, setLoadedLista] = React.useState(false);
   const [urlImages, setUrlImages] = React.useState([]);
+  const [send, setSend] = React.useState(false);
 
   const today =
     new Date().getFullYear() +
@@ -356,6 +357,7 @@ function MisReportes() {
               className="flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
               onSubmit={(e) => {
                 e.preventDefault();
+                setSend(true);
                 let reportname = reporteEdit.id;
                 
                 if (e.target[1].files[0] !== undefined) {
@@ -365,7 +367,7 @@ function MisReportes() {
                   reportname +
                   "/" +
                   e.target[1].files[0].name;
-                  uploadFile(e.target[1].files[0], urlImage).then(() => {
+                  compressAndUploadFile(e.target[1].files[0], urlImage).then(() => {
                     const report = {
                       actividad: e.target[0].value,
                       hora: new Date().toLocaleTimeString("en-US", {
@@ -384,6 +386,7 @@ function MisReportes() {
                       }
                     ).then(() => {
                       alert("Se ha agregado la actividad correctamente");
+                      setSend(false);
                       e.target[0].value = "";
                       e.target[1].value = "";
                       getListaSubTareas();
@@ -429,7 +432,8 @@ function MisReportes() {
                 <input type="file" className="w-5/6" />
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 w-5/6 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                  disabled={send}
+                  className="disabled:opacity-50 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                 >
                   Agregar
                 </button>

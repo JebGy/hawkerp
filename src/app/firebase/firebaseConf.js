@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   getStorage,
@@ -7,8 +6,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import imageCompression from "browser-image-compression";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,18 +15,31 @@ const firebaseConfig = {
   projectId: "emm-erp",
   storageBucket: "emm-erp.appspot.com",
   messagingSenderId: "622399363584",
-  appId: "1:622399363584:web:802698509b9ff8f5b596e5",
+  appId: "1:622399363584:web:802698509b9ff8f5b596e5"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 
-export const uploadFile = async (file, url) => {
-  const storageRef = ref(storage, url);
-  await uploadBytes(storageRef, file).then((snapshot) => {
-    alert("File uploaded successfully");
-  });
+
+export const compressAndUploadFile = async (file, url) => {
+  try {
+    const options = {
+      maxSizeMB: 0.5, // Maximum size in megabytes
+      maxWidthOrHeight: 1920, // Max width or height
+      useWebWorker: true, // Use WebWorker for compression
+    };
+
+    const compressedFile = await imageCompression(file, options);
+
+    const storageRef = ref(storage, url);
+    uploadBytes(storageRef, compressedFile).then((snapshot) => {
+      console.log("Uploaded a compressed blob or file!");
+    });
+  } catch (error) {
+    console.error("Error compressing or uploading the file:", error);
+  }
 };
 
 export const dowloadFile = async (urlImage) => {
@@ -39,11 +50,10 @@ export const dowloadFile = async (urlImage) => {
 
 export const deleteFile = async (id) => {
   const storageRef = ref(storage, `photos/${id}`);
-  deleteObject(storageRef)
-    .then(() => {
-      alert("File deleted successfully");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    await deleteObject(storageRef);
+    alert("File deleted successfully");
+  } catch (error) {
+    console.error("Error deleting the file:", error);
+  }
 };
