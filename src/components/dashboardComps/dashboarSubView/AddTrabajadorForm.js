@@ -214,19 +214,7 @@ export default function AddTrabajadorForm() {
                   return <option className="text-black" key={area.id}>{area.data()._areaName}</option>;
                 })}
               </select>
-              {/* <button
-                onClick={() => {
-                  if (!selector) {
-                    setTrabajadores(provitionaList);
-                    setSelector(!selector);
-                    return;
-                  }
-                  setSelector(!selector);
-                }}
-                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center w-full"
-              >
-                Área
-              </button> */}
+
             </th>
             <th className="p-2 text-xs font-semibold text-center">
               Detalles
@@ -410,7 +398,11 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className="grid grid-rows-1 lg:grid-cols-1 lg:grid-rows-1 h-full bg-white rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto">
+          <div className={
+            localStorage.getItem("theme") === "dark"
+              ? "grid grid-rows-1 lg:grid-cols-1 bg-zinc-900 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+              : "grid grid-rows-1 lg:grid-cols-1 bg-white lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+          }>
             <div className="p-2">
               <div className="flex flex-row justify-between items-center mb-5 gap-5">
                 <h2 className="text-xl font-bold ">
