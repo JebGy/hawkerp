@@ -19,11 +19,13 @@ function AreaTareas() {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [tareas, setTareas] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
+  const [theme, setTheme] = React.useState("light");
 
   const db = getFirestore(app);
 
   useEffect(() => {
     const _user = JSON.parse(sessionStorage.getItem("user"));
+    setTheme(localStorage.getItem("theme"));
     if (_user === null) {
       window.location.href = "/";
       return;
@@ -44,7 +46,7 @@ function AreaTareas() {
   };
   return (
     <div className={
-      localStorage.getItem("theme") === "dark"
+      theme === "dark"
         ? "bg-zinc-900 text-white h-screen"
         : "bg-gray-100 text-gray-900 h-screen"
     }>

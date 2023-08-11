@@ -18,11 +18,13 @@ function MisTareasForm() {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [tareas, setTareas] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
+  const [theme, setTheme] = React.useState("light");
 
   const db = getFirestore(app);
 
   useEffect(() => {
     const _user = JSON.parse(sessionStorage.getItem("user"));
+    setTheme(localStorage.getItem("theme"));
     if (_user === null) {
       window.location.href = "/";
       return;
@@ -40,20 +42,22 @@ function MisTareasForm() {
     });
   };
   return (
-    <div className={
-      localStorage.getItem("theme") === "dark"
-        ? "bg-zinc-900 text-white h-screen"
-        : "bg-gray-100 text-gray-900 h-screen"
-    }>
+    <div
+      className={
+        theme === "dark"
+          ? "bg-zinc-900 text-white h-screen"
+          : "bg-gray-100 text-gray-900 h-screen"
+      }
+    >
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
             <div className="flex flex-row justify-center items-center gap-5">
-              <button onClick={
-                () => {
+              <button
+                onClick={() => {
                   window.location.href = "/trabajador";
-                }
-              }>
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -131,7 +135,6 @@ function MisTareasForm() {
                     d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                   />
                 </svg>
-                
               </button>
             </div>
           </div>
@@ -142,7 +145,9 @@ function MisTareasForm() {
                 className="flex flex-row justify-between items-center border-b-2 border-gray-200 mb-5 p-5 max-w-full"
               >
                 <div className="flex flex-col ">
-                  <h2 className="font-bold text-xl w-32 overflow-x-auto">{tarea.nombre}</h2>
+                  <h2 className="font-bold text-xl w-32 overflow-x-auto">
+                    {tarea.nombre}
+                  </h2>
                   <p className="text-gray-500 w-32">{tarea.descripcion}</p>
                 </div>
                 <button
@@ -204,9 +209,9 @@ function MisTareasForm() {
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
               className={
-                localStorage.getItem("theme") === "dark"
-                ?"flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-zinc-900 px-10"
-                :"flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
+                theme === "dark"
+                  ? "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-zinc-900 px-10"
+                  : "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
               }
               onSubmit={async (e) => {
                 e.preventDefault();

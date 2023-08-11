@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
-import { app, compressAndUploadFile, dowloadFile, uploadFile } from "@/app/firebase/firebaseConf";
+import {
+  app,
+  compressAndUploadFile,
+  dowloadFile,
+  uploadFile,
+} from "@/app/firebase/firebaseConf";
 import {
   arrayRemove,
   arrayUnion,
@@ -30,6 +35,7 @@ function MisReportes() {
   const [loadedLista, setLoadedLista] = React.useState(false);
   const [urlImages, setUrlImages] = React.useState([]);
   const [send, setSend] = React.useState(false);
+  const [theme, setTheme] = React.useState("light");
 
   const today =
     new Date().getFullYear() +
@@ -46,6 +52,9 @@ function MisReportes() {
 
   useEffect(() => {
     const _user = JSON.parse(sessionStorage.getItem("user"));
+    setTheme(
+      localStorage.getItem("theme") ? theme.getItem("theme") : "light"
+    );
     if (_user === null) {
       window.location.href = "/";
       return;
@@ -171,11 +180,13 @@ function MisReportes() {
   };
 
   return (
-    <div className={
-      localStorage.getItem("theme") === "dark"
-        ? "bg-zinc-900 text-white w-full h-screen"
-        : "bg-gray-100 text-gray-900"
-    }>
+    <div
+      className={
+        theme === "dark"
+          ? "bg-zinc-900 text-white w-full h-screen"
+          : "bg-gray-100 text-gray-900"
+      }
+    >
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
@@ -209,7 +220,7 @@ function MisReportes() {
                 <div
                   key={reporte.id}
                   className={
-                    localStorage.getItem("theme") === "dark"
+                    theme.getItem("theme") === "dark"
                       ? "bg-zinc-800 text-white w-full h-full rounded-lg shadow-lg"
                       : "bg-white text-gray-900 w-full h-full rounded-lg shadow-lg"
                   }
@@ -363,47 +374,53 @@ function MisReportes() {
           <div className="flex flex-col justify-center items-center w-full h-full">
             <form
               className={
-                localStorage.getItem("theme") === "dark"
-                  ?"flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-zinc-900 p-5"
-                  :"flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
+                theme === "dark"
+                  ? "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-zinc-900 p-5"
+                  : "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
               }
               onSubmit={(e) => {
                 e.preventDefault();
                 setSend(true);
                 let reportname = reporteEdit.id;
-                
+
                 if (e.target[1].files[0] !== undefined) {
                   const urlImage =
-                  user.user +
-                  "/" +
-                  reportname +
-                  "/" +
-                  e.target[1].files[0].name;
-                  compressAndUploadFile(e.target[1].files[0], urlImage).then(() => {
-                    const report = {
-                      actividad: e.target[0].value,
-                      hora: new Date().toLocaleTimeString("en-US", {
-                        hour12: true,
-                        hour: "numeric",
-                        minute: "numeric",
-                      }),
-                      imagenurl: urlImage,
-                    };
-                    updateDoc(
-                      doc(db, `usuarios/${user.user}/reportes`, reporteEdit.id),
-                      {
-                        ...reporteEdit.data(),
-                        lista: arrayUnion(report),
-                        estado: false,
-                      }
-                    ).then(() => {
-                      alert("Se ha agregado la actividad correctamente");
-                      setSend(false);
-                      e.target[0].value = "";
-                      e.target[1].value = "";
-                      getListaSubTareas();
-                    });
-                  });
+                    user.user +
+                    "/" +
+                    reportname +
+                    "/" +
+                    e.target[1].files[0].name;
+                  compressAndUploadFile(e.target[1].files[0], urlImage).then(
+                    () => {
+                      const report = {
+                        actividad: e.target[0].value,
+                        hora: new Date().toLocaleTimeString("en-US", {
+                          hour12: true,
+                          hour: "numeric",
+                          minute: "numeric",
+                        }),
+                        imagenurl: urlImage,
+                      };
+                      updateDoc(
+                        doc(
+                          db,
+                          `usuarios/${user.user}/reportes`,
+                          reporteEdit.id
+                        ),
+                        {
+                          ...reporteEdit.data(),
+                          lista: arrayUnion(report),
+                          estado: false,
+                        }
+                      ).then(() => {
+                        alert("Se ha agregado la actividad correctamente");
+                        setSend(false);
+                        e.target[0].value = "";
+                        e.target[1].value = "";
+                        getListaSubTareas();
+                      });
+                    }
+                  );
                 } else {
                   const report = {
                     actividad: e.target[0].value,
@@ -452,11 +469,13 @@ function MisReportes() {
               </div>
             </form>
 
-            <div className={
-                localStorage.getItem("theme") === "dark"
-                ?"flex flex-col bg-zinc-900 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
-                :"flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
-            }>
+            <div
+              className={
+                theme === "dark"
+                  ? "flex flex-col bg-zinc-900 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+                  : "flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+              }
+            >
               {loadedLista && listaSubTareas
                 ? listaSubTareas.map((subTarea, index) => {
                     return (
