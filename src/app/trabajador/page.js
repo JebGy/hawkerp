@@ -206,7 +206,7 @@ function page() {
               className={
                 theme === "dark"
                   ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-zinc-900 text-white shadow-xl rounded-xl shadow-purple-500 p-5"
-                  : "absolute right-0 left-0 top-0 mt-20 lg:mr-5 mx-auto w-5/6 lg:w-96 h-96 bg-zinc-100 shadow-xl rounded-xl shadow-purple-500 p-5"
+                  : "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-white text-black shadow-xl rounded-xl shadow-purple-500 p-5"
               }
             >
               <h3 className="font-bold text-xl text-purple-600">
