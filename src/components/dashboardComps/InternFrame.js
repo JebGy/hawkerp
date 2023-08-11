@@ -31,7 +31,7 @@ function InternFrame({ setReload, reload }) {
 
   useEffect(() => {
     const currentDay = new Date().getDay();
-    if (currentDay === 1) {
+    if (currentDay === 7) {
       getDocs(collection(db, "usuarios")).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then(
@@ -62,9 +62,9 @@ function InternFrame({ setReload, reload }) {
   }, []);
 
   return (
-    <div className="lg:col-span-7 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7">
+    <div className="lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7">
       {isLoaded ? (
-        <div className="flex flex-flex items-center justify-between p-5 row-span-1">
+        <div className="flex flex-flex items-center justify-between p-5 row-span-1 lg:hidden bg-white ">
           <h1 className="text-lg font-bold ">Bienvenido {_user.user}</h1>
           <div className="grid grid-flow-col gap-5 items-center ">
             <button

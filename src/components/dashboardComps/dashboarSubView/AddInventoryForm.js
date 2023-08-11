@@ -104,7 +104,7 @@ function AddInventoryForm({ ...porps }) {
   };
 
   return (
-    <div className="grid grid-cols-4 p-5 row-span-4  w-full h-full overflow-hidden">
+    <div className="grid grid-cols-4 p-5 row-span-5 w-full h-full overflow-hidden">
       <div className="lg:col-span-1 col-span-4 h-full">
         <form
           onSubmit={(e) => {

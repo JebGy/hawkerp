@@ -61,8 +61,8 @@ function AddTaskForm({ ...porps }) {
   };
 
   return (
-    <div className="grid grid-cols-4 p-5 row-span-4 w-full h-full">
-      <div className="col-span-4 lg:col-span-1">
+    <div className="grid grid-cols-4  row-span-5 w-full h-full">
+      <div className="col-span-4 lg:col-span-1 p-5">
         <h2 className="text-lg p-2 underline underline-offset-8 mb-2 col-span-2">
           Agregar Tarea
         </h2>
