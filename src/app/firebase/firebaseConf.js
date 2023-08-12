@@ -27,7 +27,7 @@ export const compressAndUploadFile = async (file, url) => {
   try {
     const options = {
       maxSizeMB: 0.3, // Maximum size in megabytes
-      maxWidthOrHeight: 1920, // Max width or height
+      maxWidthOrHeight: 1500, // Max width or height
       useWebWorker: true, // Use WebWorker for compression
     };
 
