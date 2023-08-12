@@ -109,6 +109,8 @@ function DashboardBarSide({ theme, setTheme }) {
             </svg>
           )}
         </BarSideButtons>
+        {/* <BarSideButtons title="Config" fun={() => {}}> */}
+          
         <BarSideButtons
           title="Cerrar sesión"
           fun={() => {

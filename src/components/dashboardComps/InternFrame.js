@@ -209,7 +209,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
             ) : null}
           </div>
           {showForm ? (
-            <div className="absolute z-50 top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center">
+            <div className="absolute z-50 top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center ">
               <button
                 onClick={() => {
                   setShowForm(false);
@@ -232,7 +232,13 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                 </svg>
               </button>
 
-              <div className="bg-white rounded-xl p-5 w-5/6 lg:w-96 ">
+              <div
+                className={
+                  theme === "dark"
+                    ? "bg-zinc-900 rounded-xl p-5 w-5/6 lg:w-96 "
+                    : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
+                }
+              >
                 <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
                   Enviar Mensaje
                 </h1>
@@ -256,11 +262,11 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                   <label className="text-lg font-bold">Título</label>
                   <input
                     type="text"
-                    className="border-2 border-gray-300 rounded-xl p-2"
+                    className="border-2 border-gray-300 text-black rounded-xl p-2"
                   />
                   <label className="text-lg font-bold">Mensaje</label>
                   <textarea
-                    className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none"
+                    className="border-2 border-gray-300 text-black rounded-xl p-2 h-[12rem] resize-none"
                     rows="2"
                     cols="50"
                   />
