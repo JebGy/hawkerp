@@ -63,7 +63,7 @@ function AddInventoryForm({ ...porps }) {
     e.preventDefault();
 
     if (nowEdit) {
-      const inventoryRef = doc(db, "inventario");
+      const inventoryRef = doc(db, "inventario", currentItem.id);
       const inventoryData = {
         codigo: currentItem.codigo,
         nombre: currentItem.nombre,
@@ -81,7 +81,7 @@ function AddInventoryForm({ ...porps }) {
       return;
     }
 
-    const inventoryRef = collection(db, "inventario");
+    const inventoryRef = doc(db, "inventario", e.target[1].value);
     const inventoryData = {
       nombre: e.target[0].value,
       codigo: e.target[1].value,
@@ -174,7 +174,8 @@ function AddInventoryForm({ ...porps }) {
                 content.map((item) => {
                   if (item) {
                     console.log(item);
-                    const inventoryRef = collection(db, "inventario");
+                    const inventoryRef = doc(db, "inventario", item.codigo);
+
                     const inventoryData = {
                       codigo: item.codigo,
                       nombre: item.nombre,
@@ -182,9 +183,13 @@ function AddInventoryForm({ ...porps }) {
                       extraidoPor: item.extraidoPor,
                       fechaDeIngreso: item.fechaIngreso,
                     };
-                    addDoc(inventoryRef, inventoryData).then(() => {
-                      console.log("Document successfully written!");
-                    });
+                    setDoc(inventoryRef, inventoryData)
+                      .then(() => {
+                        console.log("Document successfully written!");
+                      })
+                      .catch((error) => {
+                        console.error("Error writing document: ", error);
+                      });
                   }
                 });
               });
@@ -225,9 +230,11 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
+                className="border-2 w-full border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
               >
-                <option className="text-black" value="Código">Código</option>
+                <option className="text-black" value="Código">
+                  Código
+                </option>
                 {
                   //remove duplicates
                   filtredInventory
@@ -257,11 +264,17 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
+                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400 w-full"
               >
-                <option className="text-black" value="Nombre">Nombre</option>
+                <option className="text-black" value="Nombre">
+                  Nombre
+                </option>
                 {filtredInventory.map((item) => (
-                  <option className="text-black" value={item.nombre} key={item.id}>
+                  <option
+                    className="text-black"
+                    value={item.nombre}
+                    key={item.id}
+                  >
                     {item.nombre}
                   </option>
                 ))}
@@ -484,7 +497,11 @@ function AddInventoryForm({ ...porps }) {
             />
             <select className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-blue-400">
               {trabajadores.map((trabajador) => (
-                <option className="text-black" key={trabajador.id} value={trabajador.id}>
+                <option
+                  className="text-black"
+                  key={trabajador.id}
+                  value={trabajador.id}
+                >
                   {trabajador.id}
                 </option>
               ))}
