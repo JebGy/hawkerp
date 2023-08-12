@@ -214,7 +214,7 @@ function AddInventoryForm({ ...porps }) {
           </button>
         </form>
       </div>
-      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full text-center overflow-auto text-xs lg:text-md">
+      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full h-full text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
           <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
             <th>
@@ -286,7 +286,7 @@ function AddInventoryForm({ ...porps }) {
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody className="overflow-auto h-96 col-span-full lg:grid lg:grid-cols-1">
+        <tbody className="overflow-auto  col-span-full lg:grid lg:grid-cols-1">
           {inventory.map((item) => (
             <tr
               key={item.id}
