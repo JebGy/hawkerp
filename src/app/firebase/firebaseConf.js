@@ -43,8 +43,13 @@ export const compressAndUploadFile = async (file, url) => {
 };
 
 export const dowloadFile = async (urlImage) => {
-  const storageRef = ref(storage, urlImage);
-  const url = await getDownloadURL(storageRef);
+  try {
+    const storageRef = ref(storage, urlImage);
+    const url = await getDownloadURL(storageRef);
+    return url;
+  } catch (error) {
+    console.error("Error dowloading the file:", error);
+  }
   return url;
 };
 
