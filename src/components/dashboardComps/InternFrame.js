@@ -45,18 +45,41 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       daysOfThisWeek()[1].getMonth() === new Date().getMonth() &&
       daysOfThisWeek()[1].getFullYear() === new Date().getFullYear()
     ) {
-      console.log("Si es Domingo " + daysOfThisWeek()[0].getDate() + " " + (new Date().getMonth()+1) + " " + new Date().getFullYear());
+      console.log(
+        "Si es Domingo " +
+          daysOfThisWeek()[0].getDate() +
+          " " +
+          (new Date().getMonth() + 1) +
+          " " +
+          new Date().getFullYear()
+      );
       const deleteAll = async () => {
         const querySnapshot = await getDocs(collection(db, "trabajadores"));
         querySnapshot.forEach((doc) => {
-          deleteDoc(doc(db, `usuarios/${doc.id}/reportes`));
+          deleteDoc(doc(db, `usuarios/${doc.id}/reportes`)).then(() => {
+            console.log("Document successfully deleted!");
+          });
         });
       };
       deleteFile();
       deleteAll();
     } else {
-      console.log("No es Domingo " + daysOfThisWeek()[1].getDate() + " " + (new Date().getMonth()+1) + " " + new Date().getFullYear());
-    } 
+      const _deleteAll = async () => {
+        const querySnapshot = await getDocs(collection(db, "trabajadores"));
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id);
+        });
+      };
+      _deleteAll();
+      console.log(
+        "No es Domingo " +
+          daysOfThisWeek()[1].getDate() +
+          " " +
+          (new Date().getMonth() + 1) +
+          " " +
+          new Date().getFullYear()
+      );
+    }
 
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
