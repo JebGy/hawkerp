@@ -67,7 +67,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       const _deleteAll = async () => {
         const querySnapshot = await getDocs(collection(db, "usuarios"));
         querySnapshot.forEach((doc) => {
-          console.log(doc.id);
+          deleteDoc(doc(db, `${doc.id}/reportes`)).then(() => {
+            console.log("Document successfully deleted!");
+          });
         });
       };
       _deleteAll();
