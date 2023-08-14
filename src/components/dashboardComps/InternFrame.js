@@ -14,7 +14,7 @@ import {
   getFirestore,
   setDoc,
 } from "firebase/firestore";
-import { app } from "@/app/firebase/firebaseConf";
+import { app, deleteFile } from "@/app/firebase/firebaseConf";
 import AddInventoryForm from "./dashboarSubView/AddInventoryForm";
 import ThemeHook from "@/Hooks/ThemeHook";
 
@@ -31,20 +31,32 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
   };
 
   useEffect(() => {
-    const currentDay = new Date().getDay();
-    if (currentDay === 7) {
-      getDocs(collection(db, "usuarios")).then((querySnapshot) => {
+    const daysOfThisWeek = () => {
+      const today = new Date();
+      const day = today.getDay();
+      const diff = today.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+      const lunes = new Date(today.setDate(diff));
+      const domingo = new Date(today.setDate(diff + 6));
+      return [lunes, domingo];
+    };
+
+    if (
+      daysOfThisWeek()[1].getDate() === new Date().getDate() &&
+      daysOfThisWeek()[1].getMonth() === new Date().getMonth() &&
+      daysOfThisWeek()[1].getFullYear() === new Date().getFullYear()
+    ) {
+      console.log("Si es Domingo " + daysOfThisWeek()[0].getDate() + " " + (new Date().getMonth()+1) + " " + new Date().getFullYear());
+      const deleteAll = async () => {
+        const querySnapshot = await getDocs(collection(db, "trabajadores"));
         querySnapshot.forEach((doc) => {
-          getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then(
-            (querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                deleteDoc(doc.ref);
-              });
-            }
-          );
+          deleteDoc(doc(db, `usuarios/${doc.id}/reportes`));
         });
-      });
-    }
+      };
+      deleteFile();
+      deleteAll();
+    } else {
+      console.log("No es Domingo " + daysOfThisWeek()[1].getDate() + " " + (new Date().getMonth()+1) + " " + new Date().getFullYear());
+    } 
 
     const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {

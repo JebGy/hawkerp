@@ -35,6 +35,8 @@ export default function AddTrabajadorForm() {
   const [_trabajadorArea, set_trabajadorArea] = useState("");
   const [provitionaList, setProvitionaList] = useState([]);
   const [selector, setSelector] = useState(false);
+  // Agrega este estado al comienzo de tu componente
+  const [newTasksCountForButton, setNewTasksCountForButton] = useState(0);
 
   useEffect(() => {
     loadFromFirebase();
@@ -147,8 +149,12 @@ export default function AddTrabajadorForm() {
               }
               className="outline-none mb-5 p-2 w-full bg-transparent focus:border-b-2 focus:border-purple-500 transition-all"
             >
-              <option className="text-black" value={"1"}>Autenticado</option>
-              <option className="text-black" value={"0"}>No Autenticado</option>
+              <option className="text-black" value={"1"}>
+                Autenticado
+              </option>
+              <option className="text-black" value={"0"}>
+                No Autenticado
+              </option>
             </select>
 
             <select
@@ -169,7 +175,11 @@ export default function AddTrabajadorForm() {
             >
               {isLoaded ? (
                 areas.map((area) => {
-                  return <option className="text-black" key={area.id}>{area.data()._areaName}</option>;
+                  return (
+                    <option className="text-black" key={area.id}>
+                      {area.data()._areaName}
+                    </option>
+                  );
                 })
               ) : (
                 <option>Cargando...</option>
@@ -188,12 +198,8 @@ export default function AddTrabajadorForm() {
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
         <thead className="grid grid-cols-1 ">
           <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
-            <th className="p-2 text-xs font-semibold text-center">
-              Usuario
-            </th>
-            <th className="p-2 text-xs font-semibold text-center">
-              Auth
-            </th>
+            <th className="p-2 text-xs font-semibold text-center">Usuario</th>
+            <th className="p-2 text-xs font-semibold text-center">Auth</th>
             <th className="p-2 text-xs font-semibold text-center">
               <select
                 onChange={(e) => {
@@ -211,17 +217,16 @@ export default function AddTrabajadorForm() {
               >
                 <option className="text-black">Todas las áreas</option>
                 {areas.map((area) => {
-                  return <option className="text-black" key={area.id}>{area.data()._areaName}</option>;
+                  return (
+                    <option className="text-black" key={area.id}>
+                      {area.data()._areaName}
+                    </option>
+                  );
                 })}
               </select>
-
             </th>
-            <th className="p-2 text-xs font-semibold text-center">
-              Detalles
-            </th>
-            <th className="p-2 text-xs font-semibold text-center">
-              Acciones
-            </th>
+            <th className="p-2 text-xs font-semibold text-center">Detalles</th>
+            <th className="p-2 text-xs font-semibold text-center">Acciones</th>
           </tr>
         </thead>
         <tbody className=" overflow-y-auto  w-full col-span-full lg:grid lg:grid-cols-1">
@@ -398,11 +403,13 @@ export default function AddTrabajadorForm() {
               />
             </svg>
           </button>
-          <div className={
-            localStorage.getItem("theme") === "dark"
-              ? "grid grid-rows-1 lg:grid-cols-1 bg-zinc-900 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
-              : "grid grid-rows-1 lg:grid-cols-1 bg-white lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
-          }>
+          <div
+            className={
+              localStorage.getItem("theme") === "dark"
+                ? "grid grid-rows-1 lg:grid-cols-1 bg-zinc-900 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+                : "grid grid-rows-1 lg:grid-cols-1 bg-white lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+            }
+          >
             <div className="p-2">
               <div className="flex flex-row justify-between items-center mb-5 gap-5">
                 <h2 className="text-xl font-bold ">
@@ -477,8 +484,21 @@ export default function AddTrabajadorForm() {
                               </svg>
                             </button>
                           </div>
+                          {localStorage.setItem(
+                            "reporte",
+                            JSON.stringify(reporte.data().lista.length)
+                          )}
                           {canSeeReportes && reportTosee === reporte.id ? (
                             <div className="flex flex-col h-full gap-5 ">
+                              {
+                                // if reporte change tis length notify the user
+
+                                reporte.data().lista.length < 1 ? (
+                                  <h1 className="text-2xl font-bold mb-5">
+                                    No hay reportes
+                                  </h1>
+                                ) : null
+                              }
                               {reporte.data().lista.map((tarea) => {
                                 return (
                                   <ReportItem
