@@ -54,9 +54,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
           new Date().getFullYear()
       );
       const deleteAll = async () => {
-        const querySnapshot = await getDocs(collection(db, "trabajadores"));
+        const querySnapshot = await getDocs(collection(db, "usuarios"));
         querySnapshot.forEach((doc) => {
-          deleteDoc(doc(db, `usuarios/${doc.id}/reportes`)).then(() => {
+          deleteDoc(doc(db, `${doc.id}/reportes`)).then(() => {
             console.log("Document successfully deleted!");
           });
         });
@@ -65,7 +65,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       deleteAll();
     } else {
       const _deleteAll = async () => {
-        const querySnapshot = await getDocs(collection(db, "trabajadores"));
+        const querySnapshot = await getDocs(collection(db, "usuarios"));
         querySnapshot.forEach((doc) => {
           console.log(doc.id);
         });
