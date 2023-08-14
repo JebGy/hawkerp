@@ -49,7 +49,7 @@ function ReportItem({ url, actividad, hora }) {
           }}
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[90]"
         >
-          <div className="w-1/2 h-1/2 bg-white rounded-lg">
+          <div className=" bg-white rounded-lg">
             <Image
               src={
                 image
@@ -57,10 +57,10 @@ function ReportItem({ url, actividad, hora }) {
                   : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
               }
               alt="Picture of the author"
-              width={2500}
+              width={500}
               height={800}
               priority={true}
-              className="rounded-lg w-full h-96 object-cover"
+              className="rounded-lg w-96 h-96 object-cover"
             />
           </div>
         </div>
