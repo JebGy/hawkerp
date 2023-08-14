@@ -47,9 +47,9 @@ function ReportItem({ url, actividad, hora }) {
           onClick={() => {
             setView(!view);
           }}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[90]"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center z-[90]"
         >
-          <div className=" bg-white rounded-lg">
+          <div className="w-6/6 h-6/6 p-5  rounded-lg">
             <Image
               src={
                 image
@@ -60,7 +60,7 @@ function ReportItem({ url, actividad, hora }) {
               width={500}
               height={800}
               priority={true}
-              className="rounded-lg w-96 h-96 object-cover"
+              className="rounded-lg w-full h-full object-cover"
             />
           </div>
         </div>
