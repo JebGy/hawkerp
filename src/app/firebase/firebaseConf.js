@@ -51,7 +51,7 @@ export const dowloadFile = async (urlImage) => {
   }
 };
 
-export const deleteFile = async (id) => {
+export const deleteFile = async () => {
   const storageRef = ref(storage, `/`);
   try {
     await deleteObject(storageRef);

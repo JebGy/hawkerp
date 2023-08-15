@@ -185,12 +185,23 @@ export default function AddTrabajadorForm() {
                 <option>Cargando...</option>
               )}
             </select>
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95"
-            >
-              {nowEdit ? "Editar" : "Selecciona un usuario porfavor"}
-            </button>
+            <div className="flex flex-col gap-3">
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95"
+              >
+                {nowEdit ? "Editar" : "Selecciona un usuario porfavor"}
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  
+                }}
+                className="bg-gradient-to-r from-red-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-yellow-500 transition-all active:scale-95"
+              >
+                Limpiar Reportes
+              </button>
+            </div>
           </form>
         </div>
       </div>
