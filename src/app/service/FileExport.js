@@ -1,6 +1,4 @@
-import jsPDF from "jspdf";
 import { dowloadFile } from "../firebase/firebaseConf";
-import html2pdf from "html2pdf.js";
 
 export const createReportMd = async (reporte, trabajadorEdit) => {
   const headers = [
