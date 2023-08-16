@@ -16,7 +16,7 @@
     "eslint-config-next": "13.4.12",
     "firebase": "^10.1.0",
     "html2pdf": "^0.0.11",
-    "html2pdf.js": "^0.10.1",
+    "html2pdf.js": "^0.9.0",
     "jspdf": "^2.5.1",
     "markdown-pdf": "^11.0.0",
     "md-to-pdf": "^5.2.4",

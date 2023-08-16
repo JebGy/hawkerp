@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
-import { createReportMd, createReportPdf } from "@/app/service/FileExport";
+import {
+  createReportHtml,
+  createReportMd,
+  createReportPdf,
+} from "@/app/service/FileExport";
 import ReportItem from "@/components/trabajadorComps/ReportItem";
 import {
   addDoc,
@@ -471,10 +475,14 @@ export default function AddTrabajadorForm() {
                               <button
                                 onClick={() => {
                                   if (typeof window !== "undefined") {
-                                    createReportMd(
+                                    createReportHtml(
                                       reporte.data(),
                                       trabajadorEdit
-                                    );
+                                    ).then((e) => {
+                                      alert(
+                                        "Reporte descargado. Para imprimirlo, abra el archivo descargado y presione Ctrl+P"
+                                      );
+                                    });
                                   }
                                 }}
                                 className="bg-zinc-500 p-2 rounded-full bg-opacity-20 active:scale-95 transition-all"
@@ -499,6 +507,7 @@ export default function AddTrabajadorForm() {
                                 onClick={() => {
                                   setReportTosee(reporte.id);
                                   setCanSeeReportes(!canSeeReportes);
+                                  console.log(reporte.id);
                                 }}
                               >
                                 <svg
@@ -539,7 +548,7 @@ export default function AddTrabajadorForm() {
                                 ) : null
                               }
                               {reporte.data().lista.map((tarea) => {
-                                tarea ? (
+                                return (
                                   <ReportItem
                                     url={tarea.imagenurl ? tarea.imagenurl : ""}
                                     key={
@@ -550,7 +559,7 @@ export default function AddTrabajadorForm() {
                                     }
                                     hora={tarea.hora ? tarea.hora : ""}
                                   />
-                                ) : null;
+                                );
                               })}
                             </div>
                           ) : null}
