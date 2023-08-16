@@ -474,16 +474,14 @@ export default function AddTrabajadorForm() {
                             <div className="flex flex-row items-center justify-center gap-5">
                               <button
                                 onClick={() => {
-                                  if (typeof window !== "undefined") {
-                                    createReportHtml(
-                                      reporte.data(),
-                                      trabajadorEdit
-                                    ).then((e) => {
-                                      alert(
-                                        "Reporte descargado. Para imprimirlo, abra el archivo descargado y presione Ctrl+P"
-                                      );
-                                    });
-                                  }
+                                  createReportHtml(
+                                    reporte.data(),
+                                    trabajadorEdit
+                                  ).then((e) => {
+                                    alert(
+                                      "Reporte descargado. Para imprimirlo, abra el archivo descargado y presione Ctrl+P"
+                                    );
+                                  });
                                 }}
                                 className="bg-zinc-500 p-2 rounded-full bg-opacity-20 active:scale-95 transition-all"
                               >
