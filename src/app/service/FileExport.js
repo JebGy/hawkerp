@@ -27,15 +27,16 @@ export const createReportHtml = async (reporte, trabajadorEdit) => {
     });
   });
   setTimeout(() => {
-    console.log(isReady);
-    //create a file
-    const file = new Blob([headers.join("\n")], { type: "text/html" });
-
-    //file to html
-    const url = URL.createObjectURL(file);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `Reporte ${trabajadorEdit.user} ${reporte.fecha}.html`;
-    a.click();
-  }, 1500);
+    if (headers.length > 1) {
+      const file = new Blob([headers.join("\n")], { type: "text/html" });
+      console.log(headers.length * 100);
+      //file to html
+      const url = URL.createObjectURL(file);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Reporte ${trabajadorEdit.user} ${reporte.fecha}.html`;
+      a.click();
+      isReady = true;
+    }
+  }, 2000);
 };
