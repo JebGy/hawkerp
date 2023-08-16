@@ -8,9 +8,9 @@ export const createReportMd = async (reporte, trabajadorEdit) => {
   reporte.lista.forEach((value, index, array) => {
     dowloadFile(value.imagenurl).then((url) => {
       headers.push(`## ${value.hora}`);
-      headers.push(`- ### ${value.actividad}`);
+      headers.push(`### ${value.actividad}`);
       headers.push(`![${value.actividad}](${url})`);
-      headers.push(`---`);
+      headers.push(`\n---\n`);
     });
   });
   setTimeout(() => {
