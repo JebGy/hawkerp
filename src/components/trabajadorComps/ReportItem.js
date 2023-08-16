@@ -28,11 +28,7 @@ function ReportItem({ url, actividad, hora }) {
             onClick={() => {
               setView(!view);
             }}
-            src={
-              image
-                ? image
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-            }
+            src={image}
             alt="Picture of the author"
             width={250}
             height={250}

@@ -15,13 +15,12 @@ const firebaseConfig = {
   projectId: "emm-erp",
   storageBucket: "emm-erp.appspot.com",
   messagingSenderId: "622399363584",
-  appId: "1:622399363584:web:802698509b9ff8f5b596e5"
+  appId: "1:622399363584:web:802698509b9ff8f5b596e5",
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
-
 
 export const compressAndUploadFile = async (file, url) => {
   try {
@@ -48,13 +47,12 @@ export const dowloadFile = async (urlImage) => {
     const url = await getDownloadURL(storageRef);
     return url;
   } catch (error) {
-    console.error("Error dowloading the file:", error);
+    return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
   }
-  return url;
 };
 
-export const deleteFile = async (id) => {
-  const storageRef = ref(storage, `photos/${id}`);
+export const deleteFile = async () => {
+  const storageRef = ref(storage, `/`);
   try {
     await deleteObject(storageRef);
     alert("File deleted successfully");
