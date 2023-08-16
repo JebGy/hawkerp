@@ -249,7 +249,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
             ) : null}
           </div>
           {showForm ? (
-            <div className="absolute z-50 top-0 left-0 w-screen h-screen flex flex-col items-center justify-center ">
+            <div className="fixed bg-black bg-opacity-50 z-50 top-0 left-0 w-screen h-screen flex flex-col items-center justify-center ">
               <button
                 onClick={() => {
                   setShowForm(false);
