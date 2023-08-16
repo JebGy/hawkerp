@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { app } from "@/app/firebase/firebaseConf";
-import {
-  createReportHtml,
-  createReportMd,
-  createReportPdf,
-} from "@/app/service/FileExport";
+import { createReportHtml } from "@/app/service/FileExport";
 import ReportItem from "@/components/trabajadorComps/ReportItem";
 import {
   addDoc,

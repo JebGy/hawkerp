@@ -214,7 +214,7 @@ function AddInventoryForm({ ...porps }) {
           </button>
         </form>
       </div>
-      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full h-full text-center overflow-auto text-xs lg:text-md">
+      <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full h-96 text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
           <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
             <th>
@@ -423,7 +423,7 @@ function AddInventoryForm({ ...porps }) {
       </table>
 
       {nowExtract ? (
-        <div className="col-span-1 absolute bg-black bg-opacity-50 w-screen h-screen top-0 left-0 flex flex-col justify-center items-center">
+        <div className="fixed row-span-5 bg-black top-0 left-0 right-0 h-screen flex flex-col items-center justify-center bg-opacity-50">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -441,8 +441,8 @@ function AddInventoryForm({ ...porps }) {
             }}
             className={
               localStorage.getItem("theme") === "dark"
-                ? "flex flex-col p-5 gap-5 bg-zinc-900 rounded-xl shadow-lg shadow-slate-700"
-                : "flex flex-col p-5 gap-5 bg-white rounded-xl shadow-lg shadow-slate-700"
+                ? "flex flex-col p-5 gap-5 bg-zinc-900 rounded-xl shadow-lg shadow-slate-700 w-72"
+                : "flex flex-col p-5 gap-5 bg-white rounded-xl shadow-lg shadow-slate-700 w-72"
             }
           >
             <div className="flex flex-row justify-between items-center">
