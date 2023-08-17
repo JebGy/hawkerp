@@ -410,7 +410,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
           <AddTrabajadorForm />
         ) : currentView === 3 && _user.access[3] ? (
           <AddTrabajoForm />
-        ) : currentView === 4 ? (
+        ) : currentView === 4 && _user.access[4] ? (
           <AddInventoryForm />
         ) : (
           <div>
