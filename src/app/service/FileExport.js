@@ -10,33 +10,31 @@ export const createReportHtml = async (reporte, trabajadorEdit) => {
     </div>`,
     "<hr/>",
   ];
-  let isReady = false;
-  reporte.lista.forEach((value, index, array) => {
-    dowloadFile(value.imagenurl).then((url) => {
+
+  reporte.lista.forEach((item) => {
+    dowloadFile(item.imagenurl).then((url) => {
       headers.push(
-        `<h2 style="text-align: left; padding:1rem; color: #6a26c9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${value.hora}</h2>`
+        `<h2 style="text-align: left; padding:1rem; color: #6a26c9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${item.hora}</h2>`
       );
       headers.push(
-        `<h3 style="text-align: left; padding:2rem; color: #4c4259; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${value.actividad}</h3>`
+        `<h3 style="text-align: left; padding:2rem; color: #4c4259; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">${item.actividad}</h3>`
       );
       headers.push(
-        `<div style="width: 500px height: 500px; text-align: center; padding:2rem; 
-        "><img src="${url}" alt="${value.actividad}" style="height: 500px; width: 500px; border-radius: 20px; object-fit: cover; "/></div>`
+        `<div style="width: 500px height: 500px; text-align: center; padding:2rem;
+        "><img src="${url}" alt="${item.actividad}" style="height: 500px; width: 500px; border-radius: 20px; object-fit: cover; "/></div>`
       );
       headers.push(`<hr/>`);
     });
   });
+
   setTimeout(() => {
-    if (headers.length > 1) {
-      const file = new Blob([headers.join("\n")], { type: "text/html" });
-      console.log(headers.length * 100);
-      //file to html
-      const url = URL.createObjectURL(file);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `Reporte ${trabajadorEdit.user} ${reporte.fecha}.html`;
-      a.click();
-      isReady = true;
-    }
-  }, 2000);
+    console.log("headers", headers);
+    const file = new Blob([headers.join("\n")], { type: "text/html" });
+    //file to html
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Reporte ${trabajadorEdit.user} ${reporte.fecha}.html`;
+    a.click();
+  }, headers.length * 1000);
 };
