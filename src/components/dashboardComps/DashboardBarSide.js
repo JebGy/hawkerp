@@ -12,7 +12,9 @@ import BarSideButtons from "./BarSideButtons";
 
 function DashboardBarSide({ theme, setTheme }) {
   const db = getFirestore(app);
-  const [_user, _setUser] = React.useState(null);
+  const [_user, _setUser] = React.useState({
+    auth: false,
+  });
   const [showForm, setShowForm] = React.useState(false);
 
   useEffect(() => {
