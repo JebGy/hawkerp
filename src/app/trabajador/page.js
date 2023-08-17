@@ -294,7 +294,11 @@ function page() {
             </div>
           ) : (
             <div className="flex flex-col gap-5 mt-5">
-              <h3 className="text-lg">
+              <h3 className={
+                theme === "dark"
+                  ? "text-white text-lg"
+                  : "text-black text-lg"
+              }>
                 Hola {user ? user.user : null}, tu usuario está pendiente de
                 aprobación.{" "}
                 <a

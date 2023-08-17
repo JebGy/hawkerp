@@ -107,9 +107,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
   return (
     <div
       className={
-        theme === "dark"
-          ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-zinc-900 text-white"
-          : "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7"
+        theme === "dark" 
+          ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-zinc-900 text-white "
+          :  "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 "
       }
     >
       {isLoaded ? (
@@ -415,7 +415,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
         ) : currentView === 4 && _user.access[4] ? (
           <AddInventoryForm />
         ) : (
-          <div>
+          <div className="h-screen p-5">
             <h1 className="text-2xl font-bold mb-5">Bienvenido {_user.user}</h1>
             <p className="text-xl mt-5">
               No tienes permitido realizar acciones en este sistema. <br />
