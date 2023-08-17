@@ -18,6 +18,7 @@ import {
 import { app, deleteFile } from "@/app/firebase/firebaseConf";
 import AddInventoryForm from "./dashboarSubView/AddInventoryForm";
 import ThemeHook from "@/Hooks/ThemeHook";
+import Link from "next/link";
 
 function InternFrame({ setReload, reload, theme, setTheme }) {
   const [currentView, setCurrentView] = useState(0);
@@ -230,14 +231,12 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                     </svg>
                   )}
                 </button>
-                <button
-                  onClick={() => {
-                    window.location.href = "/trabajador";
-                  }}
+                <Link
+                  href={"/trabajador"}
                   className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded "
                 >
                   Mi perfil
-                </button>
+                </Link>
                 <button
                   onClick={() => {
                     sessionStorage.removeItem("user");
