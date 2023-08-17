@@ -68,11 +68,13 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       const _deleteAll = async () => {
         const querySnapshot = await getDocs(collection(db, "usuarios"));
         querySnapshot.forEach((doc) => {
-          getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              console.log(doc.id, " => ", doc.data(), "delete");
-            });
-          });
+          getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then(
+            (querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data(), "delete");
+              });
+            }
+          );
         });
       };
       _deleteAll();
@@ -384,7 +386,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               currentView={currentView}
             />
           ) : null}
-          {
+          {_user.access[4] ? (
             <DashboardCard
               idX={4}
               title="Inventario"
@@ -398,7 +400,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                 updateArea(4);
               }}
             />
-          }
+          ) : null}
         </div>
       ) : null}
       {isLoaded ? (
