@@ -30,8 +30,8 @@ function DashboardBarSide({ theme, setTheme }) {
     <div
       className={
         theme === "dark"
-          ? "col-span-1 bg-zinc-900 text-white  shadow-lg  h-screen lg:flex flex-col justify-between hidden"
-          : "col-span-1  shadow-lg  h-screen lg:flex flex-col justify-between hidden"
+          ? "col-span-1 bg-zinc-900  text-white  shadow-2xl shadow-zinc-800  h-screen lg:flex flex-col justify-between hidden z-10"
+          : "col-span-1  shadow-2xl  h-screen lg:flex flex-col justify-between hidden"
       }
     >
       <div className="flex flex-col p-5 gap-3">
@@ -124,7 +124,7 @@ function DashboardBarSide({ theme, setTheme }) {
         {/* <BarSideButtons title="Config" fun={() => {}}> */}
 
         <BarSideButtons
-          title="Cerrar sesión"
+          title="Salir"
           fun={() => {
             window.location.href = "/";
             sessionStorage.clear();
