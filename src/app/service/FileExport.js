@@ -28,7 +28,6 @@ export const createReportHtml = async (reporte, trabajadorEdit) => {
   });
 
   setTimeout(() => {
-    console.log("headers", headers);
     const file = new Blob([headers.join("\n")], { type: "text/html" });
     //file to html
     const url = URL.createObjectURL(file);

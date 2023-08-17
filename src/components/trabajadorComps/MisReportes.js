@@ -455,6 +455,7 @@ function MisReportes() {
                 <input
                   type="text"
                   placeholder="Actividad realizada"
+                  required
                   className="w-6/6 h-10 px-2 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
                 />
                 <label>Imagen de actividad:</label>
