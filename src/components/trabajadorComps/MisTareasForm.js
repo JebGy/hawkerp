@@ -11,6 +11,7 @@ import {
   getFirestore,
   updateDoc,
 } from "firebase/firestore";
+import Link from "next/link";
 import React, { useEffect } from "react";
 
 function MisTareasForm() {
@@ -53,11 +54,7 @@ function MisTareasForm() {
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
             <div className="flex flex-row justify-center items-center gap-5">
-              <button
-                onClick={() => {
-                  window.location.href = "/trabajador";
-                }}
-              >
+              <Link href="/trabajador">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -72,7 +69,7 @@ function MisTareasForm() {
                     d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
-              </button>
+              </Link>
               <h1 className="text-3xl font-bold">Mis Tareas</h1>
             </div>
             <div className="flex flex-row gap-5 justify-center items-center">

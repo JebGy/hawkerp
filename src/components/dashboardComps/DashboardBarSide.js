@@ -30,6 +30,7 @@ function DashboardBarSide({ theme, setTheme }) {
           fun={() => {
             window.location.href = "/trabajador";
           }}
+          href="/trabajador"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

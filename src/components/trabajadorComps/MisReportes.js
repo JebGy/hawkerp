@@ -24,6 +24,7 @@ import {
 import Image from "next/image";
 import React, { useEffect } from "react";
 import ReportItem from "./ReportItem";
+import Link from "next/link";
 
 function MisReportes() {
   const [user, setUser] = React.useState(null);
@@ -191,11 +192,7 @@ function MisReportes() {
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
             <div className="flex flex-row justify-center items-center gap-5">
-              <button
-                onClick={() => {
-                  window.location.href = "/trabajador";
-                }}
-              >
+              <Link href="/trabajador">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -210,7 +207,7 @@ function MisReportes() {
                     d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
-              </button>
+              </Link>
               <h1 className="text-xl font-bold">Reporte diario</h1>
             </div>
           </div>

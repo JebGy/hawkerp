@@ -12,6 +12,7 @@ import {
   getFirestore,
   updateDoc,
 } from "firebase/firestore";
+import Link from "next/link";
 import React, { useEffect } from "react";
 
 function AreaTareas() {
@@ -25,7 +26,9 @@ function AreaTareas() {
 
   useEffect(() => {
     const _user = JSON.parse(sessionStorage.getItem("user"));
-    setTheme(localStorage.getItem("theme")? localStorage.getItem("theme") : "light");
+    setTheme(
+      localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    );
     if (_user === null) {
       window.location.href = "/";
       return;
@@ -45,20 +48,18 @@ function AreaTareas() {
     });
   };
   return (
-    <div className={
-      theme === "dark"
-        ? "bg-zinc-900 text-white h-screen"
-        : "bg-gray-100 text-gray-900 h-screen"
-    }>
+    <div
+      className={
+        theme === "dark"
+          ? "bg-zinc-900 text-white h-screen"
+          : "bg-gray-100 text-gray-900 h-screen"
+      }
+    >
       {isLoaded ? (
         <div className="p-5 ">
           <div className="flex flex-row justify-between items-center mb-5 ">
             <div className="flex flex-row justify-center items-center gap-5">
-              <button
-                onClick={() => {
-                  window.location.href = "/trabajador";
-                }}
-              >
+              <Link href="/trabajador">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -73,7 +74,7 @@ function AreaTareas() {
                     d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
-              </button>
+              </Link>
               <h1 className="text-xl font-bold">Tareas de {user.area}</h1>
             </div>
           </div>

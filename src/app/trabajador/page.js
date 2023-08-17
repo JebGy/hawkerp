@@ -12,6 +12,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { app } from "../firebase/firebaseConf";
+import Link from "next/link";
 
 function page() {
   const [user, setUser] = useState(null);
@@ -147,6 +148,18 @@ function page() {
                   />
                 </svg>
               </button>
+              {user.rol === "" ? (
+                <Link
+                  href="/dashboard"
+                  className={
+                    theme === "dark"
+                      ? "flex items-center justify-center p-2 rounded-xl text-purple-500 border-purple-500 border-2 active:scale-95 transition-all"
+                      : "flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+                  }
+                >
+                  Dashboard
+                </Link>
+              ) : null}
               <button
                 onClick={() => {
                   setTheme(theme === "dark" ? "light" : "dark");
@@ -246,7 +259,8 @@ function page() {
                 text="Gestionar mis tareas individuales."
                 idX={0}
                 currentView={1}
-                funcion={() => (window.location.href = "/trabajador/misTareas")}
+                href="/trabajador/misTareas"
+                
               />
               <DashboardCard
                 title="Tareas de área"
@@ -255,9 +269,7 @@ function page() {
                 text="Gestionar mis tareas de área"
                 idX={1}
                 currentView={0}
-                funcion={() =>
-                  (window.location.href = "/trabajador/areaTareas")
-                }
+                href="/trabajador/areaTareas"
               />
               <DashboardCard
                 title="Generar reporte diario"
@@ -266,9 +278,7 @@ function page() {
                 text="Generar reporte diario de tareas"
                 idX={2}
                 currentView={0}
-                funcion={() =>
-                  (window.location.href = "/trabajador/reporteDiario")
-                }
+                href="/trabajador/reporteDiario"
               />
               <DashboardCard
                 title="Proximamente"
