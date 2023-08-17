@@ -15,7 +15,16 @@ function DashboardBarSide({ theme, setTheme }) {
   const [_user, _setUser] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
 
-  return (
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user === null) {
+      window.location.href = "/";
+      return;
+    }
+    _setUser(user);
+  }, []);
+
+  return _user.auth ? (
     <div
       className={
         theme === "dark"
@@ -111,7 +120,7 @@ function DashboardBarSide({ theme, setTheme }) {
           )}
         </BarSideButtons>
         {/* <BarSideButtons title="Config" fun={() => {}}> */}
-          
+
         <BarSideButtons
           title="Cerrar sesión"
           fun={() => {
@@ -206,7 +215,7 @@ function DashboardBarSide({ theme, setTheme }) {
         </div>
       ) : null}
     </div>
-  );
+  ) : null;
 }
 
 export default DashboardBarSide;
