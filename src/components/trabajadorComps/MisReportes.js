@@ -494,7 +494,7 @@ function MisReportes() {
               onClick={handleUpdate}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150 mt-5"
             >
-              Completar Reporte
+              Terminar Reporte
             </button>
           </div>
         </div>
