@@ -17,6 +17,11 @@ import {
 import { app } from "@/app/firebase/firebaseConf";
 import { excelReader } from "@/app/service/ExcelReader";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns Retorna la vista del formulario de agregar inventario
+ */
 function AddInventoryForm({ ...porps }) {
   const db = getFirestore(app);
   const [inventory, setInventory] = useState([]);

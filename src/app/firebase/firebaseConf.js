@@ -22,6 +22,11 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 
+/**
+ * Comprime y sube un archivo a firebase storage
+ * @param {File} file 
+ * @param {String} url 
+ */
 export const compressAndUploadFile = async (file, url) => {
   try {
     const options = {
@@ -41,6 +46,11 @@ export const compressAndUploadFile = async (file, url) => {
   }
 };
 
+/**
+ * Función para descargar archivos de firebase storage
+ * @param {String} urlImage la url que en este caso es el path dentro del storage
+ * @returns caso de encontrar el archivo retorna la url de descarga, caso contrario retorna una imagen por defecto
+ */
 export const dowloadFile = async (urlImage) => {
   try {
     const storageRef = ref(storage, urlImage);
@@ -51,6 +61,9 @@ export const dowloadFile = async (urlImage) => {
   }
 };
 
+/**
+ * Función para eliminar archivos de firebase storage
+ */
 export const deleteFile = async () => {
   const storageRef = ref(storage, `/`);
   try {

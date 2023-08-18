@@ -2,6 +2,10 @@ import Image from "next/image";
 import addArea from "../../public/addArea.svg";
 import LoginForm from "@/components/loginComps/LoginForm";
 
+/**
+ * 
+ * @returns Retorna la vista del login
+ */
 export default function Home() {
   return (
     <div className="grid grid-cols-1 p-10 lg:p-5 lg:grid lg:grid-cols-4 md:grid md:grid-cols-4 w-screen h-screen">

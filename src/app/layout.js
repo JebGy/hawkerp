@@ -8,6 +8,11 @@ export const metadata = {
   description: 'Created By Favio Munayco',
 }
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns el layout de la app
+ */
 export default function RootLayout({ children }) {
   return (
     <html lang="es">

@@ -18,6 +18,10 @@ import {
 
 import React, { useEffect, useState } from "react";
 
+/**
+ * 
+ * @returns Retorna la vista de los reportes del trabajador
+ */
 export default function AddTrabajadorForm() {
   const db = getFirestore(app);
   const [areas, setAreas] = useState([]);
@@ -49,6 +53,10 @@ export default function AddTrabajadorForm() {
     }
   }, [trabajadorEdit]);
 
+  /**
+   * Obtiene los reportes del trabajador
+   * @param {*} id 
+   */
   const getReportes = async (id) => {
     let today =
       new Date().getFullYear() +
@@ -75,6 +83,9 @@ export default function AddTrabajadorForm() {
     );
   };
 
+  /**
+   * Carga los datos de firebase
+   */
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas")).then((querySnapshot) => {
       setAreas(querySnapshot.docs);
@@ -96,6 +107,10 @@ export default function AddTrabajadorForm() {
       });
   };
 
+  /**
+   * Agrega un trabajador
+   * @param {*} e 
+   */
   const addTrabajador = async (e) => {
     //add trabajador
     e.preventDefault();

@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns Retorna la vista de un area 
+ */
 function AreaListItem({ areaName, areaId }) {
   return (
     <div

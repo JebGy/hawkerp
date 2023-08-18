@@ -14,6 +14,10 @@ import {
 import { app } from "../firebase/firebaseConf";
 import Link from "next/link";
 
+/**
+ * 
+ * @returns Retorna la vista del Trabajador
+ */
 function page() {
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);

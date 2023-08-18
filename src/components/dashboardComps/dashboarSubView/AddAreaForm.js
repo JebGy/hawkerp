@@ -15,6 +15,11 @@ import { Area } from "@/Classes/Area";
 import addAreaImage from "../../../../public/addArea.svg";
 import Image from "next/image";
 
+/**
+ *
+ * @param {*} param0
+ * @returns Retorna el formulario para agregar areas
+ */
 function AddAreaForm({ setReload, reload }) {
   const db = getFirestore(app);
 
@@ -31,6 +36,9 @@ function AddAreaForm({ setReload, reload }) {
     loadFromFirebase();
   }, []);
 
+  /**
+   * Carga las areas desde la base de datos
+   */
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas"))
       .then((querySnapshot) => {
@@ -71,7 +79,7 @@ function AddAreaForm({ setReload, reload }) {
           loadFromFirebase();
         })
         .catch((error) => {
-          (error);
+          error;
         });
       return;
     }

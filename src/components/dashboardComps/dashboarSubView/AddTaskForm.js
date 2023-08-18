@@ -13,12 +13,20 @@ import {
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
 
+/**
+ *
+ * @param {*} param0
+ * @returns Retorna la vista del formulario para agregar tareas
+ */
 function AddTaskForm({ ...porps }) {
   const db = getFirestore(app);
   const [areas, setAreas] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [taskList, setTaskList] = useState([]); // [ { _taskName: "Nombre de la tarea", _taskIsDone: false }
 
+  /**
+   * Carga las areas y las tareas desde firebase
+   */
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas"))
       .then((querySnapshot) => {
@@ -31,7 +39,7 @@ function AddTaskForm({ ...porps }) {
           });
         });
         setTaskList(_taskList);
-        (querySnapshot.docs);
+        querySnapshot.docs;
       })
       .then(() => {
         setIsLoaded(true);
@@ -43,6 +51,10 @@ function AddTaskForm({ ...porps }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Agrega una tarea a firebase
+   * @param {*} e
+   */
   const addTaskToFirebase = async (e) => {
     e.preventDefault();
 
@@ -82,11 +94,13 @@ function AddTaskForm({ ...porps }) {
           <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer bg-transparent">
             {isLoaded ? (
               areas.map((area) => {
-                (area.data()._areaName);
+                area.data()._areaName;
                 return (
-                  <option style={
-                    {color: "black"}
-                  } value={area.id} key={area.id}>
+                  <option
+                    style={{ color: "black" }}
+                    value={area.id}
+                    key={area.id}
+                  >
                     {area.data()._areaName}
                   </option>
                 );
@@ -151,7 +165,6 @@ function AddTaskForm({ ...porps }) {
                           Población: {area.data()._areaPopulation}
                         </p>
                       </div>
-                      
                     </div>
 
                     <div className="w-full grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 ">

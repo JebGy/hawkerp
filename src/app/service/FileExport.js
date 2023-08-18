@@ -1,6 +1,10 @@
 import { dowloadFile } from "../firebase/firebaseConf";
 
-//md to html
+/**
+ * Crea un archivo html con el reporte de actividades
+ * @param {*} reporte objeto con la lista de actividades
+ * @param {*} trabajadorEdit objeto con los datos del trabajador
+ */
 export const createReportHtml = async (reporte, trabajadorEdit) => {
   const headers = [
     `<div style="width: fit-content; display:flex; flex-direction: row; align-items: center; gap:5rem; padding: 1rem;">

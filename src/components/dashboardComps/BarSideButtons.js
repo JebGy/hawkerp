@@ -1,6 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns Retorna la vista de un boton de la barra lateral 
+ */
 function BarSideButtons({ fun, title, ...props }) {
   return props.href ? (
     <Link

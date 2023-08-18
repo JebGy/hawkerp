@@ -14,6 +14,11 @@ import {
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns Retorna el formulario para agregar un trabajo
+ */
 function AddTrabajoForm({ setReload, reload }) {
   const db = getFirestore(app);
 
@@ -32,6 +37,9 @@ function AddTrabajoForm({ setReload, reload }) {
     loadFromFirebase();
   }, []);
 
+  /**
+   * Cargo los trabajos desde firebase
+   */
   const loadFromFirebase = async () => {
     await getDocs(query(collection(db, "trabajos"), orderBy("_trabajoFecha")))
       .then((querySnapshot) => {
@@ -42,6 +50,11 @@ function AddTrabajoForm({ setReload, reload }) {
       });
   };
 
+  /**
+   * Agrego un trabajo a firebase
+   * @param {*} e 
+   * @returns nada
+   */
   const addtrabajo = async (e) => {
     if (e.target[0].value === "" || e.target[1].value === "") {
       alert("Debes llenar todos los campos");
