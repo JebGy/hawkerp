@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 
+/**
+ * 
+ * @returns Retorna el tema actual de la aplicacion
+ */
 function ThemeHook() {
   const [theme, setTheme] = React.useState("light");
   React.useEffect(() => {

@@ -46,7 +46,7 @@ function LoginForm({ ...props }) {
           const user = {
             user: e.target[0].value,
             password: hashPassword(e.target[1].value),
-            access: [false, false, false, false],
+            access: [false, false, false, false,false],
             primary: false,
             tareas:[],
             rol: rol,

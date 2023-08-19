@@ -1,3 +1,6 @@
+/**
+ * Clase Area
+ */
 export class Area {
   _id;
   _areaName;
@@ -6,6 +9,15 @@ export class Area {
   _areaIsEmpty;
   _tareas;
 
+  /**
+   * Constructor de la clase Area
+   * @param {*} id 
+   * @param {*} areaName 
+   * @param {*} areaPopulation 
+   * @param {*} areaSaturation 
+   * @param {*} areaIsEmpty 
+   * @param {*} tareas 
+   */
   constructor(id, areaName, areaPopulation, areaSaturation, areaIsEmpty, tareas) {
     this._id = id;
     this._areaName = areaName;
@@ -14,6 +26,8 @@ export class Area {
     this._areaIsEmpty = areaIsEmpty;
     this._tareas = tareas;
   }
+
+  // Getters y Setters
 
   get id() {
     return this._id;
@@ -62,6 +76,8 @@ export class Area {
   set tareas(tareas) {
     this._tareas = tareas;
   }
+
+  //To String
 
   toString() {
     return (
