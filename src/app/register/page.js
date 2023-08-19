@@ -21,6 +21,9 @@ export default function Home() {
         />
       </div>
       <LoginForm reg={true}/>
+      <div className="absolute bottom-0 left-0 right-0 flex flex-row text-xs justify-center items-center p-2">
+        <p>Created by Munayco Rivera, Favio Gabriel - 2023</p>
+      </div>
     </div>
   );
 }
