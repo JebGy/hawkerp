@@ -58,27 +58,18 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       const deleteAll = async () => {
         const querySnapshot = await getDocs(collection(db, "usuarios"));
         querySnapshot.forEach((doc) => {
-          deleteDoc(doc(db, `usuarios/${doc.id}/reportes`)).then(() => {
-            console.log("Document successfully deleted!");
-          });
-        });
-      };
-      deleteFile();
-      deleteAll();
-    } else {
-      const _deleteAll = async () => {
-        const querySnapshot = await getDocs(collection(db, "usuarios"));
-        querySnapshot.forEach((doc) => {
           getDocs(collection(db, `usuarios/${doc.id}/reportes`)).then(
             (querySnapshot) => {
               querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data(), "delete");
+                deleteDoc(doc.ref);
               });
             }
           );
         });
       };
-      _deleteAll();
+      deleteAll();
+    } else {
+
       console.log(
         "No es Domingo " +
           daysOfThisWeek()[1].getDate() +
@@ -108,9 +99,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
   return (
     <div
       className={
-        theme === "dark" 
+        theme === "dark"
           ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-zinc-900 text-white "
-          :  "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 "
+          : "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 "
       }
     >
       {isLoaded ? (

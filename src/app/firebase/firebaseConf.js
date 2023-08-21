@@ -5,6 +5,7 @@ import {
   uploadBytes,
   getDownloadURL,
   deleteObject,
+  listAll,
 } from "firebase/storage";
 import imageCompression from "browser-image-compression";
 
@@ -24,8 +25,8 @@ export const storage = getStorage(app);
 
 /**
  * Comprime y sube un archivo a firebase storage
- * @param {File} file 
- * @param {String} url 
+ * @param {File} file
+ * @param {String} url
  */
 export const compressAndUploadFile = async (file, url) => {
   try {
@@ -65,11 +66,13 @@ export const dowloadFile = async (urlImage) => {
  * Función para eliminar archivos de firebase storage
  */
 export const deleteFile = async () => {
-  const storageRef = ref(storage, `/`);
-  try {
-    await deleteObject(storageRef);
-    alert("File deleted successfully");
-  } catch (error) {
-    console.error("Error deleting the file:", error);
-  }
+  //delete all
+  const storageRef = ref(storage);
+  const listRef = ref(storage, "/");
+  //remove all images
+  (await listAll(listRef)).prefixes.forEach((folderRef) => {
+    // All the prefixes under listRef.
+    // You may call listAll() recursively on them.
+    console.log(folderRef.fullPath.split("/")[1]);
+  });
 };
