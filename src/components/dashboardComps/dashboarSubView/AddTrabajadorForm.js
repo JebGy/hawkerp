@@ -208,14 +208,6 @@ export default function AddTrabajadorForm() {
               >
                 {nowEdit ? "Editar" : "Selecciona un usuario porfavor"}
               </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-                className="bg-gradient-to-r from-red-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-yellow-500 transition-all active:scale-95"
-              >
-                Limpiar Reportes
-              </button>
             </div>
           </form>
         </div>
