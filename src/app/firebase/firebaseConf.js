@@ -11,12 +11,12 @@ import imageCompression from "browser-image-compression";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCEnpuPdXUasfVoSZkYOiOtI11XwUiref8",
-  authDomain: "emm-erp.firebaseapp.com",
-  projectId: "emm-erp",
-  storageBucket: "emm-erp.appspot.com",
-  messagingSenderId: "622399363584",
-  appId: "1:622399363584:web:802698509b9ff8f5b596e5",
+  apiKey: "AIzaSyDwqB_KJrIRRYpAC_yJyEtvp1KvyopYnho",
+  authDomain: "hawkerp-c1ef5.firebaseapp.com",
+  projectId: "hawkerp-c1ef5",
+  storageBucket: "hawkerp-c1ef5.appspot.com",
+  messagingSenderId: "684924526135",
+  appId: "1:684924526135:web:3537012f9ad257774ea9b2"
 };
 
 // Initialize Firebase
