@@ -35,7 +35,7 @@ function DashboardBarSide({ theme, setTheme }) {
       }
     >
       <div className="flex flex-col p-5 gap-3">
-        <p className="text-2xl font-bold text-left mb-5">EMM - ERP</p>
+        <p className="text-2xl font-bold text-left mb-5">HAWKERP</p>
         <BarSideButtons
           title="Mi perfil"
           fun={() => {
