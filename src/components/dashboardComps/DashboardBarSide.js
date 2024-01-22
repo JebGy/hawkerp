@@ -30,7 +30,7 @@ function DashboardBarSide({ theme, setTheme }) {
     <div
       className={
         theme === "dark"
-          ? "col-span-1 bg-zinc-900  text-white  shadow-2xl shadow-zinc-800  h-screen lg:flex flex-col justify-between hidden z-10"
+          ? "col-span-1 bg-cyan-950  text-white  shadow-xl shadow-zinc-950  h-screen lg:flex flex-col justify-between hidden z-10"
           : "col-span-1  shadow-2xl  h-screen lg:flex flex-col justify-between hidden"
       }
     >
@@ -148,7 +148,7 @@ function DashboardBarSide({ theme, setTheme }) {
       </div>
 
       {showForm ? (
-        <div className="absolute z-50 top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center">
+        <div className="absolute z-[99] top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center">
           <button
             onClick={() => {
               setShowForm(false);
@@ -174,7 +174,7 @@ function DashboardBarSide({ theme, setTheme }) {
           <div
             className={
               theme === "dark"
-                ? "bg-zinc-900 rounded-xl p-5 w-5/6 lg:w-96 "
+                ? "bg-cyan-950 rounded-xl p-5 w-5/6 lg:w-96 "
                 : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
             }
           >
@@ -208,7 +208,7 @@ function DashboardBarSide({ theme, setTheme }) {
               />
               <button
                 type="submit"
-                className="bg-purple-500 hover:bg-purple-600 text-white font-bold  py-3 px-4 rounded"
+                className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold  py-3 px-4 rounded"
               >
                 Enviar
               </button>

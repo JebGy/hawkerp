@@ -15,8 +15,8 @@ import {
 import { app } from "@/app/firebase/firebaseConf";
 
 /**
- * 
- * @param {*} param0 
+ *
+ * @param {*} param0
  * @returns Retorna el formulario para agregar un trabajo
  */
 function AddTrabajoForm({ setReload, reload }) {
@@ -52,7 +52,7 @@ function AddTrabajoForm({ setReload, reload }) {
 
   /**
    * Agrego un trabajo a firebase
-   * @param {*} e 
+   * @param {*} e
    * @returns nada
    */
   const addtrabajo = async (e) => {
@@ -181,9 +181,15 @@ function AddTrabajoForm({ setReload, reload }) {
             name="estado"
             id="estado"
           >
-            <option className="text-black" value="Pendiente">Pendiente</option>
-            <option className="text-black" value="En proceso">En proceso</option>
-            <option className="text-black" value="Terminado">Terminado</option>
+            <option className="text-black" value="Pendiente">
+              Pendiente
+            </option>
+            <option className="text-black" value="En proceso">
+              En proceso
+            </option>
+            <option className="text-black" value="Terminado">
+              Terminado
+            </option>
           </select>
 
           <button
@@ -203,7 +209,7 @@ function AddTrabajoForm({ setReload, reload }) {
             Trabajos Registrados
           </h2>
           <button
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-50"
+            className=" bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full p-2 hover:shadow-xl hover:shadow-cyan-300 transition-all active:scale-95 z-1"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();

@@ -124,7 +124,7 @@ function AddTaskForm({ ...porps }) {
             Tareas
           </h2>
           <button
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-50"
+            className=" bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full p-2 hover:shadow-xl hover:shadow-cyan-300 transition-all active:scale-95 z-1"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();

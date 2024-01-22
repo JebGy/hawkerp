@@ -51,8 +51,8 @@ function AreaTareas() {
     <div
       className={
         theme === "dark"
-          ? "bg-zinc-900 text-white h-screen"
-          : "bg-gray-100 text-gray-900 h-screen"
+          ? "bg-zinc-900 text-white h-full"
+          : "bg-gray-100 text-gray-900 h-full"
       }
     >
       {isLoaded ? (

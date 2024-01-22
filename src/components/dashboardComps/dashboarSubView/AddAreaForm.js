@@ -137,7 +137,7 @@ function AddAreaForm({ setReload, reload }) {
             className={
               error
                 ? "mb-5 text-black w-full p-2 outline-none focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
-                : "mb-5 text-black w-full p-2 outline-none focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5 text-black w-full p-2 outline-none focus:border-b-2 focus:border-cyan-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -162,12 +162,12 @@ function AddAreaForm({ setReload, reload }) {
                   }
             }
             placeholder="Población"
-            className="mb-5 w-full text-black p-2 outline-none border-2 border-gray-300 rounded-lg focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full text-black p-2 outline-none border-2 border-gray-300 rounded-lg focus:border-b-2 focus:border-cyan-500"
           />
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all"
+            className="bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-cyan-300 transition-all"
           >
             {
               // eslint-disable-next-line no-nested-ternary
@@ -182,7 +182,7 @@ function AddAreaForm({ setReload, reload }) {
             Áreas registradas
           </h2>
           <button
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-40"
+            className="bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full p-2 hover:shadow-xl hover:shadow-cyan-300 transition-all active:scale-95 z-1"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();
@@ -213,7 +213,7 @@ function AddAreaForm({ setReload, reload }) {
                   <div
                     className={
                       nowEditing && areaToEdit.id === area.id
-                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
+                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-cyan-200 shadow-lg mb-5 rounded-xl border-2 border-cyan-500"
                         : "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     }
                     key={area.id}

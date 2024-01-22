@@ -1,5 +1,5 @@
 import Image from "next/image";
-import addArea from "../../public/addArea.svg";
+import addArea from "../../public/Artboard 6.jpg";
 import LoginForm from "@/components/loginComps/LoginForm";
 
 /**
@@ -13,11 +13,11 @@ export default function Home() {
         <h2 className="font-semibold text-4xl">
           HAWKERP
         </h2>
-        <p>Herramienta de Gestión</p>
+        <p>Hawkcoded ERP</p>
         <Image
           src={addArea}
           alt="Picture of the author"
-          className="object-contain "
+          className="object-contain h-96"
         />
       </div>
       <LoginForm />

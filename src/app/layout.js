@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'EMM ERP',
+  title: 'HAWKERP',
   description: 'Created By Favio Munayco',
 }
 
