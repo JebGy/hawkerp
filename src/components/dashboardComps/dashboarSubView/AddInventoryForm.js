@@ -159,7 +159,7 @@ function AddInventoryForm({ ...porps }) {
             type="number"
             placeholder="Cantidad del producto"
           />
-          <button className="bg-gradient-to-r from-black-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-black-500 transition-all active:scale-95">
+          <button className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95">
             {!nowEdit ? "Agregar" : "Editar"}
           </button>
           <button
@@ -221,7 +221,7 @@ function AddInventoryForm({ ...porps }) {
       </div>
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full h-96 text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
-          <tr className="border-2 border-black-500 grid grid-cols-6 items-center p-2 gap-5 ">
+          <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
             <th>
               <select
                 onChange={(e) => {
@@ -297,8 +297,8 @@ function AddInventoryForm({ ...porps }) {
               key={item.id}
               className={
                 nowEdit && currentItem && currentItem.id === item.id
-                  ? "border-b-2 border-black-500 grid grid-cols-6 items-center justify-center p-2  bg-black-500 bg-opacity-20 h-fit"
-                  : "border-b-2 border-black-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
+                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-500 bg-opacity-20 h-fit"
+                  : "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
               }
             >
               <td>{item.codigo}</td>
@@ -351,7 +351,7 @@ function AddInventoryForm({ ...porps }) {
                   )}
                 </button>
                 <button
-                  className="bg-black-600 hover:bg-black-700 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                   onClick={() => {
                     setNowExtract(!nowExtract);
                     setCurrentItem(item);
@@ -511,7 +511,7 @@ function AddInventoryForm({ ...porps }) {
                 </option>
               ))}
             </select>
-            <button className="bg-gradient-to-r from-black-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-black-500 transition-all active:scale-95">
+            <button className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95">
               Extraer
             </button>
           </form>

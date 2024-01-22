@@ -15,9 +15,9 @@ function ReportItem({ url, actividad, hora }) {
   });
 
   return (
-    <div className="border-b-2 border-teal-500 p-2 grid grid-cols-2 gap-5 justify-between w-full">
+    <div className="border-b-2 border-rose-500 p-2 grid grid-cols-2 gap-5 justify-between w-full">
       <div className="mb-5">
-        <p className="text-teal-600 font-bold w-full border-b-2 border-teal-600 mb-5">
+        <p className="text-rose-600 font-bold w-full border-b-2 border-rose-600 mb-5">
           {hora}
         </p>
         <h3 className="text-lg">{actividad}</h3>
