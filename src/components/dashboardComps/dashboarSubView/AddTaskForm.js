@@ -89,9 +89,9 @@ function AddTaskForm({ ...porps }) {
             type="text"
             required
             placeholder="Nombre de la tarea"
-            className="outline-none border-2 border-gray-300 text-black rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+            className="outline-none border-2 border-gray-300 text-black rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-black-500 transition-all"
           />
-          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer bg-transparent">
+          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-black-500 transition-all mb-5 cursor-pointer bg-transparent">
             {isLoaded ? (
               areas.map((area) => {
                 area.data()._areaName;
@@ -111,7 +111,7 @@ function AddTaskForm({ ...porps }) {
           </select>
           <button
             type="submit"
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95"
+            className="bg-gradient-to-r from-black-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-black-500 transition-all active:scale-95"
           >
             Asignar
           </button>
@@ -124,7 +124,7 @@ function AddTaskForm({ ...porps }) {
             Tareas
           </h2>
           <button
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95 z-50"
+            className="bg-gradient-to-r from-black-500 to-blue-400 text-white rounded-full p-2 hover:shadow-xl hover:shadow-black-500 transition-all active:scale-95 z-50"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();

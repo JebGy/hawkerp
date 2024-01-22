@@ -178,7 +178,7 @@ function DashboardBarSide({ theme, setTheme }) {
                 : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
             }
           >
-            <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
+            <h1 className="text-2xl text-teal-500 font-bold mb-2 border-b-2 border-teal-500 pb-2">
               Enviar Mensaje
             </h1>
             <form
@@ -208,7 +208,7 @@ function DashboardBarSide({ theme, setTheme }) {
               />
               <button
                 type="submit"
-                className="bg-purple-500 hover:bg-purple-600 text-white font-bold  py-3 px-4 rounded"
+                className="bg-black-500 hover:bg-black-600 text-white font-bold  py-3 px-4 rounded"
               >
                 Enviar
               </button>
