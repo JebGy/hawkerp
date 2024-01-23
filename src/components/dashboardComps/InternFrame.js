@@ -32,8 +32,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
     setCurrentView(n);
   };
 
- /*  useEffect(() => {
-    const daysOfThisWeek = () => {
+  useEffect(() => {
+   /*  const daysOfThisWeek = () => {
       const today = new Date();
       const day = today.getDay();
       const diff = today.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
@@ -80,7 +80,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
       );
     } */
 
-  /*   const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
         window.location.href = "/trabajador";
@@ -94,7 +94,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
     _setUser(user);
 
     setIsLoaded(true);
-  }, []); */
+  }, []);
 
   return (
     <div
