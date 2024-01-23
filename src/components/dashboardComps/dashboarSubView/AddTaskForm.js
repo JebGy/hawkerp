@@ -12,6 +12,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { app } from "@/app/firebase/firebaseConf";
+import TaskTable from "./TaskTable";
 
 /**
  *
@@ -23,14 +24,23 @@ function AddTaskForm({ ...porps }) {
   const [areas, setAreas] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [taskList, setTaskList] = useState([]); // [ { _taskName: "Nombre de la tarea", _taskIsDone: false }
+  const [trabajadores, setTrabajadores] = useState([]); //
 
   /**
    * Carga las areas y las tareas desde firebase
    */
+
+  const getTrabajadores = async () => {
+    await getDocs(collection(db, "usuarios")).then((querySnapshot) => {
+      setTrabajadores(querySnapshot.docs);
+    });
+  };
+
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas"))
       .then((querySnapshot) => {
         setAreas(querySnapshot.docs);
+        
         //add task list
         let _taskList = [];
         querySnapshot.docs.forEach((doc) => {
@@ -39,6 +49,7 @@ function AddTaskForm({ ...porps }) {
           });
         });
         setTaskList(_taskList);
+        getTrabajadores();
         querySnapshot.docs;
       })
       .then(() => {
@@ -58,11 +69,13 @@ function AddTaskForm({ ...porps }) {
   const addTaskToFirebase = async (e) => {
     e.preventDefault();
 
-    const taskRef = doc(db, "areas", e.target[1].value);
+    const taskRef = doc(db, "areas", e.target[3].value);
     await updateDoc(taskRef, {
       _tareas: arrayUnion({
-        _taskId: e.target[1].value,
+        _taskId: e.target[3].value,
         _taskName: e.target[0].value,
+        _taskDescription: e.target[1].value,
+        _worker: e.target[2].value,
         _taskIsDone: false,
       }),
     }).then(() => {
@@ -91,6 +104,30 @@ function AddTaskForm({ ...porps }) {
             placeholder="Nombre de la tarea"
             className="outline-none border-2 border-gray-300 text-black rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
           />
+          <textarea
+            type="text"
+            required
+            placeholder="Descripción de la tarea"
+            className="outline-none border-2 border-gray-300 text-black rounded-lg mb-5 p-2 w-full focus:border-b-2 focus:border-purple-500 transition-all"
+          />
+          <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer bg-transparent">
+            {isLoaded ? (
+              trabajadores.map((trabajador) => {
+                
+                return (
+                  <option
+                    style={{ color: "black" }}
+                    value={trabajador.id}
+                    key={trabajador.id}
+                  >
+                    {trabajador.id}
+                  </option>
+                );
+              })
+            ) : (
+              <option value="0">Cargando...</option>
+            )}
+          </select>
           <select className="underline underline-offset-4  p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer bg-transparent">
             {isLoaded ? (
               areas.map((area) => {
@@ -167,107 +204,12 @@ function AddTaskForm({ ...porps }) {
                       </div>
                     </div>
 
-                    <div className="w-full grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-5 ">
-                      {taskList.map((task, index) => {
-                        if (task._taskId === area.id) {
-                          return (
-                            <div
-                              className="w-full grid grid-cols-2 place-items-center justify-between items-center p-3 gap-5 bg-neutral-200 rounded-xl shadow-lg"
-                              key={task._taskName}
-                            >
-                              <p
-                                className={
-                                  task._taskIsDone
-                                    ? "line-through text-xs"
-                                    : "text-xs"
-                                }
-                              >
-                                {task._taskName}
-                              </p>
-                              <div className="w-full flex flex-row justify-end">
-                                <button
-                                  className="transition-all active:scale-95 hover:shadow-xl hover:shadow-green-500 p-2 rounded-full"
-                                  onClick={() => {
-                                    const taskRef = doc(
-                                      db,
-                                      "areas",
-                                      task._taskId
-                                    );
-
-                                    updateDoc(taskRef, {
-                                      _tareas: arrayRemove({
-                                        _taskId: task._taskId,
-                                        _taskName: task._taskName,
-                                        _taskIsDone: false,
-                                      }),
-                                    });
-
-                                    updateDoc(taskRef, {
-                                      _tareas: arrayUnion({
-                                        _taskId: task._taskId,
-                                        _taskName: task._taskName,
-                                        _taskIsDone: true,
-                                      }),
-                                    }).then(() => {
-                                      loadFromFirebase();
-                                    });
-                                  }}
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={4}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-green-500"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M5 13l4 4L19 7"
-                                    />
-                                  </svg>
-                                </button>
-                                <button
-                                  className="transition-all active:scale-95 hover:shadow-xl hover:shadow-red-500 p-2 rounded-full"
-                                  onClick={() => {
-                                    const taskRef = doc(
-                                      db,
-                                      "areas",
-                                      task._taskId
-                                    );
-
-                                    updateDoc(taskRef, {
-                                      _tareas: arrayRemove({
-                                        _taskId: task._taskId,
-                                        _taskName: task._taskName,
-                                        _taskIsDone: task._taskIsDone,
-                                      }),
-                                    }).then(() => {
-                                      loadFromFirebase();
-                                    });
-                                  }}
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={4}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-red-500"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18L18 6M6 6l12 12"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-                            </div>
-                          );
-                        }
-                      })}
+                    <div className="w-full grid grid-flow-row grid-cols-1 gap-5 ">
+                      <TaskTable
+                        tasks={taskList}
+                        area={area}
+                        areaId={area.id}
+                      />
                     </div>
                   </div>
                 );
