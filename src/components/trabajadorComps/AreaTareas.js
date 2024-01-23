@@ -51,7 +51,7 @@ function AreaTareas() {
     <div
       className={
         theme === "dark"
-          ? "bg-cyan-950 text-white h-full"
+          ? "bg-cyan-950 text-white h-screen overflow-y-auto"
           : "bg-gray-100 text-gray-900 h-full"
       }
     >
@@ -82,11 +82,17 @@ function AreaTareas() {
             return (
               <div
                 key={index}
-                className="flex flex-row justify-between items-center border-b-2 border-gray-200 mb-5 p-5 max-w-full"
+                className="flex lg:flex-row flex-col justify-center lg:justify-between items-center border-b-2 border-gray-200 mb-5 p-5 max-w-full"
               >
-                <div className="flex flex-col ">
-                  <h2 className="font-bold text-xl w-32 overflow-x-auto">
+                <div className="flex flex-col">
+                  <h2 className="font-bold lg:text-start text-justify p-4 text-2xl w-96 overflow-x-auto">
                     {tarea._taskName}
+                  </h2>
+                  <h2 className=" lg:text-start text-justify p-4 text-xl w-96 overflow-x-auto">
+                    {tarea._taskDescription}
+                  </h2>
+                  <h2 className=" lg:text-start text-justify p-4 text-xl w-96 overflow-x-auto">
+                    Responsable: <span className="text-yellow-600 font-bold">{tarea._worker}</span>
                   </h2>
                 </div>
                 <button
@@ -98,16 +104,20 @@ function AreaTareas() {
                   onClick={async () => {
                     await updateDoc(doc(db, "areas", tarea._taskId), {
                       _tareas: arrayRemove({
-                        _taskName: tarea._taskName,
                         _taskId: tarea._taskId,
-                        _taskIsDone: false,
+                        _taskName: tarea._taskName,
+                        _taskDescription: tarea._taskDescription,
+                        _worker: tarea._worker,
+                        _taskIsDone: tarea._taskIsDone,
                       }),
                     });
 
                     await updateDoc(doc(db, "areas", tarea._taskId), {
                       _tareas: arrayUnion({
-                        _taskName: tarea._taskName,
                         _taskId: tarea._taskId,
+                        _taskName: tarea._taskName,
+                        _taskDescription: tarea._taskDescription,
+                        _worker: tarea._worker,
                         _taskIsDone: true,
                       }),
                     }).then(() => {
@@ -123,64 +133,6 @@ function AreaTareas() {
         </div>
       ) : null}
 
-      {openModal ? (
-        <div className="fixed z-10 inset-0 overflow-y-auto w-screen h-screen bg-black bg-opacity-70 p-5">
-          <button
-            onClick={() => setOpenModal(false)}
-            className="p-2 z-50 rounded-full bg-red-500 active:scale-95 transition-all duration-150 absolute top-5 right-5 "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-white"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-
-          <div className="flex flex-col justify-center items-center w-full h-full">
-            <form
-              className="flex flex-col justify-center items-center w-full py-5 rounded-lg bg-white px-10"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const nombre = e.target[0].value;
-                await updateDoc(doc(db, "usuarios", user.user), {
-                  _tareas: arrayUnion({
-                    nombre: nombre,
-                    descripcion: e.target[1].value,
-                    estado: false,
-                  }),
-                });
-                setOpenModal(false);
-              }}
-            >
-              <h1 className="text-3xl font-bold mb-5">Nueva Tarea</h1>
-              <input
-                type="text"
-                placeholder="Nombre de la tarea"
-                className="w-full h-10 px-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
-              />
-              <textarea
-                placeholder="Descripción de la tarea"
-                className="w-full h-20 px-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
-              >
-                Agregar
-              </button>
-            </form>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

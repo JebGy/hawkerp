@@ -82,6 +82,7 @@ function AddTaskForm({ ...porps }) {
       alert("Tarea agregada con éxito");
       loadFromFirebase();
       e.target[0].value = "";
+      e.target[1].value = "";
     });
   };
 
@@ -204,7 +205,7 @@ function AddTaskForm({ ...porps }) {
                       </div>
                     </div>
 
-                    <div className="w-full grid grid-flow-row grid-cols-1 gap-5 ">
+                    <div className="w-full grid grid-flow-row grid-cols-1 gap-5 overflow-x-auto">
                       <TaskTable
                         tasks={taskList}
                         area={area}

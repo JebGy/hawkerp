@@ -18,8 +18,6 @@ function TaskTable({ tasks, area, areaId }) {
   const loadFromFirebase = async () => {
     await getDocs(collection(db, "areas"))
       .then((querySnapshot) => {
-        setAreas(querySnapshot.docs);
-
         //add task list
         let _taskList = [];
         querySnapshot.docs.forEach((doc) => {
@@ -27,70 +25,86 @@ function TaskTable({ tasks, area, areaId }) {
             _taskList.push(task);
           });
         });
-        setTaskList(_taskList);
-        getTrabajadores();
+
         querySnapshot.docs;
       })
-      .then(() => {
-        setIsLoaded(true);
-      });
+      .then(() => {});
   };
   return (
-    <table className=" w-full">
-      <thead className="">
-        <th className="w-96">Áreas</th>
-        <th className="w-96">Población</th>
-        <th className="w-96">Título</th>
+    <table className=" w-max rounded-lg">
+      <thead className="rounded-lg">
+        <th className="w-36">Áreas</th>
+        <th className="w-24">Población</th>
+        <th className="w-36">Título</th>
         <th className="w-96">Descripción</th>
-        <th>Responsable</th>
-        <th>Acciones</th>
+        <th className="w-36">Responsable</th>
+        <th className="w-24">Acciones</th>
       </thead>
       <tbody className="">
         {tasks.map((value, index, array) => {
           if (value._taskId === areaId) {
             return (
-              <tr key={index}>
+              <tr
+                key={index}
+                className={value._taskIsDone ? "bg-green-200 rounded-lg h-36 p-4" : " h-36 p-4"}
+              >
                 <td>{area.data()._areaName}</td>
-                <td className="w-96">{area.data()._areaPopulation}</td>
-                <td className="w-96">{value._taskName}</td>
+                <td>{area.data()._areaPopulation}</td>
+                <td>{value._taskName}</td>
                 <td className="w-96">{value._taskDescription}</td>
                 <td>{value._worker}</td>
-                <td className="grid-cols-2 grid">
-                  <button
-                    className="transition-all active:scale-95 hover:shadow-xl hover:shadow-green-500 p-2 rounded-full"
-                    onClick={() => {
-                      const taskRef = doc(db, "areas", value._taskId);
-
-                      updateDoc(taskRef, {
-                        _tareas: arrayRemove({
-                          _taskId: value._taskId,
-                          _taskName: value._taskName,
-                          _taskDescription: value._taskDescription,
-                          _worker: value._worker,
-                          _taskIsDone: value._taskIsDone,
-                        }),
-                      }).then(() => {
-                        loadFromFirebase();
-                      });
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-6 h-6 text-green-500"
+                <td
+                  className={
+                    value._taskIsDone
+                      ? "w-36 flex flex-row h-36"
+                      : "grid-cols-2 grid place-items-center h-max"
+                  }
+                >
+                  {!value._taskIsDone ? (
+                    <button
+                      className="transition-all active:scale-95 hover:shadow-xl hover:shadow-green-500 p-2 rounded-full mx-auto"
+                      onClick={() => {
+                        const taskRef = doc(db, "areas", value._taskId);
+                        updateDoc(taskRef, {
+                          _tareas: arrayRemove({
+                            _taskId: value._taskId,
+                            _taskName: value._taskName,
+                            _taskDescription: value._taskDescription,
+                            _worker: value._worker,
+                            _taskIsDone: value._taskIsDone,
+                          }),
+                        });
+                        updateDoc(taskRef, {
+                          _tareas: arrayUnion({
+                            _taskId: value._taskId,
+                            _taskName: value._taskName,
+                            _taskDescription: value._taskDescription,
+                            _worker: value._worker,
+                            _taskIsDone: true,
+                          }),
+                        }).then(() => {
+                          loadFromFirebase();
+                        });
+                      }}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={4}
+                        stroke="currentColor"
+                        className="w-6 h-6 text-green-500"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </button>
+                  ) : null}
                   <button
-                    className="transition-all active:scale-95 hover:shadow-xl hover:shadow-red-500 p-2 rounded-full"
+                    className="transition-all active:scale-95 hover:shadow-xl hover:shadow-red-500 p-2 rounded-full mx-auto"
                     onClick={() => {
                       const taskRef = doc(db, "areas", value._taskId);
 
