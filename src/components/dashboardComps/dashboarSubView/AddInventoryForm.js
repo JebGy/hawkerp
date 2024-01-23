@@ -446,7 +446,7 @@ function AddInventoryForm({ ...porps }) {
             }}
             className={
               localStorage.getItem("theme") === "dark"
-                ? "flex flex-col p-5 gap-5 bg-zinc-900 rounded-xl shadow-lg shadow-slate-700 w-72"
+                ? "flex flex-col p-5 gap-5 bg-cyan-950 rounded-xl shadow-lg shadow-slate-700 w-72"
                 : "flex flex-col p-5 gap-5 bg-white rounded-xl shadow-lg shadow-slate-700 w-72"
             }
           >

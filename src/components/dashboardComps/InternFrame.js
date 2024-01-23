@@ -32,7 +32,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
     setCurrentView(n);
   };
 
-  useEffect(() => {
+ /*  useEffect(() => {
     const daysOfThisWeek = () => {
       const today = new Date();
       const day = today.getDay();
@@ -78,9 +78,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
           " " +
           new Date().getFullYear()
       );
-    }
+    } */
 
-    const user = JSON.parse(sessionStorage.getItem("user"));
+  /*   const user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
       if (user.rol === "1") {
         window.location.href = "/trabajador";
@@ -94,7 +94,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
     _setUser(user);
 
     setIsLoaded(true);
-  }, []);
+  }, []); */
 
   return (
     <div
@@ -155,7 +155,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               <div
                 className={
                   theme === "dark"
-                    ? "absolute w-fit flex flex-col p-5 gap-5 bg-zinc-900 shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
+                    ? "absolute w-fit flex flex-col p-5 gap-5 bg-cyan-950 shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
                     : "absolute w-fit flex flex-col p-5 gap-5 bg-white shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
                 }
               >
@@ -267,7 +267,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               <div
                 className={
                   theme === "dark"
-                    ? "bg-zinc-900 rounded-xl p-5 w-5/6 lg:w-96 "
+                    ? "bg-cyan-950 rounded-xl p-5 w-5/6 lg:w-96 "
                     : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
                 }
               >

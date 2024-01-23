@@ -69,7 +69,7 @@ function page() {
     <div
       className={
         theme === "dark"
-          ? "bg-zinc-900 p-5 h-screen w-screen flex flex-col justify-between items-center"
+          ? "bg-cyan-950 p-5 h-screen w-screen flex flex-col justify-between items-center"
           : "p-5 h-screen w-screen flex flex-col justify-between items-center"
       }
     >
@@ -116,7 +116,7 @@ function page() {
             <div
               className={
                 theme === "dark"
-                  ? "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-zinc-900 p-5 rounded-lg shadow-lg shadow-rose-600"
+                  ? "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-cyan-950 p-5 rounded-lg shadow-lg shadow-rose-600"
                   : "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-white p-5 rounded-lg shadow-lg shadow-rose-600"
               }
             >
@@ -222,7 +222,7 @@ function page() {
             <div
               className={
                 theme === "dark"
-                  ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-zinc-900 text-white shadow-xl rounded-xl shadow-purple-500 p-5"
+                  ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-cyan-950 text-white shadow-xl rounded-xl shadow-purple-500 p-5"
                   : "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-white text-black shadow-xl rounded-xl shadow-purple-500 p-5"
               }
             >

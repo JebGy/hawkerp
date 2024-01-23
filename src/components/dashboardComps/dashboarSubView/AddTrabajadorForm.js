@@ -424,7 +424,7 @@ export default function AddTrabajadorForm() {
           <div
             className={
               localStorage.getItem("theme") === "dark"
-                ? "grid grid-rows-1 lg:grid-cols-1 bg-zinc-900 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+                ? "grid grid-rows-1 lg:grid-cols-1 bg-cyan-950 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
                 : "grid grid-rows-1 lg:grid-cols-1 bg-white lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
             }
           >

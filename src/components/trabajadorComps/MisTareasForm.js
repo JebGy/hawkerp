@@ -46,7 +46,7 @@ function MisTareasForm() {
     <div
       className={
         theme === "dark"
-          ? "bg-zinc-900 text-white h-screen"
+          ? "bg-cyan-950 text-white h-screen"
           : "bg-gray-100 text-gray-900 h-screen"
       }
     >
@@ -207,7 +207,7 @@ function MisTareasForm() {
             <form
               className={
                 theme === "dark"
-                  ? "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-zinc-900 px-10"
+                  ? "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-cyan-950 px-10"
                   : "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
               }
               onSubmit={async (e) => {

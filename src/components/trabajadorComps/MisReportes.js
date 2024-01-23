@@ -184,7 +184,7 @@ function MisReportes() {
     <div
       className={
         theme === "dark"
-          ? "bg-zinc-900 text-white w-full h-screen"
+          ? "bg-cyan-950 text-white w-full h-screen"
           : "bg-gray-100 text-gray-900"
       }
     >
@@ -372,7 +372,7 @@ function MisReportes() {
             <form
               className={
                 theme === "dark"
-                  ? "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-zinc-900 p-5"
+                  ? "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-cyan-950 p-5"
                   : "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
               }
               onSubmit={(e) => {
@@ -470,7 +470,7 @@ function MisReportes() {
             <div
               className={
                 theme === "dark"
-                  ? "flex flex-col bg-zinc-900 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+                  ? "flex flex-col bg-cyan-950 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
                   : "flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
               }
             >
