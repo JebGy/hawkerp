@@ -59,7 +59,7 @@ function TaskTable({ tasks, area, areaId }) {
                   <button
                     className="transition-all active:scale-95 hover:shadow-xl hover:shadow-green-500 p-2 rounded-full"
                     onClick={() => {
-                      const taskRef = doc(db, "areas", task._taskId);
+                      const taskRef = doc(db, "areas", value._taskId);
 
                       updateDoc(taskRef, {
                         _tareas: arrayRemove({
@@ -68,14 +68,6 @@ function TaskTable({ tasks, area, areaId }) {
                           _taskDescription: value._taskDescription,
                           _worker: value._worker,
                           _taskIsDone: value._taskIsDone,
-                        }),
-                      });
-
-                      updateDoc(taskRef, {
-                        _tareas: arrayUnion({
-                          _taskId: task._taskId,
-                          _taskName: task._taskName,
-                          _taskIsDone: true,
                         }),
                       }).then(() => {
                         loadFromFirebase();
