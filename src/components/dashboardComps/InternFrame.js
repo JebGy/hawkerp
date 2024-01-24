@@ -364,9 +364,9 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
           {_user.access[3] ? (
             <DashboardCard
               idX={3}
-              title="Trabajos"
+              title="Colaboradores"
               text={
-                "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina."
+                "Gestiona los colaboradores de la empresa de manera eficiente. Crea, edita y elimina."
               }
               gradient={"from-emerald-500 to-emerald-700"}
               shadow={"shadow-emerald-300"}
