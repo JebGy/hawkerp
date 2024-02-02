@@ -151,7 +151,7 @@ function MisTareasForm() {
                   className={
                     tarea.estado
                       ? "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
-                      : "bg-orange-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                      : "bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                   }
                   onClick={async () => {
                     await updateDoc(doc(db, "usuarios", user.user), {
@@ -235,7 +235,7 @@ function MisTareasForm() {
               />
               <button
                 type="submit"
-                className="bg-orange-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
               >
                 Agregar
               </button>
