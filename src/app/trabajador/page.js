@@ -268,8 +268,8 @@ function page() {
               />
               <DashboardCard
                 title="Tareas de área"
-                gradient="from-green-500 to-orange-300"
-                shadow="from-green-600 to-orange-400"
+                gradient="from-green-500 to-blue-300"
+                shadow="from-green-600 to-blue-400"
                 text="Gestionar mis tareas de área"
                 idX={1}
                 currentView={0}

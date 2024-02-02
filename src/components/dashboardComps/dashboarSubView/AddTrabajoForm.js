@@ -194,7 +194,7 @@ function AddTrabajoForm({ setReload, reload }) {
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all"
+            className="bg-gradient-to-r from-orange-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all"
           >
             {
               // eslint-disable-next-line no-nested-ternary

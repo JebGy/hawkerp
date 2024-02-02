@@ -460,7 +460,7 @@ function MisReportes() {
                 <button
                   type="submit"
                   disabled={send}
-                  className="disabled:opacity-50 bg-orange-950 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                  className="disabled:opacity-50 bg-orange-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                 >
                   Agregar
                 </button>
