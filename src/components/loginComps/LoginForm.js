@@ -65,12 +65,12 @@ function LoginForm({ ...props }) {
 
   return (
     <div className="col-span-2 flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold mb-5">
+      <h1 className="text-2xl font-bold mb-5 text-stone-800">
         {props.reg ? "Registro" : "Inicio de sesión"}
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="p-10  rounded-xl shadow-xl border-2 border-orange-950 shadow-orange-950 flex flex-col items-center "
+        className="p-10  rounded-xl shadow-xl border-2 border-orange-950 shadow-orange-950 flex flex-col items-center bg-white"
       >
         <input
           type="text"
@@ -146,7 +146,7 @@ function LoginForm({ ...props }) {
         }
         <button
           type="submit"
-          className="bg-gradient-to-r mt-5 from-orange-950 to-yellow-600 text-white p-2 rounded-lg w-full mb-5 hover:shadow-lg hover:shadow-orange-950 transition-all active:scale-95"
+          className="bg-gradient-to-r mt-5 from-orange-950 to-orange-500 text-white p-2 rounded-lg w-full mb-5 hover:shadow-lg hover:shadow-orange-950 transition-all active:scale-95"
         >
           {props.reg ? "Registrarse" : "Iniciar sesión"}
         </button>
