@@ -323,7 +323,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona las áreas de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-orange-500 to-orange-500"}
+              gradient={"from-orange-500 to-orange-950"}
               shadow={"shadow-orange-500"}
               funcion={() => {
                 updateArea(0);
