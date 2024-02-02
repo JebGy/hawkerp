@@ -128,7 +128,7 @@ function AddInventoryForm({ ...porps }) {
                 ? setCurrentItem({ ...currentItem, id: e.target.value })
                 : setNombre(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-orange-400"
             type="text"
             placeholder="Nombre del producto"
           />
@@ -140,7 +140,7 @@ function AddInventoryForm({ ...porps }) {
                 ? setCurrentItem({ ...currentItem, codigo: e.target.value })
                 : setCodigo(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-orange-400"
             type="text"
             placeholder="Código del producto"
           />
@@ -155,11 +155,11 @@ function AddInventoryForm({ ...porps }) {
                   })
                 : setCantidad(e.target.value);
             }}
-            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-blue-400"
+            className="border-2 border-gray-300 rounded-lg p-2 text-black focus:outline-none focus:border-orange-400"
             type="number"
             placeholder="Cantidad del producto"
           />
-          <button className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95">
+          <button className="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all active:scale-95">
             {!nowEdit ? "Agregar" : "Editar"}
           </button>
           <button
@@ -221,7 +221,7 @@ function AddInventoryForm({ ...porps }) {
       </div>
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full h-96 text-center overflow-auto text-xs lg:text-md">
         <thead className="grid grid-cols-1  ">
-          <tr className="border-2 border-purple-500 grid grid-cols-6 items-center p-2 gap-5 ">
+          <tr className="border-2 border-orange-500 grid grid-cols-6 items-center p-2 gap-5 ">
             <th>
               <select
                 onChange={(e) => {
@@ -235,7 +235,7 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 w-full border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400"
+                className="border-2 w-full border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-orange-400"
               >
                 <option className="text-black" value="Código">
                   Código
@@ -269,7 +269,7 @@ function AddInventoryForm({ ...porps }) {
                     )
                   );
                 }}
-                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-blue-400 w-full"
+                className="border-2 border-gray-300 rounded-lg p-2 bg-transparent focus:outline-none focus:border-orange-400 w-full"
               >
                 <option className="text-black" value="Nombre">
                   Nombre
@@ -297,8 +297,8 @@ function AddInventoryForm({ ...porps }) {
               key={item.id}
               className={
                 nowEdit && currentItem && currentItem.id === item.id
-                  ? "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  bg-purple-500 bg-opacity-20 h-fit"
-                  : "border-b-2 border-purple-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
+                  ? "border-b-2 border-orange-500 grid grid-cols-6 items-center justify-center p-2  bg-orange-500 bg-opacity-20 h-fit"
+                  : "border-b-2 border-orange-500 grid grid-cols-6 items-center justify-center p-2  h-fit"
               }
             >
               <td>{item.codigo}</td>
@@ -351,7 +351,7 @@ function AddInventoryForm({ ...porps }) {
                   )}
                 </button>
                 <button
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                   onClick={() => {
                     setNowExtract(!nowExtract);
                     setCurrentItem(item);
@@ -446,7 +446,7 @@ function AddInventoryForm({ ...porps }) {
             }}
             className={
               localStorage.getItem("theme") === "dark"
-                ? "flex flex-col p-5 gap-5 bg-cyan-950 rounded-xl shadow-lg shadow-slate-700 w-72"
+                ? "flex flex-col p-5 gap-5 bg-stone-900 rounded-xl shadow-lg shadow-slate-700 w-72"
                 : "flex flex-col p-5 gap-5 bg-white rounded-xl shadow-lg shadow-slate-700 w-72"
             }
           >
@@ -481,7 +481,7 @@ function AddInventoryForm({ ...porps }) {
                 console.log(e.target.value);
               }}
               value={currentItem.id}
-              className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-orange-400"
             >
               {inventory.map((item) => (
                 <option className="text-black" key={item.id} value={item.id}>
@@ -491,7 +491,7 @@ function AddInventoryForm({ ...porps }) {
             </select>
             <input
               required
-              className="border-2 border-gray-300 text-black rounded-lg p-2 focus:outline-none focus:border-blue-400"
+              className="border-2 border-gray-300 text-black rounded-lg p-2 focus:outline-none focus:border-orange-400"
               type="number"
               placeholder="Cantidad del producto"
               onChange={(e) => {
@@ -500,7 +500,7 @@ function AddInventoryForm({ ...porps }) {
                 }
               }}
             />
-            <select className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-blue-400">
+            <select className="border-2 border-gray-300 bg-transparent rounded-lg p-2 focus:outline-none focus:border-orange-400">
               {trabajadores.map((trabajador) => (
                 <option
                   className="text-black"
@@ -511,7 +511,7 @@ function AddInventoryForm({ ...porps }) {
                 </option>
               ))}
             </select>
-            <button className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95">
+            <button className="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all active:scale-95">
               Extraer
             </button>
           </form>

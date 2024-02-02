@@ -163,7 +163,7 @@ export default function AddTrabajadorForm() {
                       set_trabajadorLastName(e.target.value);
                     }
               }
-              className="outline-none mb-5 p-2 w-full bg-transparent focus:border-b-2 focus:border-purple-500 transition-all"
+              className="outline-none mb-5 p-2 w-full bg-transparent focus:border-b-2 focus:border-orange-500 transition-all"
             >
               <option className="text-black" value={"1"}>
                 Autenticado
@@ -187,7 +187,7 @@ export default function AddTrabajadorForm() {
                       set_trabajadorArea(e.target.value);
                     }
               }
-              className="underline underline-offset-4 bg-transparent p-4 outline-none w-full focus:border-b-2 focus:border-purple-500 transition-all mb-5 cursor-pointer"
+              className="underline underline-offset-4 bg-transparent p-4 outline-none w-full focus:border-b-2 focus:border-orange-500 transition-all mb-5 cursor-pointer"
             >
               {isLoaded ? (
                 areas.map((area) => {
@@ -204,7 +204,7 @@ export default function AddTrabajadorForm() {
             <div className="flex flex-col gap-3">
               <button
                 type="submit"
-                className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all active:scale-95"
+                className="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all active:scale-95"
               >
                 {nowEdit ? "Editar" : "Selecciona un usuario porfavor"}
               </button>
@@ -215,7 +215,7 @@ export default function AddTrabajadorForm() {
 
       <table className="flex flex-col col-span-full lg:col-span-3 row-span-5 w-full  overflow-x-auto">
         <thead className="grid grid-cols-1 ">
-          <tr className="border-2 border-purple-500 grid grid-cols-5 items-center">
+          <tr className="border-2 border-orange-500 grid grid-cols-5 items-center">
             <th className="p-2 text-xs font-semibold text-center">Usuario</th>
             <th className="p-2 text-xs font-semibold text-center">Auth</th>
             <th className="p-2 text-xs font-semibold text-center">
@@ -231,7 +231,7 @@ export default function AddTrabajadorForm() {
                     })
                   );
                 }}
-                className="rounded-lg p-1 border-2 border-purple-500 bg-transparent w-full focus:border-purple-500 transition-all"
+                className="rounded-lg p-1 border-2 border-orange-500 bg-transparent w-full focus:border-orange-500 transition-all"
               >
                 <option className="text-black">Todas las áreas</option>
                 {areas.map((area) => {
@@ -255,8 +255,8 @@ export default function AddTrabajadorForm() {
                   key={trabajador.id}
                   className={
                     trabajadorEdit.id === trabajador.id && nowEdit
-                      ? "border-b-2 border-b-purple-500 items-center bg-purple-600 bg-opacity-20 lg:grid lg:grid-cols-5 gap-5 h-fit"
-                      : "border-b-2 border-b-purple-500 items-center lg:grid lg:grid-cols-5 gap-5 h-fit"
+                      ? "border-b-2 border-b-orange-500 items-center bg-orange-600 bg-opacity-20 lg:grid lg:grid-cols-5 gap-5 h-fit"
+                      : "border-b-2 border-b-orange-500 items-center lg:grid lg:grid-cols-5 gap-5 h-fit"
                   }
                 >
                   <td className="p-2 text-xs font-semibold text-center ">
@@ -276,7 +276,7 @@ export default function AddTrabajadorForm() {
                   </td>
                   <td className="text-xs font-semibold text-center ">
                     <button
-                      className="border-2 rounded-lg border-purple-500 p-2"
+                      className="border-2 rounded-lg border-orange-500 p-2"
                       onClick={() => {
                         setTrabajadorEdit({
                           ...trabajador.data(),
@@ -292,7 +292,7 @@ export default function AddTrabajadorForm() {
                         viewBox="0 0 24 24"
                         strokeWidth={2}
                         stroke="currentColor"
-                        className="w-6 h-6 text-purple-500"
+                        className="w-6 h-6 text-orange-500"
                       >
                         <path
                           strokeLinecap="round"
@@ -387,7 +387,7 @@ export default function AddTrabajadorForm() {
               );
             })
           ) : (
-            <tr className="border-b-2 border-b-purple-500">
+            <tr className="border-b-2 border-b-orange-500">
               <td className="p-2 text-xs font-semibold text-center text-zinc-900">
                 Cargando...
               </td>
@@ -424,7 +424,7 @@ export default function AddTrabajadorForm() {
           <div
             className={
               localStorage.getItem("theme") === "dark"
-                ? "grid grid-rows-1 lg:grid-cols-1 bg-cyan-950 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
+                ? "grid grid-rows-1 lg:grid-cols-1 bg-stone-900 lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
                 : "grid grid-rows-1 lg:grid-cols-1 bg-white lg:grid-rows-1 h-full  rounded-xl w-full lg:w-4/6 mx-auto p-5 overflow-y-auto"
             }
           >
@@ -434,7 +434,7 @@ export default function AddTrabajadorForm() {
                   Reportes de {trabajadorEdit.id}
                 </h2>
                 <button
-                  className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                   onClick={() => {
                     getReportes(trabajadorEdit.id);
                   }}
@@ -460,7 +460,7 @@ export default function AddTrabajadorForm() {
                   reportes.map((reporte) => {
                     return (
                       <div
-                        className="flex flex-row justify-between items-center p-5 w-full border-b-purple-500 border-b-2 mb-5"
+                        className="flex flex-row justify-between items-center p-5 w-full border-b-orange-500 border-b-2 mb-5"
                         key={reporte.id}
                       >
                         <div className="flex flex-col w-full">
@@ -504,7 +504,7 @@ export default function AddTrabajadorForm() {
                                 </svg>
                               </button>
                               <button
-                                className="bg-purple-500 hover:bg-purple-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
+                                className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-2 rounded-full transition-all active:scale-95 flex flex-row items-center justify-center gap-5 w-fit"
                                 onClick={() => {
                                   setReportTosee(reporte.id);
                                   setCanSeeReportes(!canSeeReportes);

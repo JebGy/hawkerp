@@ -30,7 +30,7 @@ function DashboardBarSide({ theme, setTheme }) {
     <div
       className={
         theme === "dark"
-          ? "col-span-1 bg-cyan-950  text-white  shadow-xl shadow-zinc-950  h-screen lg:flex flex-col justify-between hidden z-10"
+          ? "col-span-1 bg-stone-900  text-white  shadow-xl shadow-zinc-950  h-screen lg:flex flex-col justify-between hidden z-10"
           : "col-span-1  shadow-2xl  h-screen lg:flex flex-col justify-between hidden"
       }
     >
@@ -174,7 +174,7 @@ function DashboardBarSide({ theme, setTheme }) {
           <div
             className={
               theme === "dark"
-                ? "bg-cyan-950 rounded-xl p-5 w-5/6 lg:w-96 "
+                ? "bg-stone-900 rounded-xl p-5 w-5/6 lg:w-96 "
                 : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
             }
           >
@@ -208,7 +208,7 @@ function DashboardBarSide({ theme, setTheme }) {
               />
               <button
                 type="submit"
-                className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold  py-3 px-4 rounded"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold  py-3 px-4 rounded"
               >
                 Enviar
               </button>

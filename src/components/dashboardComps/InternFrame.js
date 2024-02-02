@@ -100,7 +100,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
     <div
       className={
         theme === "dark"
-          ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-cyan-950 text-white "
+          ? "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 bg-stone-900 text-white "
           : "lg:col-span-6 lg:grid lg:grid-rows-6 lg:w-full lg:h-screen grid col-span-7 "
       }
     >
@@ -112,7 +112,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               onClick={() => {
                 showSelecctor ? setShowSelector(false) : setShowSelector(true);
               }}
-              className="p-2 rounded-xl border-cyan-950 border-2  lg:hidden md:hidden active:scale-95 transition-all"
+              className="p-2 rounded-xl border-orange-950 border-2  lg:hidden md:hidden active:scale-95 transition-all"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 text-cyan-950"
+                className="w-6 h-6 text-orange-950"
               >
                 <path
                   strokeLinecap="round"
@@ -133,7 +133,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               onClick={() => {
                 showForm ? setShowForm(false) : setShowForm(true);
               }}
-              className="p-2 rounded-xl border-cyan-950 border-2 active:scale-95 transition-all hidden lg:block md:block"
+              className="p-2 rounded-xl border-orange-950 border-2 active:scale-95 transition-all hidden lg:block md:block"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 text-cyan-950"
+                className="w-6 h-6 text-orange-950"
               >
                 <path
                   strokeLinecap="round"
@@ -155,7 +155,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               <div
                 className={
                   theme === "dark"
-                    ? "absolute w-fit flex flex-col p-5 gap-5 bg-cyan-950 shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
+                    ? "absolute w-fit flex flex-col p-5 gap-5 bg-stone-900 shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
                     : "absolute w-fit flex flex-col p-5 gap-5 bg-white shadow-xl shadow-rose-500 top-0  mt-20  right-0  rounded-lg lg:hidden md:hidden"
                 }
               >
@@ -163,7 +163,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                   onClick={() => {
                     showForm ? setShowForm(false) : setShowForm(true);
                   }}
-                  className="p-2 rounded-xl border-cyan-950 border-2 active:scale-95 transition-all flex items-center justify-center"
+                  className="p-2 rounded-xl border-orange-950 border-2 active:scale-95 transition-all flex items-center justify-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +171,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-cyan-950"
+                    className="w-6 h-6 text-orange-950"
                   >
                     <path
                       strokeLinecap="round"
@@ -188,7 +188,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                       theme === "dark" ? "light" : "dark"
                     );
                   }}
-                  className="flex items-center justify-center p-2 rounded-xl border-cyan-950 border-2 active:scale-95 transition-all"
+                  className="flex items-center justify-center p-2 rounded-xl border-orange-950 border-2 active:scale-95 transition-all"
                 >
                   {theme === "dark" ? (
                     <svg
@@ -197,7 +197,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-cyan-950"
+                      className="w-6 h-6 text-orange-950"
                     >
                       <path
                         strokeLinecap="round"
@@ -212,7 +212,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-cyan-950"
+                      className="w-6 h-6 text-orange-950"
                     >
                       <path
                         strokeLinecap="round"
@@ -267,7 +267,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               <div
                 className={
                   theme === "dark"
-                    ? "bg-cyan-950 rounded-xl p-5 w-5/6 lg:w-96 "
+                    ? "bg-stone-900 rounded-xl p-5 w-5/6 lg:w-96 "
                     : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
                 }
               >
@@ -304,7 +304,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                   />
                   <button
                     type="submit"
-                    className="bg-cyan-950 hover:bg-cyan-950 text-white font-bold  py-3 px-4 rounded"
+                    className="bg-stone-900 hover:bg-stone-900 text-white font-bold  py-3 px-4 rounded"
                   >
                     Enviar
                   </button>
@@ -323,8 +323,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona las áreas de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-cyan-500 to-cyan-700"}
-              shadow={"shadow-cyan-300"}
+              gradient={"from-orange-500 to-orange-950"}
+              shadow={"shadow-orange-500"}
               funcion={() => {
                 updateArea(0);
               }}
@@ -338,8 +338,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona las tareas de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-yellow-500 to-yellow-700"}
-              shadow={"shadow-yellow-500"}
+              gradient={"from-red-500 to-red-950"}
+              shadow={"shadow-red-500"}
               funcion={() => {
                 updateArea(1);
               }}
@@ -353,8 +353,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona los colaboradores de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-red-500 to-red-700"}
-              shadow={"shadow-red-500"}
+              gradient={"from-yellow-500 to-yellow-950"}
+              shadow={"shadow-yellow-500"}
               funcion={() => {
                 updateArea(2);
               }}
@@ -368,8 +368,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona los trabajos de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-emerald-500 to-emerald-700"}
-              shadow={"shadow-emerald-300"}
+              gradient={"from-emerald-500 to-emerald-950"}
+              shadow={"shadow-emerald-500"}
               funcion={() => {
                 updateArea(3);
               }}
@@ -383,8 +383,8 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               text={
                 "Gestiona el inventario de la empresa de manera eficiente. Crea, edita y elimina."
               }
-              gradient={"from-rose-500 to-rose-700"}
-              shadow={"shadow-rose-300"}
+              gradient={"from-pink-500 to-pink-950"}
+              shadow={"shadow-pink-500"}
               currentView={currentView}
               funcion={() => {
                 updateArea(4);
@@ -412,7 +412,7 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
               <a
                 target="_blank"
                 href={`https://wa.me/+51949358892?text=Hola, mi nombre es ${_user.user} y necesito activación de permisos en el sistema.`}
-                className="text-cyan-950 underline underline-offset-2 cursor-pointer hover:scale-95 active:scale-95 transition-all"
+                className="text-orange-950 underline underline-offset-2 cursor-pointer hover:scale-95 active:scale-95 transition-all"
               >
                 {" "}
                 Comunícate con el departamento de TI{" "}

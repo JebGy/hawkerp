@@ -51,7 +51,7 @@ function AreaTareas() {
     <div
       className={
         theme === "dark"
-          ? "bg-cyan-950 text-white h-screen overflow-y-auto"
+          ? "bg-stone-900 text-white h-screen overflow-y-auto"
           : "bg-gray-100 text-gray-900 h-full"
       }
     >
@@ -99,7 +99,7 @@ function AreaTareas() {
                   className={
                     tarea._taskIsDone
                       ? "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
-                      : "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                      : "bg-orange-950 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                   }
                   onClick={async () => {
                     await updateDoc(doc(db, "areas", tarea._taskId), {

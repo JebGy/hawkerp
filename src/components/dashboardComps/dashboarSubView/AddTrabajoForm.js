@@ -136,7 +136,7 @@ function AddTrabajoForm({ setReload, reload }) {
             className={
               error
                 ? "mb-5  w-full p-2 outline-none text-black focus:border-b-2 focus:border-red-500 border-2 border-gray-300 rounded-lg"
-                : "mb-5  w-full p-2 outline-none text-black focus:border-b-2 focus:border-purple-500 border-2 border-gray-300 rounded-lg"
+                : "mb-5  w-full p-2 outline-none text-black focus:border-b-2 focus:border-orange-500 border-2 border-gray-300 rounded-lg"
             }
           />
           <input
@@ -156,7 +156,7 @@ function AddTrabajoForm({ setReload, reload }) {
                   }
             }
             placeholder="Fecha de entrega"
-            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-orange-500"
           />
           <textarea
             placeholder="Descripción . . ."
@@ -174,10 +174,10 @@ function AddTrabajoForm({ setReload, reload }) {
                     set_trabajoDescripcion(e.target.value);
                   }
             }
-            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-purple-500"
+            className="mb-5 w-full p-2 outline-none text-black focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-orange-500"
           />
           <select
-            className="mb-5 w-full bg-transparent  p-2 outline-none focus:border-b-2 focus:border-purple-500"
+            className="mb-5 w-full bg-transparent  p-2 outline-none focus:border-b-2 focus:border-orange-500"
             name="estado"
             id="estado"
           >
@@ -194,7 +194,7 @@ function AddTrabajoForm({ setReload, reload }) {
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-purple-500 to-blue-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-purple-500 transition-all"
+            className="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-full w-full p-2 hover:shadow-xl hover:shadow-orange-500 transition-all"
           >
             {
               // eslint-disable-next-line no-nested-ternary
@@ -209,7 +209,7 @@ function AddTrabajoForm({ setReload, reload }) {
             Trabajos Registrados
           </h2>
           <button
-            className=" bg-gradient-to-r from-cyan-500 to-cyan-700 text-white rounded-full p-2 hover:shadow-xl hover:shadow-cyan-300 transition-all active:scale-95 z-1"
+            className=" bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full p-2 hover:shadow-xl hover:shadow-orange-300 transition-all active:scale-95 z-1"
             onClick={() => {
               setIsLoaded(false);
               loadFromFirebase();
@@ -240,7 +240,7 @@ function AddTrabajoForm({ setReload, reload }) {
                   <div
                     className={
                       nowEditing && trabajoToEdit.id === trabajo.id
-                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-purple-500"
+                        ? "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl border-2 border-orange-500"
                         : "w-full flex flex-col justify-start items-start p-3 text-black bg-neutral-100 shadow-lg mb-5 rounded-xl "
                     }
                     key={trabajo.id}

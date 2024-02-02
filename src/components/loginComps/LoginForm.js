@@ -70,23 +70,23 @@ function LoginForm({ ...props }) {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="p-10  rounded-xl shadow-xl border-2 border-cyan-950 shadow-cyan-950 flex flex-col items-center "
+        className="p-10  rounded-xl shadow-xl border-2 border-orange-950 shadow-orange-950 flex flex-col items-center "
       >
         <input
           type="text"
           placeholder="Usuario"
-          className="outline-none mb-5 p-2 w-full focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-cyan-950 transition-all bg-inherit"
+          className="outline-none mb-5 p-2 w-full focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-orange-950 transition-all bg-inherit"
           required
         />
         <div className="flex flex-row items-center justify-center gap-3">
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Contraseña"
-            className="outline-none p-2 w-full focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-cyan-950 transition-all bg-inherit"
+            className="outline-none p-2 w-full focus:border-b-2 border-2 border-gray-300 rounded-lg focus:border-orange-950 transition-all bg-inherit"
             required
           />
           <button
-            className="text-cyan-950 active:scale-95"
+            className="text-orange-950 active:scale-95"
             type="button"
             onClick={() => setShowPassword(!showPassword)}
           >
@@ -146,7 +146,7 @@ function LoginForm({ ...props }) {
         }
         <button
           type="submit"
-          className="bg-gradient-to-r mt-5 from-cyan-950 to-yellow-600 text-white p-2 rounded-lg w-full mb-5 hover:shadow-lg hover:shadow-cyan-950 transition-all active:scale-95"
+          className="bg-gradient-to-r mt-5 from-orange-950 to-yellow-600 text-white p-2 rounded-lg w-full mb-5 hover:shadow-lg hover:shadow-orange-950 transition-all active:scale-95"
         >
           {props.reg ? "Registrarse" : "Iniciar sesión"}
         </button>

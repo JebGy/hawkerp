@@ -184,7 +184,7 @@ function MisReportes() {
     <div
       className={
         theme === "dark"
-          ? "bg-cyan-950 text-white w-full h-screen"
+          ? "bg-stone-900 text-white w-full h-screen"
           : "bg-gray-100 text-gray-900"
       }
     >
@@ -372,7 +372,7 @@ function MisReportes() {
             <form
               className={
                 theme === "dark"
-                  ? "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-cyan-950 p-5"
+                  ? "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-stone-900 p-5"
                   : "flex flex-col justify-center items-center w-96 lg:w-96 md:w-3/6 p-15 rounded-t-lg bg-white"
               }
               onSubmit={(e) => {
@@ -453,14 +453,14 @@ function MisReportes() {
                   type="text"
                   placeholder="Actividad realizada"
                   required
-                  className="w-6/6 h-10 px-2 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-6/6 h-10 px-2 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-orange-950"
                 />
                 <label>Imagen de actividad:</label>
                 <input type="file" className="w-5/6" />
                 <button
                   type="submit"
                   disabled={send}
-                  className="disabled:opacity-50 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                  className="disabled:opacity-50 bg-orange-950 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                 >
                   Agregar
                 </button>
@@ -470,7 +470,7 @@ function MisReportes() {
             <div
               className={
                 theme === "dark"
-                  ? "flex flex-col bg-cyan-950 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
+                  ? "flex flex-col bg-stone-900 rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
                   : "flex flex-col bg-white rounded-b-xl w-96 p-7 max-h-64 lg:w-96 md:w-3/6 overflow-y-auto"
               }
             >

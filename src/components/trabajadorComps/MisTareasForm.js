@@ -46,7 +46,7 @@ function MisTareasForm() {
     <div
       className={
         theme === "dark"
-          ? "bg-cyan-950 text-white h-screen"
+          ? "bg-stone-900 text-white h-screen"
           : "bg-gray-100 text-gray-900 h-screen"
       }
     >
@@ -151,7 +151,7 @@ function MisTareasForm() {
                   className={
                     tarea.estado
                       ? "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
-                      : "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                      : "bg-orange-950 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
                   }
                   onClick={async () => {
                     await updateDoc(doc(db, "usuarios", user.user), {
@@ -207,7 +207,7 @@ function MisTareasForm() {
             <form
               className={
                 theme === "dark"
-                  ? "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-cyan-950 px-10"
+                  ? "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-stone-900 px-10"
                   : "flex flex-col justify-center items-center w-full lg:w-4/6 py-5 rounded-lg bg-white px-10"
               }
               onSubmit={async (e) => {
@@ -227,15 +227,15 @@ function MisTareasForm() {
               <input
                 type="text"
                 placeholder="Nombre de la tarea"
-                className="w-full h-10 px-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full h-10 px-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-950"
               />
               <textarea
                 placeholder="Descripción de la tarea"
-                className="w-full h-20 p-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full h-20 p-3 mb-5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-orange-950"
               />
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
+                className="bg-orange-950 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded active:scale-90 transition duration-150"
               >
                 Agregar
               </button>

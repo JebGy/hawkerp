@@ -69,7 +69,7 @@ function page() {
     <div
       className={
         theme === "dark"
-          ? "bg-cyan-950 p-5 h-screen w-screen flex flex-col justify-between items-center"
+          ? "bg-stone-900 p-5 h-screen w-screen flex flex-col justify-between items-center"
           : "p-5 h-screen w-screen flex flex-col justify-between items-center"
       }
     >
@@ -87,13 +87,13 @@ function page() {
           <div className="flex flex-row gap-5 items-center">
             {newMessages > 0 ? (
               <div className="flex flex-row gap-2 items-center">
-                <h3 className="text-sm font-semibold text-purple-600">
+                <h3 className="text-sm font-semibold text-orange-600">
                   {newMessages}
                 </h3>
               </div>
             ) : null}
             <button
-              className="p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+              className="p-2 rounded-xl border-orange-500 border-2 active:scale-95 transition-all"
               onClick={() => setToggleMenu(!toggleMenu)}
             >
               <svg
@@ -102,7 +102,7 @@ function page() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 text-purple-500"
+                className="w-6 h-6 text-orange-500"
               >
                 <path
                   strokeLinecap="round"
@@ -116,7 +116,7 @@ function page() {
             <div
               className={
                 theme === "dark"
-                  ? "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-cyan-950 p-5 rounded-lg shadow-lg shadow-rose-600"
+                  ? "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-stone-900 p-5 rounded-lg shadow-lg shadow-rose-600"
                   : "absolute top-0 mt-20 right-0 flex flex-col gap-5 mr-5 bg-white p-5 rounded-lg shadow-lg shadow-rose-600"
               }
             >
@@ -128,11 +128,11 @@ function page() {
                     setNewMessages(0);
                   }
                 }}
-                className=" flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all gap-5"
+                className=" flex items-center justify-center p-2 rounded-xl border-orange-500 border-2 active:scale-95 transition-all gap-5"
               >
                 {newMessages > 0 ? (
                   <div className="flex flex-row gap-2 items-center">
-                    <h3 className="text-sm font-semibold text-purple-600">
+                    <h3 className="text-sm font-semibold text-orange-600">
                       {newMessages}
                     </h3>
                   </div>
@@ -143,7 +143,7 @@ function page() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-purple-500 hover:text-purple-600 cursor-pointer  transition-all"
+                  className="w-6 h-6 text-orange-500 hover:text-orange-600 cursor-pointer  transition-all"
                 >
                   <path
                     strokeLinecap="round"
@@ -157,8 +157,8 @@ function page() {
                   href="/dashboard"
                   className={
                     theme === "dark"
-                      ? "flex items-center justify-center p-2 rounded-xl text-purple-500 border-purple-500 border-2 active:scale-95 transition-all"
-                      : "flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+                      ? "flex items-center justify-center p-2 rounded-xl text-orange-500 border-orange-500 border-2 active:scale-95 transition-all"
+                      : "flex items-center justify-center p-2 rounded-xl border-orange-500 border-2 active:scale-95 transition-all"
                   }
                 >
                   Dashboard
@@ -173,7 +173,7 @@ function page() {
                   );
                 }}
                 className="
-              flex items-center justify-center p-2 rounded-xl border-purple-500 border-2 active:scale-95 transition-all"
+              flex items-center justify-center p-2 rounded-xl border-orange-500 border-2 active:scale-95 transition-all"
               >
                 {theme === "dark" ? (
                   <svg
@@ -182,7 +182,7 @@ function page() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-purple-500"
+                    className="w-6 h-6 text-orange-500"
                   >
                     <path
                       strokeLinecap="round"
@@ -197,7 +197,7 @@ function page() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-purple-500"
+                    className="w-6 h-6 text-orange-500"
                   >
                     <path
                       strokeLinecap="round"
@@ -222,11 +222,11 @@ function page() {
             <div
               className={
                 theme === "dark"
-                  ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-cyan-950 text-white shadow-xl rounded-xl shadow-purple-500 p-5"
-                  : "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-white text-black shadow-xl rounded-xl shadow-purple-500 p-5"
+                  ? "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-stone-900 text-white shadow-xl rounded-xl shadow-orange-500 p-5"
+                  : "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-white text-black shadow-xl rounded-xl shadow-orange-500 p-5"
               }
             >
-              <h3 className="font-bold text-xl text-purple-600">
+              <h3 className="font-bold text-xl text-orange-600">
                 Notificaciones
               </h3>
               <div className="flex flex-col gap-5 mt-5 overflow-y-auto h-5/6 p-5">
@@ -268,8 +268,8 @@ function page() {
               />
               <DashboardCard
                 title="Tareas de área"
-                gradient="from-green-500 to-blue-300"
-                shadow="from-green-600 to-blue-400"
+                gradient="from-green-500 to-orange-300"
+                shadow="from-green-600 to-orange-400"
                 text="Gestionar mis tareas de área"
                 idX={1}
                 currentView={0}
@@ -310,7 +310,7 @@ function page() {
                   href={`https://wa.me/+51949358892?text=Hola, mi nombre es ${
                     user ? user.user : null
                   }. Requiero autenticar mi cuenta de usuario.`}
-                  className="text-purple-600 underline underline-offset-2 cursor-pointer hover:scale-95 active:scale-95 transition-all"
+                  className="text-orange-600 underline underline-offset-2 cursor-pointer hover:scale-95 active:scale-95 transition-all"
                 >
                   {" "}
                   Comunícate con el departamento de TI{" "}
