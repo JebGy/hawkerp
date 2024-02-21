@@ -174,7 +174,7 @@ function DashboardBarSide({ theme, setTheme }) {
           <div
             className={
               theme === "dark"
-                ? "bg-stone-900 rounded-xl p-5 w-5/6 lg:w-96 "
+                ? "bg-stone-900 rounded-xl p-5 w-5/6 lg:w-3/6 "
                 : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
             }
           >
@@ -186,32 +186,41 @@ function DashboardBarSide({ theme, setTheme }) {
                 e.preventDefault();
                 setDoc(doc(db, "mensajes", new Date().getTime().toString()), {
                   titulo: e.target[0].value,
-                  descrip: e.target[1].value,
+                  descrip: e.target[2].value,
                   time: new Date().getTime().toString(),
                 }).then(() => {
                   alert("Mensaje enviado");
                   setShowForm(false);
                 });
               }}
-              className="flex flex-col gap-5"
+              className="grid grid-cols-5 gap-5"
             >
-              <label className="text-lg font-bold">Título</label>
-              <input
-                type="text"
-                className="border-2 border-gray-300 rounded-xl p-2 text-black"
-              />
-              <label className="text-lg font-bold">Mensaje</label>
-              <textarea
-                className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none text-black"
-                rows="2"
-                cols="50"
-              />
-              <button
-                type="submit"
-                className="bg-orange-600 hover:bg-orange-700 text-white font-bold  py-3 px-4 rounded"
-              >
-                Enviar
-              </button>
+              <div className="col-span-1 flex flex-col gap-4">
+                <label className="text-lg font-bold">Título</label>
+                <label className="text-lg font-bold">Destino</label>
+                <label className="text-lg font-bold">Mensaje</label>
+              </div>
+
+              <div className="col-span-4 flex flex-col gap-4">
+                <input
+                  type="text"
+                  className="border-2 border-gray-300 rounded-xl p-2 text-black"
+                />
+                <select>
+                  <option value="uuid" key="1"></option>
+                </select>
+                <textarea
+                  className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none text-black"
+                  rows="2"
+                  cols="50"
+                />
+                <button
+                  type="submit"
+                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold  py-3 px-4 rounded col-span-2"
+                >
+                  Enviar
+                </button>
+              </div>
             </form>
           </div>
         </div>

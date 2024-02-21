@@ -296,6 +296,10 @@ function InternFrame({ setReload, reload, theme, setTheme }) {
                     type="text"
                     className="border-2 border-gray-300 text-black rounded-xl p-2"
                   />
+                  <label className="text-lg font-bold">Destino</label>
+                  <select>
+                    <option value="uuid" key="1"></option>
+                  </select>
                   <label className="text-lg font-bold">Mensaje</label>
                   <textarea
                     className="border-2 border-gray-300 text-black rounded-xl p-2 h-[12rem] resize-none"
