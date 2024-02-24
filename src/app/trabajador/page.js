@@ -15,7 +15,7 @@ import { app } from "../firebase/firebaseConf";
 import Link from "next/link";
 
 /**
- * 
+ *
  * @returns Retorna la vista del Trabajador
  */
 function page() {
@@ -36,19 +36,22 @@ function page() {
     if (user === null) {
       window.location.href = "/";
       return;
+    } else {
+      loadMensajes(user.user);
     }
-    loadMensajes();
     setUser(user);
     setIsLoaded(true);
   }, []);
 
-  const loadMensajes = async () => {
+  const loadMensajes = async (user) => {
     const unSub = onSnapshot(collection(db, "mensajes"), (querySnapshot) => {
       const mensajes = [];
       //sort by id
       querySnapshot.forEach((doc) => {
         console.log(doc.data().time);
-        mensajes.push(doc.data());
+        if (doc.data().destino == user) {
+          mensajes.push(doc.data());
+        }
       });
 
       setMensajes(
@@ -130,25 +133,18 @@ function page() {
                 }}
                 className=" flex items-center justify-center p-2 rounded-xl border-orange-500 border-2 active:scale-95 transition-all gap-5"
               >
-                {newMessages > 0 ? (
-                  <div className="flex flex-row gap-2 items-center">
-                    <h3 className="text-sm font-semibold text-orange-600">
-                      {newMessages}
-                    </h3>
-                  </div>
-                ) : null}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-orange-500 hover:text-orange-600 cursor-pointer  transition-all"
+                  className="w-6 h-6 text-orange-500"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                    d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"
                   />
                 </svg>
               </button>
@@ -226,19 +222,21 @@ function page() {
                   : "absolute top-0 left-0 right-0 bottom-0 my-auto mx-auto lg:mx-auto w-5/6 lg:w-96 h-96 bg-white text-black shadow-xl rounded-xl shadow-orange-500 p-5"
               }
             >
-              <h3 className="font-bold text-xl text-orange-600">
-                Notificaciones
-              </h3>
+              <h3 className="font-bold text-2xl text-orange-600">Hawkmail</h3>
               <div className="flex flex-col gap-5 mt-5 overflow-y-auto h-5/6 p-5">
                 {mensajes.length > 0 ? (
                   mensajes.map((mensaje, index) => {
                     return (
                       <div
                         key={index}
-                        className="flex flex-col gap-2 border-b border-neutral-500 pb-2"
+                        className="flex flex-col gap-2 border-b-2 border-neutral-500 pb-2"
                       >
-                        <h3 className="font-semibold text-lg">
-                          {mensaje.titulo}
+                        <h3 className="font-semibold text-lg text-orange-700 underline">
+                          Asunto:
+                        </h3>
+                        <span className="">{mensaje.titulo}</span>
+                        <h3 className="font-semibold text-lg text-orange-700 underline">
+                          Mensaje:
                         </h3>
                         <p className="text-sm text-justify">
                           {mensaje.descrip}
@@ -264,7 +262,6 @@ function page() {
                 idX={0}
                 currentView={1}
                 href="/trabajador/misTareas"
-                
               />
               <DashboardCard
                 title="Tareas de área"
@@ -298,11 +295,11 @@ function page() {
             </div>
           ) : (
             <div className="flex flex-col gap-5 mt-5">
-              <h3 className={
-                theme === "dark"
-                  ? "text-white text-lg"
-                  : "text-black text-lg"
-              }>
+              <h3
+                className={
+                  theme === "dark" ? "text-white text-lg" : "text-black text-lg"
+                }
+              >
                 Hola {user ? user.user : null}, tu usuario está pendiente de
                 aprobación.{" "}
                 <a

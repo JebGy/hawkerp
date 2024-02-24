@@ -5,13 +5,15 @@ import {
   doc,
   getDocs,
   getFirestore,
+  query,
   setDoc,
 } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BarSideButtons from "./BarSideButtons";
 
 function DashboardBarSide({ theme, setTheme }) {
   const db = getFirestore(app);
+  const [userList, setUserList] = useState([]);
   const [_user, _setUser] = React.useState({
     auth: false,
   });
@@ -19,12 +21,24 @@ function DashboardBarSide({ theme, setTheme }) {
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
+    getUsers();
     if (user === null) {
       window.location.href = "/";
       return;
     }
     _setUser(user);
   }, []);
+
+  const getUsers = async () => {
+    const ref = collection(db, "usuarios");
+    const q = query(ref);
+    const snapshot = await getDocs(q);
+    const provList = [];
+    snapshot.forEach((user) => {
+      provList.push(user.id);
+    });
+    setUserList(provList);
+  };
 
   return _user.auth ? (
     <div
@@ -175,7 +189,7 @@ function DashboardBarSide({ theme, setTheme }) {
             className={
               theme === "dark"
                 ? "bg-stone-900 rounded-xl p-5 w-5/6 lg:w-3/6 "
-                : "bg-white rounded-xl p-5 w-5/6 lg:w-96 "
+                : "bg-white rounded-xl p-5 w-5/6 lg:w-3/6 "
             }
           >
             <h1 className="text-2xl text-rose-500 font-bold mb-2 border-b-2 border-rose-500 pb-2">
@@ -186,6 +200,7 @@ function DashboardBarSide({ theme, setTheme }) {
                 e.preventDefault();
                 setDoc(doc(db, "mensajes", new Date().getTime().toString()), {
                   titulo: e.target[0].value,
+                  destino: e.target[1].value,
                   descrip: e.target[2].value,
                   time: new Date().getTime().toString(),
                 }).then(() => {
@@ -195,28 +210,34 @@ function DashboardBarSide({ theme, setTheme }) {
               }}
               className="grid grid-cols-5 gap-5"
             >
-              <div className="col-span-1 flex flex-col gap-4">
-                <label className="text-lg font-bold">Título</label>
-                <label className="text-lg font-bold">Destino</label>
+              <div className="flex flex-col col-span-1 gap-4">
+                <label className="text-lg font-bold h-8">Título</label>
+                <label className="text-lg font-bold h-8">Destino</label>
                 <label className="text-lg font-bold">Mensaje</label>
               </div>
 
-              <div className="col-span-4 flex flex-col gap-4">
+              <div className="flex flex-col col-span-4 gap-4">
                 <input
                   type="text"
-                  className="border-2 border-gray-300 rounded-xl p-2 text-black"
+                  className="border-2 h-8 w-full border-gray-300 rounded-xl p-2 text-black"
                 />
-                <select>
-                  <option value="uuid" key="1"></option>
+                <select className="h-8 w-full text-black">
+                  {userList.map((u, i) => {
+                    return (
+                      <option value={u} key={i} className="text-black p-1">
+                        {u}
+                      </option>
+                    );
+                  })}
                 </select>
                 <textarea
-                  className="border-2 border-gray-300 rounded-xl p-2 h-[12rem] resize-none text-black"
+                  className="border-2  border-gray-300 rounded-xl p-2 h-[12rem] resize-none text-black"
                   rows="2"
                   cols="50"
                 />
                 <button
                   type="submit"
-                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold  py-3 px-4 rounded col-span-2"
+                  className="bg-orange-600 hover:bg-orange-700 w-full text-white font-bold  py-3 px-4 rounded col-span-2"
                 >
                   Enviar
                 </button>
